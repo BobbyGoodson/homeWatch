@@ -34,8 +34,8 @@
         		<a href="mailto:allen@npfi.org"><i>Portland House Manager</i></a>
         		or the <a href="mailto:allen@npfi.org"><i>Bangor House Manager</i></a>.) ');
         echo '</ul>';
-        echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true"><tr><td>Username:</td>
-        		<td><input type="text" name="user" tabindex="1"></td></tr>
+        echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true">
+                <tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr>
         		<tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
     } else {
         //check if they logged in as a guest:
