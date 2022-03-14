@@ -25,6 +25,9 @@ session_cache_expire(30);
             <?PHP include('header.php'); ?>
             <div id="content">
                 <?PHP
+                if (!isset($_SESSION['logged_in'])) {
+                    include('mainPage.php');
+                } 
                 include_once('database/dbPersons.php');
                 include_once('domain/Person.php');
                 include_once('database/dbLog.php');
@@ -48,14 +51,13 @@ session_cache_expire(30);
                         echo('<p> To apply for volunteering at the Portland or Bangor Ronald McDonald House, '.
                         		'please select <b>apply</b>.');
                     if ($person) {
-                        /*
-                         * Check type of person, and display home page based on that.
-                         * all: password check
-                         * guests: show link to application form
-                         * applicants: show status of application form
-                         * Volunteers, subs: show upcoming schedule and log sheet
-                         * Managers: show upcoming vacancies, birthdays, anniversaries, applicants
-                         */
+                         //Check type of person, and display home page based on that.
+                         //all: password check
+                         //guests: show link to application form
+                         //applicants: show status of application form
+                         //Volunteers, subs: show upcoming schedule and log sheet
+                         //Managers: show upcoming vacancies, birthdays, anniversaries, applicants
+                         
 
                         //APPLICANT CHECK
                         if ($person->get_first_name() != 'guest' && $person->get_status() == 'applicant') {

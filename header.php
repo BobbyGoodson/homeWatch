@@ -24,9 +24,29 @@
     //Log-in security
     //If they aren't logged in, display our log-in form.
     if (!isset($_SESSION['logged_in'])) {
-    	
-        include('login_form.php');
-        die();
+        //include('login_form.php');
+        //die();
+        //echo('<img src="images/YMCAlogo.png" width="150" height="100">');
+        echo('<p><table><form method="post">
+            	<tr>
+                <td colspan="1" align="left"><img src="images/YMCAlogo.png" width="150" height="100"></td>
+                <td colspan="2" align="right"><input type="submit" name="createAccount" value="Create Account"></td>
+            	<td colspan="2" align="right"><input type="submit" name="Login" value="Login"></td>
+                </tr>
+                </table></p>');
+        $login = $_POST['Login'];
+		$createAccount = $_POST['createAccount'];
+		if ($login){
+			include('login_form.php');
+            die();
+		} else if ($createAccount){
+            include('emailAuthentication.php');
+            die();
+        }
+        //echo('<a href="' . $path . 'index.php"></a>');
+        //echo(' |     <a href="' . $path . 'emailAuthentication.php">Create Account</a>');
+	    //echo(' |     <a href="' . $path . 'login_form.php">Login</a>');
+        //echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
     } else if ($_SESSION['logged_in']) {
 
         /*         * Set our permission array.
@@ -64,7 +84,7 @@
             //so we die().
             die();
         }
-        //This line gives us the path to the html pages in question, useful if the server isn't installed @ root.
+        /*//This line gives us the path to the html pages in question, useful if the server isn't installed @ root.
         $path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
 		$venues = array("portland"=>"RMH Portland","bangor"=>"RMH Bangor");
         
@@ -72,17 +92,18 @@
         if ($_SESSION['venue'] =="") { 
         	echo(' <a href="' . $path . 'personEdit.php?id=' . 'new' . '">apply</a>');
         	echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
-        }
-        else {
-        	echo " <br><b>"."YMCA"."</b> ";
+        }*/
+        //else {
+        	//echo " <br><b>"."YMCA"."</b> ";
+            echo('<img src="images/YMCAlogo.png" width="150" height="100"');
 	        if ($_SESSION['access_level'] >= 1) {
-                echo('<a href="' . $path . 'index.php">home</a>');
-                echo(' |     <a href="' . $path . 'emailAuthentication.php">Create Account</a>');
-	        	echo(' |     <a href="' . $path . 'login_form.php">Login</a>');
-	        	//echo(' | <a href="' . $path . 'about.php">about</a>');
-	            //echo(' | <a href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">help</a>');
-	            //echo(' | calendars: <a href="' . $path . 'calendar.php?venue=portland'.''.'">Portland, </a>');
-	            //echo(' <a href="' . $path . 'calendar.php?venue=bangor'.''.'">Bangor</a>');
+                //echo('<a href="' . $path . 'index.php"></a>');
+                //echo(' |     <a href="' . $path . 'emailAuthentication.php">Create Account</a>');
+	        	//echo(' |     <a href="' . $path . 'login_form.php">Login</a>');
+	        	echo(' | <a href="' . $path . 'about.php">about</a>');
+	            echo(' | <a href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">help</a>');
+	            echo(' | calendars: <a href="' . $path . 'calendar.php?venue=portland'.''.'">Portland, </a>');
+	            echo(' <a href="' . $path . 'calendar.php?venue=bangor'.''.'">Bangor</a>');
 	        }
 	        if ($_SESSION['access_level'] >= 2) {
 	            echo('<br>master schedules: <a href="' . $path . 'viewSchedule.php?venue=portland'."".'">Portland, </a>');
@@ -92,7 +113,7 @@
 	            echo(' | <a href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">reports</a>');
 	        }
 	        echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
-        }
+        //}
         
     }
     ?>

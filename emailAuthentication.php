@@ -3,8 +3,8 @@
  * Email Authentication 
  */
 
-	session_start();
-	session_cache_expire(30);
+	//session_start();
+	//session_cache_expire(30);
 ?>
 <html>
 	<head>
@@ -15,7 +15,7 @@
 	</head>
 	<body>
 		<div id="container">
-			<?PHP include('header.php');?>
+
 			<div id="content">
 				<?PHP
 				/*
@@ -23,19 +23,51 @@
 				*/
 				function email_send($email){
 					//$to = $email;
-         			$subject = "YMCA Child Watch Eemail Verification";
+					ini_set("SMTP", "smtp.netcorecloud.net");
+					ini_set("sendmail_from", "ymcahomewatchsmtp@pepisandbox.com");
+         			$subject = "YMCA Child Watch Email Verification";
          			$message = "<b>http://localhost/homeWatch/personEdit.php</b>";
-         			$header = "From:tdrink24@gmail.com \r\n"; //this is my email but you may change it, i dont know how to make it work
+         			$header = "From:ymcahomewatchsmtp@pepisandbox.com\r\n"; //this is my email but you may change it, i dont know how to make it work
          			//$header .= "Cc:afgh@somedomain.com \r\n";
-         			$header .= "MIME-Version: 1.0\r\n";
-         			$header .= "Content-type: text/html\r\n";
-         			$retval = mail ($email,$subject,$message,$header);
+         			//$header .= "MIME-Version: 1.0\r\n";
+         			//$header .= "Content-type: text/html\r\n";
+         			$retval = mail ("ymcahomewatchsmtp@gmail.com",$subject,$message,$header);
          			if( $retval == true ) {
             			echo "Message sent successfully...";
          			}else {
             			echo "Message could not be sent...";
          			}
 				}
+
+				/*function email_send($email){
+					$curl = curl_init();
+
+					curl_setopt_array($curl, array(
+      				CURLOPT_URL => "https://emailapi.netcorecloud.net/v5/mail/send",
+      				CURLOPT_RETURNTRANSFER => true,
+      				CURLOPT_ENCODING => "",
+      				CURLOPT_MAXREDIRS => 10,
+     				CURLOPT_TIMEOUT => 30,
+      				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      				CURLOPT_CUSTOMREQUEST => "POST",
+      				CURLOPT_POSTFIELDS => "{"from":{"email":"ymcahomewatchsmtp@pepisandbox.com","name":"Flight confirmation"},"subject":"Your Barcelona flight e-ticket : BCN2118050657714","content":[{"type":"html","value":"Hello Lionel, Your flight Barcelona is confirmed."}],"personalizations":[{"to":[{"email":"ymcahomewatchsmtp@gmail.com","name":"Lionel Messi"}]}]}",
+      				CURLOPT_HTTPHEADER => array(
+    				"api_key: <Your API Key>",
+    				"content-type: text/html"
+  					),
+					));
+					$response = curl_exec($curl);
+					$err = curl_error($curl);
+
+					curl_close($curl);
+
+					if ($err) {
+ 						echo "cURL Error #:" . $err;
+					} else {
+      					echo $response;
+					}
+
+				}*/
 
 				/*
 				generate a random code
