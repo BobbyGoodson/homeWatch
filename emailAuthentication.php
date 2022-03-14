@@ -9,7 +9,7 @@
 <html>
 	<head>
 		<title>
-			About
+			Email Authentication
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
@@ -50,51 +50,22 @@
 				}*/
 
 
-				if (!array_key_exists('submit', $_POST) && !array_key_exists('cancel', $_POST)) {
-					echo('<p><strong>Email Authentication</strong><br /><br />');
-					echo('<p>To create an account, please enter and verify your email address. Click the link sent to you via email. </p>');
+				echo('<p><strong>Email Authentication</strong><br /><br />');
+				echo('<p>To create an account, please enter and verify your email address. Click the link sent to you via email. </p>');
+               	echo('<p>Do not see it? Try looking in your spam folder or sending it again by pressing Resend below. </p>');
 
-                	echo('<p>Do not see it? Try looking in your spam folder or sending it again by pressing Resend below. </p>');
+            	echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true">
+				<tr><td>Email:</td><td><input type="text" name="email" tabindex="1"></td></tr>
+            	<tr><td colspan="2" align="left"><input type="submit" name="resend" value="resend"></td>
+            	<td colspan="2" align="right"><input type="submit" name="submit" value="submit"></td></tr></table></p>');
 
-                	echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true">
-					<tr><td>Email:</td><td><input type="text" name="email" tabindex="1"></td></tr>
-                	<tr><td colspan="2" align="left"><input type="submit" name="resend" value="resend"></td>
-                	<td colspan="2" align="right"><input type="submit" name="submit" value="submit"></td></tr></table></p>');
-
-    			} else if (array_key_exists('submit', $_POST) && !array_key_exists('resend', $_POST)){
-					// if they selected the submit button
-					$userEmail = $_POST['email'];
-					email_send($userEmail);
-
-					/*//creating code
-					$generatedCode = generate_code();
-					print $generatedCode;
-
-					//the page contents here: - THIS WAS FOR THE CODE GENERATION, WE COULD HAVE THE LINK WORK IF EMAIL SENDS CORRECTLY
-					echo('<p><table><form method="post"><input type="hidden" name="_code_check" value="true">
-					<tr><td>Code:</td><td><input type="text" name="code" tabindex="1"></td></tr>
-                	<tr><td colspan="2" align="left"><input type="submit" name="resend" value="resend"></td>
-					<td colspan="2" align="left"><input type="submit" name="submit2" value="submit"></td></tr></table></p>');
-					if (isset($POST['submit2'])){
-					//if (array_key_exists('submit2', $_POST) && !array_key_exists('resend', $_POST)){
-						//check if code is correct
-						if($_POST['code'] == $generatedCode){
-							header("Location: http://localhost/homeWatch/personEdit.php");
-							//<a href="' . $path . 'personEdit.php"></a>
-						} else{
-							echo('<p>invalid code</p>');
-						} 
-					} 
-					//else if (!array_key_exists('submit2', $_POST) && array_key_exists('resend', $_POST)){
-					else{
-						//email_send($_POST['email']);
-					}*/
-					
-				} else {
-					// if they selected the resend button - resend email
+				$submit = $_POST['submit'];
+				$resend = $_POST['resend'];
+				if ($submit || $resend){
 					$userEmail = $_POST['email'];
 					email_send($userEmail);
 				}
+
 				?>
 			</div>
 		</div>
