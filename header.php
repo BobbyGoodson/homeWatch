@@ -75,7 +75,7 @@
         }
         else {
         	echo " <br><b>"."YMCA"."</b> ";
-	        if ($_SESSION['access_level'] >= 1) {
+	        if ($_SESSION['access_level'] == 1) {
                 echo('<a href="' . $path . 'index.php">home</a>');
                 echo(' |     <a href="' . $path . 'emailAuthentication.php">Create Account</a>');
 	        	echo(' |     <a href="' . $path . 'login_form.php">Login</a>');
@@ -84,7 +84,7 @@
 	            //echo(' | calendars: <a href="' . $path . 'calendar.php?venue=portland'.''.'">Portland, </a>');
 	            //echo(' <a href="' . $path . 'calendar.php?venue=bangor'.''.'">Bangor</a>');
 	        }
-	        if ($_SESSION['access_level'] >= 2) {
+	        if ($_SESSION['access_level'] == 2) {
 	            echo('<br>master schedules: <a href="' . $path . 'viewSchedule.php?venue=portland'."".'">Portland, </a>');
 	            echo('<a href="' . $path . 'viewSchedule.php?venue=bangor'."".'">Bangor</a>');
 	            echo(' | volunteers: <a href="' . $path . 'personSearch.php">search</a>, 
