@@ -18,6 +18,11 @@
 
 </div>
 
+<!-- <div align = "left" id = "logo">
+    <img src="images/YMCAlogo.png" width="150" height="100">
+</div> -->
+
+
 <div align="center" id="navigationLinks">
 
     <?PHP
@@ -26,14 +31,17 @@
     if (!isset($_SESSION['logged_in'])) {
         //include('login_form.php');
         //die();
-        //echo('<img src="images/YMCAlogo.png" width="150" height="100">');
+
+        // align logo to top left
+        echo('<div align = "left"><img src="images/YMCAlogo.png" width="150" height="100"></div>');
+
         echo('<p><table><form method="post">
             	<tr>
-                <td colspan="1" align="left"><img src="images/YMCAlogo.png" width="150" height="100"></td>
                 <td colspan="2" align="right"><input type="submit" name="createAccount" value="Create Account"></td>
             	<td colspan="2" align="right"><input type="submit" name="Login" value="Login"></td>
                 </tr>
                 </table></p>');
+        
         $login = $_POST['Login'];
 		$createAccount = $_POST['createAccount'];
 		if ($login){
@@ -43,10 +51,8 @@
             include('emailAuthentication.php');
             die();
         }
-        //echo('<a href="' . $path . 'index.php"></a>');
-        //echo(' |     <a href="' . $path . 'emailAuthentication.php">Create Account</a>');
-	    //echo(' |     <a href="' . $path . 'login_form.php">Login</a>');
-        //echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
+       
+
     } else if ($_SESSION['logged_in']) {
 
         /*         * Set our permission array.
@@ -57,19 +63,24 @@
          * can view it. If someone logged into the system attempts to access a page above their
          * permission level, they will be sent back to the home page.
          */
-        //pages guests are allowed to view
+
+        //pages guardians are allowed to view
         $permission_array['index.php'] = 0;
+        $permission_array['viewSchedule.php'] = 0;
+        $permission_array['personSearch.php'] = 0;
+        $permission_array['personEdit.php'] = 0;
         $permission_array['about.php'] = 0;
-        $permission_array['apply.php'] = 0;
-        //pages volunteers can view
-        $permission_array['help.php'] = 1;
-        $permission_array['calendar.php'] = 1;
-        //pages only managers can view
-        $permission_array['personsearch.php'] = 2;
-        $permission_array['personedit.php'] = 2;
-        $permission_array['viewschedule.php'] = 2;
-        $permission_array['addweek.php'] = 2;
-        $permission_array['log.php'] = 2;
+
+        //pages watchers can view
+        //$permission_array['index.php'] = 1;
+        //$permission_array['viewSchedule.php'] = 1;
+        //$permission_array['personSearch.php'] = 1;
+
+        //pages only admin can view
+        //$permission_array['index.php'] = 2;
+        //$permission_array['viewSchedule.php'] = 2;
+        //$permission_array['personSearch.php'] = 2;
+        //$permission_array['personEdit.php'] = 2;
         $permission_array['reports.php'] = 2;
 
         //Check if they're at a valid page for their access level.
@@ -94,25 +105,48 @@
         	echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
         }*/
         //else {
-        	//echo " <br><b>"."YMCA"."</b> ";
-            echo('<img src="images/YMCAlogo.png" width="150" height="100"');
-	        if ($_SESSION['access_level'] >= 1) {
-                //echo('<a href="' . $path . 'index.php"></a>');
-                //echo(' |     <a href="' . $path . 'emailAuthentication.php">Create Account</a>');
-	        	//echo(' |     <a href="' . $path . 'login_form.php">Login</a>');
-	        	echo(' | <a href="' . $path . 'about.php">about</a>');
-	            echo(' | <a href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">help</a>');
-	            echo(' | calendars: <a href="' . $path . 'calendar.php?venue=portland'.''.'">Portland, </a>');
-	            echo(' <a href="' . $path . 'calendar.php?venue=bangor'.''.'">Bangor</a>');
+            // align logo to top left
+            echo('<div align = "left"><img src="images/YMCAlogo.png" width="150" height="100"></div>');
+
+            if ($_SESSION['access_level'] == 0) {
+                echo('<br> Guardian Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
+                echo(' | <a href="' . $path . 'viewSchedule.php">Availability</a>');
+                echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
+                echo(' | <a href="personEdit.php?id=' . 'new' . '">Update Account</a>');
+                echo(' | <a href="' . $path . 'about.php">About Us</a>');
 	        }
-	        if ($_SESSION['access_level'] >= 2) {
-	            echo('<br>master schedules: <a href="' . $path . 'viewSchedule.php?venue=portland'."".'">Portland, </a>');
-	            echo('<a href="' . $path . 'viewSchedule.php?venue=bangor'."".'">Bangor</a>');
-	            echo(' | volunteers: <a href="' . $path . 'personSearch.php">search</a>, 
-				        <a href="personEdit.php?id=' . 'new' . '">add, </a> <a href="viewScreenings.php?type=new">screenings</a>');
-	            echo(' | <a href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">reports</a>');
+	        else if ($_SESSION['access_level'] == 1) {
+	            echo('<br> Watcher Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
+                echo(' | <a href="' . $path . 'viewSchedule.php">Availability</a>');
+                echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
 	        }
-	        echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
+            else if ($_SESSION['access_level'] == 2) {
+	            echo('<br> Admin Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
+                echo(' | <a href="' . $path . 'viewSchedule.php">Availability</a>');
+                echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
+                echo(' | <a href="personEdit.php?id=' . 'new' . '">Create Admin Account</a>');
+                echo(' | <a href="personEdit.php?id=' . 'new' . '">Create Watcher Account</a>');
+                echo(' | <a href="' . $path . 'personSearch.php">Guardians</a>');
+                echo(' | <a href="' . $path . 'reports.php">Update Capacity</a>');
+            }
+            
+            // if ($_SESSION['access_level'] >= 1) {
+            //     //echo('<a href="' . $path . 'index.php"></a>');
+            //     //echo(' |     <a href="' . $path . 'emailAuthentication.php">Create Account</a>');
+	        // 	//echo(' |     <a href="' . $path . 'login_form.php">Login</a>');
+	        // 	echo(' | <a href="' . $path . 'about.php">about</a>');
+	        //     echo(' | <a href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">help</a>');
+	        //     echo(' | calendars: <a href="' . $path . 'calendar.php?venue=portland'.''.'">Portland, </a>');
+	        //     echo(' <a href="' . $path . 'calendar.php?venue=bangor'.''.'">Bangor</a>');
+	        // }
+	        // if ($_SESSION['access_level'] >= 2) {
+	        //     echo('<br>master schedules: <a href="' . $path . 'viewSchedule.php?venue=portland'."".'">Portland, </a>');
+	        //     echo('<a href="' . $path . 'viewSchedule.php?venue=bangor'."".'">Bangor</a>');
+	        //     echo(' | volunteers: <a href="' . $path . 'personSearch.php">search</a>, 
+			// 	        <a href="personEdit.php?id=' . 'new' . '">add, </a> <a href="viewScreenings.php?type=new">screenings</a>');
+	        //     echo(' | <a href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">reports</a>');
+	        // }
+	        echo(' | <a href="' . $path . 'logout.php">Logout</a><br>');
         //}
         
     }

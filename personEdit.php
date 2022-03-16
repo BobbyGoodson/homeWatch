@@ -227,6 +227,8 @@ if ($id == 'new') {
                     // try to add a new person to the database
                     else if ($_POST['old_id'] == 'new') {
                         $id = $first_name . $clean_phone1;
+                        //$id = $email;
+
                         //check if there's already an entry
                         $dup = retrieve_person($id);
                         if ($dup)

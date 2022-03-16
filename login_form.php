@@ -38,8 +38,9 @@
                 <tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr>
         		<tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
     } else {
-        //check if they logged in as a guest:
+        // check if they logged in as a guest:
         if ($_POST['user'] == "guest" && $_POST['pass'] == "") {
+        //if ($_POST['user'] == "never" && $_POST['pass'] == "never") {
             $_SESSION['logged_in'] = 1;
             $_SESSION['access_level'] = 0;
             $_SESSION['venue'] = "";
@@ -62,6 +63,14 @@
                         $_SESSION['access_level'] = 2;
                     else
                         $_SESSION['access_level'] = 1;
+
+                    // if ($person->get_position = "admin")
+                    //     $_SESSION['access_level'] = 2;
+                    // else if ($person->get_position = "watcher")
+                    //     $_SESSION['access_level'] = 1;
+                    // else if ($person->get_position = "guardian")
+                    //     $_SESSION['access_level'] = 0;
+                     
                     $_SESSION['f_name'] = $person->get_first_name();
                     $_SESSION['l_name'] = $person->get_last_name();
                     $_SESSION['venue'] = $person->get_venue();

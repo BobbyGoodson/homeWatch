@@ -29,7 +29,20 @@ function add_person($person) {
     $result = mysqli_query($con,$query);
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_query($con,'INSERT INTO dbPersons VALUES("' .
+        mysqli_query($con,'INSERT INTO dbPersons VALUES("' .  
+                // $person->get_id() . '","' .
+                // $person->get_first_name() . '","' .
+                // $person->get_last_name() . '","' .
+                // $person->get_phone() . '","' .
+                // $person->get_barcode() . '","' .
+                // $person->get_email() . '","' .
+                // $person->get_children() . '","' .
+                // $person->get_birthday() . '","' . 
+                // $person->get_health_requirements() . '","' . 
+                // $person->get_position() . '","' . 
+                // $person->get_notes() . '","' .
+                // $person->get_password() .
+
                 $person->get_id() . '","' .
                 $person->get_start_date() . '","' .
                 $person->get_venue() . '","' .

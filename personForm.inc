@@ -198,6 +198,7 @@ else {
 echo('</select>');
 // $st = implode(',', $person->get_type());
 $types = array('volunteer' => 'House Volunteer', 'weekendmgr' => 'Weekend Manager', 'sub' => 'Flex shift', 'mealprep' => 'Guest Chef', 'events' => 'Events/Special projects', 'manager' => 'Manager');
+//$types = array('guardian' => 'Guardian', 'watcher' => 'Watcher', 'Admin' => 'Administrator');
 $descriptions = array('volunteer' => ' -- Assists with the day-to-day operations of the House, such as
 				answering phones, assisting families, giving tours, cleaning rooms and common areas, and washing linens.<p>', 
 		'weekendmgr' => ' -- Serves as main point of contact during day and overnight hours. Shifts are 
