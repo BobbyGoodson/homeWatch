@@ -30,50 +30,16 @@ function add_person($person) {
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_query($con,'INSERT INTO dbPersons VALUES("' .  
-                // $person->get_id() . '","' .
-                // $person->get_first_name() . '","' .
-                // $person->get_last_name() . '","' .
-                // $person->get_phone() . '","' .
-                // $person->get_barcode() . '","' .
-                // $person->get_email() . '","' .
-                // $person->get_children() . '","' .
-                // $person->get_birthday() . '","' . 
-                // $person->get_health_requirements() . '","' . 
-                // $person->get_position() . '","' . 
-                // $person->get_notes() . '","' .
-                // $person->get_password() .
-
                 $person->get_id() . '","' .
-                $person->get_start_date() . '","' .
-                $person->get_venue() . '","' .
                 $person->get_first_name() . '","' .
                 $person->get_last_name() . '","' .
-                $person->get_address() . '","' .
-                $person->get_city() . '","' .
-                $person->get_state() . '","' .
-                $person->get_zip() . '","' .
-                $person->get_phone1() . '","' .
-                $person->get_phone1type() . '","' .
-                $person->get_phone2() . '","' .
-                $person->get_phone2type() . '","' .
-                $person->get_birthday() . '","' .
+                $person->get_phone() . '","' .
+                $person->get_barcode() . '","' .
                 $person->get_email() . '","' .
-                $person->get_employer() . '","' . 
+                $person->get_children() . '","' .
+                $person->get_birthday() . '","' . 
+                $person->get_health_requirements() . '","' . 
                 $person->get_position() . '","' . 
-                $person->get_credithours() . '","' . 
-                $person->get_howdidyouhear() . '","' . 
-                $person->get_commitment() . '","' . 
-                $person->get_motivation() . '","' . 
-                $person->get_specialties() . '","' . 
-                $person->get_convictions() . '","' . 
-                implode(',', $person->get_type()) . '","' .
-                $person->get_screening_type() . '","' .
-                implode(',', $person->get_screening_status()) . '","' .
-                $person->get_status() . '","' .
-                implode(',', $person->get_availability()) . '","' .
-                implode(',', $person->get_schedule()) . '","' .
-                implode(',', $person->get_hours()) . '","' .
-                $person->get_notes() . '","' .
                 $person->get_password() .
                 '");');							
         mysqli_close($con);
@@ -214,43 +180,17 @@ function getall_volunteer_names() {
 }
 
 function make_a_person($result_row) {
-	/*
-	 ($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $t, 
-    		$screening_type, $screening_status, $st, $emp, $pos, $hours, $comm, $mot, $spe, 
-    		$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass)
-	 */
+	
     $thePerson = new Person(
                     $result_row['first_name'],
                     $result_row['last_name'],
-                    //$result_row['venue'],
-                    //$result_row['address'],
-                    //$result_row['city'],
-                    //$result_row['state'],
-                    //$result_row['zip'],
                     $result_row['phone'],
-                    //$result_row['phone1'],
-                    //$result_row['phone1type'],
-                    //$result_row['phone2'],
-                    //$result_row['phone2type'],
+                    $result_row['barcode'],
                     $result_row['email'],
-                    //$result_row['type'],
-                    //$result_row['screening_type'],
-                    //$result_row['screening_status'],
-                    //$result_row['status'],
-                    //$result_row['employer'],  
-                    $result_row['position'],
-                    //$result_row['hours'],
-                   // $result_row['commitment'],
-                    //$result_row['motivation'],
-                    //$result_row['specialties'],
-                    //$result_row['convictions'],
-                    //$result_row['availability'],
-                    //$result_row['schedule'],
-                    //$result_row['hours'],
+                    $result_row['children'],
                     $result_row['birthday'],
-                    //$result_row['start_date'],
-                    //$result_row['howdidyouhear'],
-                    //$result_row['notes'],
+                    $result_row['health_requirements'],
+                    $result_row['position'],
                     $result_row['password']);   
     return $thePerson;
 }
