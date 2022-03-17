@@ -26,7 +26,7 @@
 					ini_set("SMTP", "smtp.netcorecloud.net");
 					ini_set("sendmail_from", "ymcahomewatchsmtp@pepisandbox.com");
          			$subject = "YMCA Child Watch Email Verification";
-         			$message = "<b>http://localhost/homeWatch/personEdit.php</b>";
+         			$message = "<b>http://localhost/homeWatch/personEdit.php?id=new</b>";
          			$header = "From:ymcahomewatchsmtp@pepisandbox.com\r\n"; //this is my email but you may change it, i dont know how to make it work
          			//$header .= "Cc:afgh@somedomain.com \r\n";
          			//$header .= "MIME-Version: 1.0\r\n";

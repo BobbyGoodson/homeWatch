@@ -17,37 +17,23 @@
  * this array is null (aka false) if there are no errors
  */
 function validate_form($person) {
-    if ($_POST['status']=='applicant' && ($_POST['start_date'] == "" || strlen($_POST['start_date']) != 8)) 
-        $errors[] = 'Please select a valid start date';
-    if ($_POST['location'] == null)
-        $errors[] = 'Please select a location (Portland or Bangor)';
+    //if ($_POST['location'] == null)
+    //    $errors[] = 'Please select a location (Portland or Bangor)';
+    //if ($_SESSION['access_level'] == 0 && ($_POST['status'] == null))
+    //    $_POST['status'] = 'applicant';
+    //if ($_POST['type'] == null && $_SESSION['access_level'] >= 1)
+    //    $errors[] = 'Please select a Position type';
+    //if (!valid_email($_POST['email']) && $_POST['email'] != null)
+    //    $errors[] = "Please enter a valid email";
+    //if ($_POST['birthday'] !== "" && strlen($_POST['birthday']) != 8) 
+    //    $errors[] = 'Please select a valid birthday';
+
     if ($person->get_first_name()=="new" && ($_POST['first_name'] == NULL || $_POST['first_name'] == 'new'))
         $errors[] = 'Please enter a first name';
     if ($_POST['last_name'] == null)
         $errors[] = 'Please enter a last name';
-    if ($_POST['city'] == null)
-        $errors[] = 'Please enter a city';
-    if ($_POST['address'] == null)
-        $errors[] = 'Please enter an address';
-    if (($_POST['zip'] != strval(intval($_POST['zip']))) || ($_POST['zip'] == null) || (strlen($_POST['zip']) != 5))
-        $errors[] = 'Please enter a valid zip code (5 digits: #####)';
-    if ($_SESSION['access_level'] == 0 && ($_POST['status'] == null))
-        $_POST['status'] = 'applicant';
-    if ($_POST['type'] == null && $_SESSION['access_level'] >= 1)
-        $errors[] = 'Please select a Position type';
-    if ($_POST['type'] != null && $_SESSION['access_level'] <= 1 && in_array('manager', $_POST['type']))
-        $errors[] = "Sorry, you can't promote yourself to manager.";
-    if (in_array('volunteer',$_POST['type']) || in_array('weekendmgr',$_POST['type']))
-        if ($_POST['availability'] == null)
-        	$errors[] = 'Please enter Availability for at least one shift.';
     if ($person->get_phone1()==null && !valid_phone($_POST['phone1']))
         $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
-    if ($_POST['phone2'] != "" && !valid_phone($_POST['phone2']))
-        $errors[] = 'Enter a valid alternate phone number (10 digits: ### ### ####)';
-    if (!valid_email($_POST['email']) && $_POST['email'] != null)
-        $errors[] = "Please enter a valid email";
-    if ($_POST['birthday'] !== "" && strlen($_POST['birthday']) != 8) 
-        $errors[] = 'Please select a valid birthday';
     return $errors;
 }
 
