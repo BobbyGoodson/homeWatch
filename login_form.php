@@ -40,7 +40,6 @@
     } else {
         // check if they logged in as a guest:
         if ($_POST['user'] == "guest" && $_POST['pass'] == "") {
-        //if ($_POST['user'] == "never" && $_POST['pass'] == "never") {
             $_SESSION['logged_in'] = 1;
             $_SESSION['access_level'] = 0;
             $_SESSION['venue'] = "";
@@ -58,18 +57,18 @@
                 if ($person->get_password() == $db_pass) { //if the passwords match, login
                     $_SESSION['logged_in'] = 1;
                     date_default_timezone_set ("America/New_York");
-                    // if ($person->get_status() == "applicant")
-                    //     $_SESSION['access_level'] = 0;
-                    // else if (in_array('manager', $person->get_type()))
-                    //     $_SESSION['access_level'] = 2;
-                    // else
-                    //     $_SESSION['access_level'] = 1;
-
-                    if ($person->get_position = "admin")
+                    
+                    // if position of person logging in is "admin"
+                    if ($person->get_position() == "admin")
+                        // set access level to 2
                         $_SESSION['access_level'] = 2;
-                    else if ($person->get_position = "watcher")
+                    // if position of person logging in is "watcher"    
+                    else if ($person->get_position() == "watcher")
+                        // set access level to 1
                         $_SESSION['access_level'] = 1;
-                    else if ($person->get_position = "guardian")
+                    // if position of person logging in is "guardian"
+                    else if ($person->get_position() == "guardian")
+                        // set access level to 0
                         $_SESSION['access_level'] = 0;
                      
                     $_SESSION['f_name'] = $person->get_first_name();
