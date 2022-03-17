@@ -60,62 +60,75 @@
 	private $notes;        // notes that only the manager can see and edit
 	private $password;     // password for calendar and database access: default = $id
 
-
-	function __construct($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $t,
-			$screening_type, $screening_status, $st, $emp, $pos, $credithours, $comm, $mot, $spe,
-			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass) {
-		$this->id = $f . $p1;
-		$this->start_date = $sd;
-		$this->venue = $v;
+	function __construct($f, $l, $p1, $e, $pos, $bd, $pass) {
+		$this->id = $e;
 		$this->first_name = $f;
 		$this->last_name = $l;
-		$this->address = $a;
-		$this->city = $c;
-		$this->state = $s;
-		$this->zip = $z;
 		$this->phone1 = $p1;
-		$this->phone1type = $p1t;
-		$this->phone2 = $p2;
-		$this->phone2type = $p2t;
 		$this->birthday = $bd;
 		$this->email = $e;
-		$this->employer = $emp;
 		$this->position = $pos;
-		$this->credithours = $credithours;
-		$this->howdidyouhear = $hdyh;
-		$this->commitment = $comm;
-		$this->motivation = $mot;
-		$this->specialties = $spe;
-		$this->convictions = $convictions;
-		if ($t !== "")
-			$this->type = explode(',', $t);
-		else
-			$this->type = array();
-		$this->screening_type = $screening_type;
-		if ($screening_status !== "")
-			$this->screening_status = explode(',', $screening_status);
-		else
-			$this->screening_status = array();
-
-		$this->status = $st;
-		if ($av == "")
-			$this->availability = array();
-		else
-			$this->availability = explode(',', $av);
-		if ($sch !== "")
-			$this->schedule = explode(',', $sch);
-		else
-			$this->schedule = array();
-		if ($hrs !== "")
-			$this->hours = explode(',', $hrs);
-		else
-			$this->hours = array();
-		$this->notes = $notes;
 		if ($pass == "")
 			$this->password = md5($this->id);
 		else
 			$this->password = $pass;  // default password == md5($id)
 	}
+
+	//function __construct($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $t,
+			//$screening_type, $screening_status, $st, $emp, $pos, $credithours, $comm, $mot, $spe,
+			//$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass) {
+	// 	$this->id = $f . $p1;
+	// 	$this->start_date = $sd;
+	// 	$this->venue = $v;
+	// 	$this->first_name = $f;
+	// 	$this->last_name = $l;
+	// 	$this->address = $a;
+	// 	$this->city = $c;
+	// 	$this->state = $s;
+	// 	$this->zip = $z;
+	// 	$this->phone1 = $p1;
+	// 	$this->phone1type = $p1t;
+	// 	$this->phone2 = $p2;
+	// 	$this->phone2type = $p2t;
+	// 	$this->birthday = $bd;
+	// 	$this->email = $e;
+	// 	$this->employer = $emp;
+	// 	$this->position = $pos;
+	// 	$this->credithours = $credithours;
+	// 	$this->howdidyouhear = $hdyh;
+	// 	$this->commitment = $comm;
+	// 	$this->motivation = $mot;
+	// 	$this->specialties = $spe;
+	// 	$this->convictions = $convictions;
+	// 	if ($t !== "")
+	// 		$this->type = explode(',', $t);
+	// 	else
+	// 		$this->type = array();
+	// 	$this->screening_type = $screening_type;
+	// 	if ($screening_status !== "")
+	// 		$this->screening_status = explode(',', $screening_status);
+	// 	else
+	// 		$this->screening_status = array();
+
+	// 	$this->status = $st;
+	// 	if ($av == "")
+	// 		$this->availability = array();
+	// 	else
+	// 		$this->availability = explode(',', $av);
+	// 	if ($sch !== "")
+	// 		$this->schedule = explode(',', $sch);
+	// 	else
+	// 		$this->schedule = array();
+	// 	if ($hrs !== "")
+	// 		$this->hours = explode(',', $hrs);
+	// 	else
+	// 		$this->hours = array();
+	// 	$this->notes = $notes;
+	// 	if ($pass == "")
+	// 		$this->password = md5($this->id);
+	// 	else
+	// 		$this->password = $pass;  // default password == md5($id)
+	// }
 
 	function get_id() {
 		return $this->id;

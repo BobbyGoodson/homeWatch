@@ -50,26 +50,27 @@
         }
         //otherwise authenticate their password
         else {
-            $db_pass = md5($_POST['pass']);
+            //$db_pass = md5($_POST['pass']);
+            $db_pass = $_POST['pass'];
             $db_id = $_POST['user'];
             $person = retrieve_person($db_id);
             if ($person) { //avoids null results
                 if ($person->get_password() == $db_pass) { //if the passwords match, login
                     $_SESSION['logged_in'] = 1;
                     date_default_timezone_set ("America/New_York");
-                    if ($person->get_status() == "applicant")
-                        $_SESSION['access_level'] = 0;
-                    else if (in_array('manager', $person->get_type()))
-                        $_SESSION['access_level'] = 2;
-                    else
-                        $_SESSION['access_level'] = 1;
-
-                    // if ($person->get_position = "admin")
-                    //     $_SESSION['access_level'] = 2;
-                    // else if ($person->get_position = "watcher")
-                    //     $_SESSION['access_level'] = 1;
-                    // else if ($person->get_position = "guardian")
+                    // if ($person->get_status() == "applicant")
                     //     $_SESSION['access_level'] = 0;
+                    // else if (in_array('manager', $person->get_type()))
+                    //     $_SESSION['access_level'] = 2;
+                    // else
+                    //     $_SESSION['access_level'] = 1;
+
+                    if ($person->get_position = "admin")
+                        $_SESSION['access_level'] = 2;
+                    else if ($person->get_position = "watcher")
+                        $_SESSION['access_level'] = 1;
+                    else if ($person->get_position = "guardian")
+                        $_SESSION['access_level'] = 0;
                      
                     $_SESSION['f_name'] = $person->get_first_name();
                     $_SESSION['l_name'] = $person->get_last_name();
