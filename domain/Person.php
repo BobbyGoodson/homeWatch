@@ -25,7 +25,6 @@
 	// private $birthday;     // format: 64-03-12
 	// private $health_requirements; // children health requirements
 	// private $position;    // a person may be a "child", "watcher", "guardian", or "admin"
-	// private $notes;        // notes that only the admin can see and edit
 	// private $password;     // password for calendar and database access: default = $id
 
 	private $id;         // id (unique key) = first_name . phone1
@@ -296,10 +295,6 @@
 	// 	return $this->position;
 	// }
 
-	// function get_notes() {
-	// 	return $this->notes;
-	// }
-
 	// function get_password() {
 	// 	return $this->password;
 	// }
@@ -327,16 +322,20 @@
     //     $this->barcode= $new_barcode;
     // }
 
+	// function set_email($new_email) {
+	// 		$this->email = $new_email;
+	// }
+
+	// function set_birthday($new_birthday) {
+	// 		$this->birthday= $new_birthday;
+	// }
+
 	// function set_health_requirements($new_health_requirements) {
     //     $this->health_requirements= $new_health_requirements;
     // }
 
 	// function set_position($new_position) {
     //     $this->position= $new_position;
-    // }
-
-	// function set_notes($new_notes) {
-    //     $this->notes= $new_notes;
     // }
 
 	// function set_password($new_password) {
