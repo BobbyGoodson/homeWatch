@@ -15,6 +15,8 @@
  */
  class Person {
 
+	/* private fields */
+
 	private $id;         // id (unique key) = email
 	private $first_name; // first name as a string
 	private $last_name;  // last name as a string
@@ -28,132 +30,131 @@
 	private $password;     // password for calendar and database access: default = $id
 
 
+	/* constructor */
 
-	function __construct($f, $l, $p, $e, $pos, $bd, $pass) {
-		$this->id = $e;
-		$this->first_name = $f;
-		$this->last_name = $l;
-		$this->phone = $p;
-		$this->birthday = $bd;
-		$this->email = $e;
-		$this->position = $pos;
-		if ($pass == "")
-			$this->password = md5($this->id);
-		else
-			$this->password = $pass;  // default password == md5($id)
+	function __construct($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password) {
+		$this->id = $email;
+		$this->first_name = $first_name;
+		$this->last_name = $last_name;
+		$this->phone = $phone;
+		$this->barcode = $barcode;
+		$this->email = $email;
+		$this->children = $children;
+		$this->birthday = $birthday;
+		$this->health_requirements = $health_requirements;
+		$this->position = $position;
+		$this->password = $password;
 	}
 
 
-	// /* all getters */
+	/* all getters */
 
 	function get_id() {
-	 	return $this->id;
-	 }
+		return $this->id;
+	}
 
 	function get_first_name() {
-	 	return $this->first_name;
+		return $this->first_name;
 	}
 
 	function get_last_name() {
-	 	return $this->last_name;
+		return $this->last_name;
 	}
 
 	function get_phone() {
-	 	return $this->phone;
+		return $this->phone;
 	}
 
 	function get_barcode() {
-	 	return $this->barcode;
+		return $this->barcode;
 	}
 
 	function get_email() {
-	 	return $this->email;
+		return $this->email;
 	}
 
 	function get_children() {
-	 	return $this->children;
+		return $this->children;
 	}
 
 	function get_birthday() {
-	 	return $this->birthday;
+		return $this->birthday;
 	}
 
 	function get_health_requirements() {
-	 	return $this->health_requirements;
+		return $this->health_requirements;
 	}
 
 	function get_position() {
-	 	return $this->position;
+		return $this->position;
 	}
 
 	function get_password() {
-	 	return $this->password;
+		return $this->password;
 	}
 
 
-	// /* all setters */
+	/* all setters */
 
-	function set_id($new_id) {
-		$this->id = $new_id;
+	function set_first_name($first_name) {
+        $this->first_name = $first_name;
+    }
+
+	function set_last_name($last_name) {
+        $this->last_name = $last_name;
+    }
+
+	function set_phone($phone) {
+        $this->phone = $phone;
+    }
+
+	function set_barcode($barcode) {
+        $this->barcode = $barcode;
+    }
+
+	function set_email($email) {
+		$this->email = $email;
+		$this->id = $email;
 	}
 
-	function set_first_name($new_first_name) {
-		$this->first_name = $new_first_name;
+	function set_birthday($birthday) {
+		$this->birthday= $birthday;
 	}
 
-	function set_last_name($new_last_name) {
-		$this->last_name = $new_last_name;
+	function set_health_requirements($health_requirements) {
+        $this->health_requirements= $health_requirements;
+    }
+
+	function set_position($position) {
+        $this->position= $position;
+    }
+
+	function set_password($password) {
+        $this->password= $password;
+    }
+
+
+	// add child function
+	function add_child($child) {
+
+		// push new child's first name to "children" array
+		array_push($this->children, $child->get_first_name);
+		// add new child to database
+		add_person($child);
 	}
 
-	function set_phone($new_phone) {
-		$this->phone = $new_phone;
+	// delete child function
+	function delete_child($child) {
+
+		// loop through "children" array and search for child's first name
+		if ($key = array_search($child->get_first_name, $children, $strict) != FALSE) {
+
+			// remove that child from "children" array
+			unset($this->children[$key]);
+		}
+
+		// remove child from database
+		remove_person($child->get_id);
 	}
-
-	function set_barcode($new_barcode) {
-		$this->barcode= $new_barcode;
-	}
-
-	function set_email($new_email) {
-		$this->email = $new_email;
-	}
-
-	function set_birthday($new_birthday) {
-		$this->birthday= $new_birthday;
-	}
-
-	function set_health_requirements($new_health_requirements) {
-		$this->health_requirements= $new_health_requirements;
-	}
-
-	function set_position($new_position) {
-		$this->position= $new_position;
-	}
-
-	function set_password($new_password) {
-		$this->password= $new_password;
-	}
-
-	// // add child function
-	// function add_child($child) {
-
-	// 	// push new child to "children" array
-	// 	array_push($this->children, $child);
-	// 	// add new child to database
-	//	add_person($child);
-	//}
-
-	// // delete child function
-	// function delete_child($child) {
-
-	// 	// loop through "children" array and search for child
-	// 	if ($key = array_search($child, $children, $strict)) != FALSE) {
-
-	// 		// remove that child from "children" array
-	// 		unset($this->children[$key]);
-	// 	}
-
-	// 	// remove child from database
-	// 	remove_person($child->get_id);
-	// }
 }
 ?>
