@@ -73,8 +73,6 @@
                      
                     $_SESSION['f_name'] = $person->get_first_name();
                     $_SESSION['l_name'] = $person->get_last_name();
-                    $_SESSION['venue'] = $person->get_venue();
-                    $_SESSION['type'] = $person->get_type();
                     $_SESSION['_id'] = $_POST['user'];
                     echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
                 }
