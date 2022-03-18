@@ -40,7 +40,7 @@ Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="tex
     if ($person->get_first_name()=="new") {
     // for creating a new accunt
         echo '<p>Password<span style="font-size:x-small;color:FF0000">*</span>: '; 
-        echo '<input type="text" name="password" tabindex="3">';
+        echo '<input type="password" name="password" tabindex="3">';
 
     	echo '<p>Phone Number<span style="font-size:x-small;color:FF0000">*</span>: ';
     	echo '<input type="text" name="phone" MAXLENGTH=12 tabindex="4">';
@@ -54,7 +54,7 @@ Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="tex
         //echo '<p>Phone Number: '.phone_edit($person->get_phone());
         //echo '<p>Phone Number: '.$person->get_barcode();
         echo '<p>Password<span style="font-size:x-small;color:FF0000">*</span>: '; 
-        echo '<input type="text" name="password" tabindex="3" value="'.$person->get_password().'">';
+        echo '<input type="password" name="password" tabindex="3" value="'.$person->get_password().'">';
 
         echo '<p>Phone Number<span style="font-size:x-small;color:FF0000">*</span>: ';
     	echo '<input type="text" name="phone" MAXLENGTH=12 tabindex="4" value="'.phone_edit($person->get_phone()).'">';
