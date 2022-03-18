@@ -79,7 +79,7 @@ Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="tex
 <?php 	
     // The submit button
     // echo('<input type="hidden" name="password" value="' . $person->get_password() . ')">');
-    // echo('<input type="hidden" name="_submit_check" value="1"><p>');
+    echo('<input type="hidden" name="_submit_check" value="1"><p>');
     echo('<input type="submit" value="Create" name="create_button"><br /><br />');
 ?>
 </form>

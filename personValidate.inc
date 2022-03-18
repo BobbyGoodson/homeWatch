@@ -21,7 +21,7 @@ function validate_form($person) {
         $errors[] = 'Please enter a first name';
     if ($_POST['last_name'] == null)
         $errors[] = 'Please enter a last name';
-    //if ($person->get_phone1()==null && !valid_phone($_POST['phone1']))
+    //if ($person->get_phone() == null && !valid_phone($_POST['phone1']))
     if (!valid_phone($_POST['phone1']))
         $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
     if ($_POST['barcode'] == null)

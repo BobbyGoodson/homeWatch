@@ -67,12 +67,11 @@ if ($id == 'new') {
             <div id="content">
                 <?PHP
                 //include('personValidate.inc');
-                //if ($_POST['_submit_check'] != 1){
-                if (isset($_POST['create_button'])) {
+                if ($_POST['_submit_check'] != 1){
+                //if (isset($_POST['create_button'])) {
                     //in this case, the form has not been submitted, so show it
                     include('personForm.inc');
                 } else {
-                    echo('hey');
                     //in this case, the form has been submitted, so validate it
                     $errors = validate_form($person);  //step one is validation.
                     // errors array lists problems on the form submitted
