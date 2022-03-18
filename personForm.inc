@@ -22,7 +22,7 @@
 
 
 
-
+<form method="post">
 <?php
     if ($person->get_first_name()=="new"){
         echo 'Create New Account';
@@ -43,7 +43,7 @@ Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="tex
         echo '<input type="text" name="password" tabindex="3">';
 
     	echo '<p>Phone Number<span style="font-size:x-small;color:FF0000">*</span>: ';
-    	echo '<input type="text" name="phone1" MAXLENGTH=12 tabindex="4">';
+    	echo '<input type="text" name="phone" MAXLENGTH=12 tabindex="4">';
 
         echo '<p>YMCA Membership Barcode Number<span style="font-size:x-small;color:FF0000">*</span>: ';
         echo '<input type="text" name="barcode" tabindex="5">';
@@ -75,7 +75,6 @@ Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="tex
 <script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 
-<form method="post">
 <?php 	
     // The submit button
     // echo('<input type="hidden" name="password" value="' . $person->get_password() . ')">');

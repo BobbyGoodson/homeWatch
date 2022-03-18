@@ -66,7 +66,7 @@ if ($id == 'new') {
             <?PHP include('header.php'); ?>
             <div id="content">
                 <?PHP
-                //include('personValidate.inc');
+                include('personValidate.inc');
                 if ($_POST['_submit_check'] != 1){
                 //if (isset($_POST['create_button'])) {
                     //in this case, the form has not been submitted, so show it
@@ -82,29 +82,32 @@ if ($id == 'new') {
                     }
                     // this was a successful form submission; update the database and exit
                     else
-                        echo('hey');
-                        //process_form($id,$person);
-                    //    echo($_POST['first_name']);
-                        //echo "</div>";
-                    //echo('</div></body></html>');
+                        process_form($id,$person);
+                        echo "</div>";
+                    echo('</div></body></html>');
+
                     die();
                 }
 
                 /**
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
-                /*function process_form($id,$person) {
-                    //echo($_POST['first_name']);
+                function process_form($id,$person) {
                     //step one: sanitize data by replacing HTML entities and escaping the ' character
                    	$first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
                     $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['last_name'])));
 
                     $phone = trim(str_replace(' ', '', htmlentities($_POST['phone'])));
-                    $email = $id;
+                    $password = $_POST['password'];
+                    //$email = $id;
+                    $email = "test2@example.com";
                     $position = 'guardian';
                     $barcode = trim(str_replace('\\\'', '\'', htmlentities($_POST['barcode'])));
 
-                    //$birthday = $_POST['birthday'];
+                    $birthday = null;
+                    $children = null;
+                    $health_requirements = null;
+
                     //used for url path in linking user back to edit form
                     //$path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
                     //step two: try to make the deletion, password change, addition, or change
@@ -135,7 +138,8 @@ if ($id == 'new') {
                         //check if there's already an entry
                         $dup = retrieve_person($id);
                         if ($dup)
-                            echo('<p class="error">Unable to add ' . $first_name . ' ' . $last_name . ' to the database. <br>Email already in use.');
+                            //echo('<p class="error">Unable to add ' . $first_name . ' ' . $last_name . ' to the database. <br>Email already in use.');
+                            echo('<p class="error">Unable to create an account. ' . $email . ' <br>already in use.');
                         else {
                             $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password);
                             $result = add_person($newperson);
@@ -172,7 +176,7 @@ if ($id == 'new') {
                     //        add_log_entry('<a href=\"personEdit.php?id=' . $id . '\">' . $first_name . ' ' . $last_name . '</a>\'s Personnel Edit Form has been changed.');
                     //    }
                     //}
-                }*/
+                }
                 ?>
             </div>
 

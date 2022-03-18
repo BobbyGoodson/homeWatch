@@ -17,17 +17,13 @@
  * this array is null (aka false) if there are no errors
  */
 function validate_form($person) {
-    if ($person->get_first_name()=="new" && ($_POST['first_name'] == NULL || $_POST['first_name'] == 'new'))
-        $errors[] = 'Please enter a first name';
-    if ($_POST['last_name'] == null)
-        $errors[] = 'Please enter a last name';
-    //if ($person->get_phone() == null && !valid_phone($_POST['phone1']))
-    if (!valid_phone($_POST['phone1']))
+    if ($_POST['first_name'] == NULL || $_POST['first_name'] == 'new' || 
+        $_POST['last_name'] == null || $_POST['barcode'] == null || $_POST['password'] == null){
+        $errors[] = 'Missing field(s)';
+    }
+    if (!valid_phone($_POST['phone'])) {
         $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
-    if ($_POST['barcode'] == null)
-        $errors[] = 'Please enter a barcode';
-    if ($_POST['password'] == null)
-        $errors[] = 'Please enter a password';
+    }
     return $errors;
 }
 
@@ -41,7 +37,7 @@ function validate_form($person) {
 function valid_phone(&$phone) {
     if ($phone == null)
         return false;
-    $phone = str_replace(' ', '', str_replace('+', '', str_replace('(', '', str_replace('(', '', str_replace('-', '', $phone)))));
+    $phone = str_replace(' ', '', str_replace('+', '', str_replace('(', '', str_replace(')', '', str_replace('-', '', $phone)))));
     $test = str_replace('0', '', str_replace('1', '', str_replace('2', '', str_replace('3', '', str_replace('4', '', str_replace('5', '', str_replace('6', '', str_replace('7', '', str_replace('8', '', str_replace('9', '', $phone))))))))));
     if ($test != null)
         return false;
