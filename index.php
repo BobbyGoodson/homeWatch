@@ -60,6 +60,7 @@ session_cache_expire(30);
                          
 
                         //APPLICANT CHECK
+                        /*
                         if ($person->get_first_name() != 'guest' && $person->get_status() == 'applicant') {
                             //SHOW STATUS
                             echo('<div class="infobox"><p><strong>Your application has been submitted.</strong><br><br /><table><tr><td><strong>Step</strong></td><td><strong>Completed?</strong></td></tr><tr><td>Background Check</td><td>' . $person['background_check'] . '</td></tr><tr><td>Interview</td><td>' . $person['interview'] . '</td></tr><tr><td>Shadow</td><td>' . $person['shadow'] . '</td></tr></table></p></div>');
@@ -146,6 +147,7 @@ session_cache_expire(30);
                             }
                             echo ('</table><br><a href="' . $path . 'log.php">View full log</a></p></div><br>');
                         }
+                        */
                         //DEFAULT PASSWORD CHECK
                         if (md5($person->get_id()) == $person->get_password()) {
                             if (!isset($_POST['_rp_submitted']))

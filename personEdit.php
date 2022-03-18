@@ -22,20 +22,24 @@ $id = str_replace("_"," ",$_GET["id"]);
 
 
 if ($id == 'new') {
-    // this is creating a starter person object.
     // for creating a new accunt
-    $person = new Person('new', 'applicant', $_SESSION['venue'], null, null, null, null, null, null, null, null, null, "applicant", null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "");
-    //$person = new Person($email, 'new', null , null, null, null, null, null, null, null, null, null);
+    // this is creating a starter person object.
+    // function __construct($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password)
+    $person = new Person('new', 'applicant', null, null, null, null, null, null, null, null);
 } else {
-    // editting an account
+    // for editting an account
     $person = retrieve_person($id);
-    if (!$person) { // try again by changing blanks to _ in id
+    if (!$person) { 
+        echo('<p id="error">Error: unable to retrieve account information.</p>' . $id);
+        die();
+        // try again by changing blanks to _ in id
+        /*
         $id = str_replace(" ","_",$_GET["id"]);
         $person = retrieve_person($id);
         if (!$person) {
             echo('<p id="error">Error: there\'s no person with this id</p>' . $id);
             die();
-        }
+        }*/
     }
 }
 ?>
@@ -49,12 +53,12 @@ if ($id == 'new') {
         <script src="lib/jquery-1.9.1.js"></script>
 		<script src="lib/jquery-ui.js"></script>
 		<script>
-			$(function(){
-				$( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-				$( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-				$( "#end_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-				$( "#screening_status[]" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-			})
+			//$(function(){
+			//	$( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+			//	$( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+			//	$( "#end_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+			//	$( "#screening_status[]" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+			//})
 		</script>
     </head>
     <body>
@@ -62,120 +66,46 @@ if ($id == 'new') {
             <?PHP include('header.php'); ?>
             <div id="content">
                 <?PHP
-                include('personValidate.inc');
-                if ($_POST['_form_submit'] != 1)
+                //include('personValidate.inc');
+                //if ($_POST['_submit_check'] != 1){
+                if (isset($_POST['create_button'])) {
                     //in this case, the form has not been submitted, so show it
                     include('personForm.inc');
-                else {
+                } else {
+                    echo('hey');
                     //in this case, the form has been submitted, so validate it
                     $errors = validate_form($person);  //step one is validation.
                     // errors array lists problems on the form submitted
                     if ($errors) {
                         // display the errors and the form to fix
                         show_errors($errors);
-                        /*$person = new Person($person->get_first_name(), $_POST['last_name'], $_POST['location'], 
-                        				$_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'],
-                                        $person->get_phone1(), $_POST['phone1type'], $_POST['phone2'],$_POST['phone2type'], 
-                        		        $_POST['email'], implode(',', $_POST['type']), 
-                        				$_POST['screening_type'], implode(',', $_POST['screening_status']),
-                                        $_POST['status'], $employer, $position, $_POST['credithours'], 
-                                        $_POST['commitment'], $_POST['motivation'], $_POST['specialties'], $_POST['convictions'], 
-                                        $availability, $_POST['schedule'], $_POST['hours'], 
-                                        $_POST['birthday'], $_POST['start_date'], $_POST['howdidyouhear'],
-                                        $_POST['notes'], $_POST['old_pass']);*/
-                        /*$person = new Person($_POST['email'], 
-                                            $_POST['first_name'], 
-                                            $_POST['last_name'], 
-                                            $_POST['phone1'], 
-                                            $_POST['barcode'], 
-                                            $_POST['email'], 
-                                            null, 
-                        				    null, 
-                                            null,
-                                            'guardian',
-                                            null,
-                                            $_POST['password']);*/
                         include('personForm.inc');
                     }
                     // this was a successful form submission; update the database and exit
                     else
+                        echo('hey');
                         //process_form($id,$person);
-                        echo "</div>";
-                    echo('</div></body></html>');
+                    //    echo($_POST['first_name']);
+                        //echo "</div>";
+                    //echo('</div></body></html>');
                     die();
                 }
 
                 /**
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
-                /*
-                function process_form($id,$person) {
+                /*function process_form($id,$person) {
                     //echo($_POST['first_name']);
                     //step one: sanitize data by replacing HTML entities and escaping the ' character
-                    if ($person->get_first_name()=="new")
-                   		$first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
-                    else
-                    	$first_name = $person->get_first_name();
+                   	$first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
                     $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['last_name'])));
-                    //$location = $_POST['location'];
-                    //$address = trim(str_replace('\\\'', '\'', htmlentities($_POST['address'])));
-                    //$city = trim(str_replace('\\\'', '\'', htmlentities($_POST['city'])));
-                    //$state = trim(htmlentities($_POST['state']));
-                    //$zip = trim(htmlentities($_POST['zip']));
-                    if ($person->get_first_name()=="new") {
-                    	$phone1 = trim(str_replace(' ', '', htmlentities($_POST['phone1'])));
-                    	$clean_phone1 = preg_replace("/[^0-9]/", "", $phone1);
-                    	//$phone1type = $_POST['phone1type'];
-                    }
-                    else {
-                    	$clean_phone1 = $person->get_phone1();
-                    	//$phone1type = $person->get_phone1type();
-                    }
-                    //$phone2 = trim(str_replace(' ', '', htmlentities($_POST['phone2'])));
-                    //$clean_phone2 = preg_replace("/[^0-9]/", "", $phone2);
-                    //$phone2type = $_POST['phone2type'];
+
+                    $phone = trim(str_replace(' ', '', htmlentities($_POST['phone'])));
                     $email = $id;
-                    //$type = implode(',', $_POST['type']);
-                    //$screening_type = $_POST['screening_type'];
-                    //if ($screening_type!="") {
-                    //	$screening = retrieve_dbApplicantScreenings($screening_type);
-                    //	$step_array = $screening->get_steps();
-                    //	$step_count = count($step_array);
-                    //	$date_array = array();
-                    //	for ($i = 0; $i < $step_count; $i++) {
-                    //    	$date_array[$i] = $_POST['screening_status'][$i];
-                    //    	if ($date_array[$i]!="" && $date_array[$i]!="--" && strlen($date_array[$i]) != 8) {
-                    //       	 	echo('<p>Completion Date for step: "' . $step_array[$i] . '" is in error, please enter mm-dd-yy.<br>');
-                    //    	}
-                    //	}
-                    //	$screening_status = implode(',', $date_array);
-                    //}
-                    //$status = $_POST['status'];
-                	//if ($_POST['isstudent']=="yes")  {
-                    //    $position="student";
-                    //    $employer = $_POST['nameofschool'];
-                    //}
-                    //else {
-                    //    $position = $_POST['position'];
-                    //    $employer = $_POST['employer'];
-                    //}
                     $position = 'guardian';
-                    //$credithours = $_POST['credithours'];
-                    //$motivation = trim(str_replace('\\\'', '\'', htmlentities($_POST['motivation'])));
-                    //$specialties = trim(str_replace('\\\'', '\'', htmlentities($_POST['specialties'])));
-                    //$convictions = $_POST['convictions'];
-                    //if (!$_POST['availability'])
-                    //      $availability = null;
-                    //else {
-                    //      $availability = implode(',', $_POST['availability']);
-                    //}
-                    // these two are not visible for editing, so they go in and out unchanged
-                    //$schedule = $_POST['schedule'];
-                    //$hours = $_POST['hours'];
+                    $barcode = trim(str_replace('\\\'', '\'', htmlentities($_POST['barcode'])));
+
                     //$birthday = $_POST['birthday'];
-                    //$start_date = $_POST['start_date'];
-                    //$howdidyouhear = $_POST['howdidyouhear'];
-                    //$notes = trim(str_replace('\\\'', '\'', htmlentities($_POST['notes'])));
                     //used for url path in linking user back to edit form
                     //$path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
                     //step two: try to make the deletion, password change, addition, or change
@@ -199,7 +129,6 @@ if ($id == 'new') {
                     
 
                     // try to add a new person to the database
-                    //if ($_POST['old_id'] == 'new') {
                     if($person->get_first_name()=="new") {
                         //$id = $first_name . $clean_phone1;
                         $id = $email;
@@ -209,22 +138,7 @@ if ($id == 'new') {
                         if ($dup)
                             echo('<p class="error">Unable to add ' . $first_name . ' ' . $last_name . ' to the database. <br>Email already in use.');
                         else {
-                        	//$newperson = new Person($first_name, $last_name, $location, $address, $city, $state, $zip, $clean_phone1, $phone1type, $clean_phone2,$phone2type,
-                        	//			$email, $type, $screening_type, $screening_status, $status, $employer, $position, $credithours,
-                            //            $commitment, $motivation, $specialties, $convictions, $availability, $schedule, $hours, 
-                            //            $birthday, $start_date, $howdidyouhear, $notes, "");
-                            $newperson = new Person($email, 
-                                        $first_name, 
-                                        $last_name, 
-                                        $phone1, 
-                                        $barcode, 
-                                        $email, 
-                                        null, 
-                                        null, 
-                                        null,
-                                        $position,
-                                        null,
-                                        $password);
+                            $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password);
                             $result = add_person($newperson);
                             
                             //if (!$result)
@@ -265,4 +179,4 @@ if ($id == 'new') {
 
         </div>
     </body>
-</html> 
+</html>

@@ -17,23 +17,17 @@
  * this array is null (aka false) if there are no errors
  */
 function validate_form($person) {
-    //if ($_POST['location'] == null)
-    //    $errors[] = 'Please select a location (Portland or Bangor)';
-    //if ($_SESSION['access_level'] == 0 && ($_POST['status'] == null))
-    //    $_POST['status'] = 'applicant';
-    //if ($_POST['type'] == null && $_SESSION['access_level'] >= 1)
-    //    $errors[] = 'Please select a Position type';
-    //if (!valid_email($_POST['email']) && $_POST['email'] != null)
-    //    $errors[] = "Please enter a valid email";
-    //if ($_POST['birthday'] !== "" && strlen($_POST['birthday']) != 8) 
-    //    $errors[] = 'Please select a valid birthday';
-
     if ($person->get_first_name()=="new" && ($_POST['first_name'] == NULL || $_POST['first_name'] == 'new'))
         $errors[] = 'Please enter a first name';
     if ($_POST['last_name'] == null)
         $errors[] = 'Please enter a last name';
-    if ($person->get_phone1()==null && !valid_phone($_POST['phone1']))
+    //if ($person->get_phone1()==null && !valid_phone($_POST['phone1']))
+    if (!valid_phone($_POST['phone1']))
         $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
+    if ($_POST['barcode'] == null)
+        $errors[] = 'Please enter a barcode';
+    if ($_POST['password'] == null)
+        $errors[] = 'Please enter a password';
     return $errors;
 }
 
