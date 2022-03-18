@@ -98,6 +98,10 @@
 					email_send($userEmail);
 				}
 
+				// if ($submit) {
+					
+				// 	echo "<script type=\"text/javascript\">window.location = \"personEdit.php?id=new\";</script>";
+				// }
 				?>
 			</div>
 		</div>

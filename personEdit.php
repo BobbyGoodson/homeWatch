@@ -79,14 +79,13 @@ if ($id == 'new') {
                         // display the errors and the form to fix
                         show_errors($errors);
                         include('personForm.inc');
+                        die();
                     }
                     // this was a successful form submission; update the database and exit
                     else
                         process_form($id,$person);
-                        echo "</div>";
-                    echo('</div></body></html>');
-
-                    die();
+                        include('login_form.php');
+                        die();
                 }
 
                 /**
@@ -100,7 +99,7 @@ if ($id == 'new') {
                     $phone = trim(str_replace(' ', '', htmlentities($_POST['phone'])));
                     $password = $_POST['password'];
                     //$email = $id;
-                    $email = "test2@example.com";
+                    $email = "test@example.com";
                     $position = 'guardian';
                     $barcode = trim(str_replace('\\\'', '\'', htmlentities($_POST['barcode'])));
 
@@ -139,11 +138,12 @@ if ($id == 'new') {
                         $dup = retrieve_person($id);
                         if ($dup)
                             //echo('<p class="error">Unable to add ' . $first_name . ' ' . $last_name . ' to the database. <br>Email already in use.');
-                            echo('<p class="error">Unable to create an account. ' . $email . ' <br>already in use.');
+                            echo('<p class="error">Unable to create an account. ' . 'The email address "' . $email . '" is already in use.');
                         else {
                             $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password);
                             $result = add_person($newperson);
                             
+                            echo('<p class="success">Account successfully created!');
                             //if (!$result)
                             //    echo ('<p class="error">Unable to add " .$first_name." ".$last_name. " in the database. <br>Please report this error to the House Manager.');
                             //else if ($_SESSION['access_level'] == 0)
