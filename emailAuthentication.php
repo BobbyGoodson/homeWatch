@@ -17,12 +17,11 @@
 	<body>
 		<div id="container">
 			<div id="content">
-				<form method = "post">
-				<?PHP
+				<?php
 				/*
 				sends email
 				*/
-				function email_send($email){
+				/*function email_send($email, $code){
 					//$to = $email;
 					ini_set("SMTP", "smtp.netcorecloud.net");
 					ini_set("sendmail_from", "ymcahomewatchsmtp@pepisandbox.com");
@@ -38,7 +37,7 @@
          			}else {
             			echo "Message could not be sent...";
          			}
-				}
+				}*/
 
 				/*function email_send($email){
 					$curl = curl_init();
@@ -70,64 +69,36 @@
 
 				}*/
 
-				/*
-				generate a random code
-				*/
-				/*function generate_code(){
-					$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-					$code = '';
-					for ($i = 0; $i < 6; $i++) {
-						$code .= $characters[rand(0, 61)];
-					}
-					return $code;
-				}*/
 
-
-				echo('<p><strong>Email Authentication</strong><br /><br />');
-				echo('<p>To create an account, please enter and verify your email address. Click the link sent to you via email. </p>');
-               	echo('<p>Do not see it? Try looking in your spam folder or sending it again by pressing Resend below. </p>');
-				
-            	echo('<input type="hidden" name="_submit_check" value="true">');
-				echo('<p>Email: <input type="text" name="email" tabindex="1"></p>');
-				//echo('<p><input type="submit" name="resend" value="Resend"></p>');
-				//echo('<input type="submit" name="submit" value="Submit">');
-				echo('<p><table><form method="post">
-            	<tr>
-                <td colspan="2" align="left"><input type="submit" name="resend" value="Resend"></td>
-            	<td colspan="2" align="left"><input type="submit" name="submit" value="Submit"></td>
-                </tr>
-                </table></p>');
-
-				?>
-				</form>
-				<?php
-
-					// store submit button in variable
-					$submit = $_POST['submit'];
-					// store email entered in text field in variable
-					$userEmail = $_POST['email'];
-					// create SESSION 'emailaddress' and store email in it
-					$_SESSION['emailaddress'] = $userEmail;
+				include('emailAuthenticationForm.inc');
+				// store submit button in variable
+				$submit = $_POST['submit'];
+				// store email entered in text field in variable
+				$userEmail = $_POST['email'];
+				// create SESSION 'emailaddress' and store email in it
+				$_SESSION['emailaddress'] = $userEmail;
 	
-					// if email field is not left empty AND submit button is pressed
-					if ($userEmail != "" && $submit) {
+				// if email field is not left empty AND submit button is pressed
+				if ($userEmail != "" && $submit) {
 	
-						// check if there's already an entry
-						$dup = retrieve_person($userEmail);
-						if ($dup)
-							// show error message
-							echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $userEmail . '" is already in use.');
-						else {
-							// redirect to create account page
-							echo "<script type=\"text/javascript\">window.location = \"personEdit.php?id=new\";</script>";
-						}
-					}
-					// if email field is left empty AND submit button is pressed
-					else if ($userEmail == "" && $submit) {
-
+					// check if there's already an entry
+					$dup = retrieve_person($userEmail);
+					if ($dup)
 						// show error message
-						echo('<p class="error">Error: Didn\'t enter an email address.');
+						echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $userEmail . '" is already in use.');
+					else {
+						// redirect to create account page
+						//echo "<script type=\"text/javascript\">window.location = \"personEdit.php?id=new\";</script>";
+						//redirect to entering the code portion of email authentication
+						echo "<script type=\"text/javascript\">window.location = \"emailAuthenticationCode.php\";</script>";
 					}
+				}
+				// if email field is left empty AND submit button is pressed
+				else if ($userEmail == "" && $submit) {
+
+					// show error message
+					echo('<p class="error">Error: Didn\'t enter an email address.');
+				}
 				?>
 			</div>
 		</div>
