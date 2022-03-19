@@ -7,6 +7,8 @@
  * (see <http://www.gnu.org/licenses/ for more information).
  * 
  */
+session_start();
+session_cache_expire(30);
 ?>
 <!-- Begin Header -->
 <style type="text/css">
@@ -22,32 +24,14 @@
 
     <?PHP
     //Log-in security
-    //If they aren't logged in, display our log-in form.
+    //If they aren't logged in, display our homepage with create account and login buttons
     if (!isset($_SESSION['logged_in'])) {
-        //include('login_form.php');
-        //die();
 
         // align logo to top left
         echo('<div align = "left"><img src="images/YMCAlogo.png" width="150" height="100"></div>');
 
-        echo('<p><table><form method="post">
-            	<tr>
-                <td colspan="2" align="right"><input type="submit" name="createAccount" value="Create Account"></td>
-            	<td colspan="2" align="right"><input type="submit" name="Login" value="Login"></td>
-                </tr>
-                </table></p>');
-        
-        $login = $_POST['Login'];
-		$createAccount = $_POST['createAccount'];
-		if ($login){
-			include('login_form.php');
-            die();
-		} else if ($createAccount){
-            include('emailAuthentication.php');
-            die();
-        }
-       
-
+        echo('<a href="' . $path . 'emailAuthentication.php">Create Account</a>');
+        echo(' | <a href="' . $path . 'login_form.php">Login</a>');
     } else if ($_SESSION['logged_in']) {
 
         /*         * Set our permission array.
@@ -93,7 +77,7 @@
             echo('<br> Guardian Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
             echo(' | <a href="' . $path . 'viewSchedule.php">Availability</a>');
             echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
-            echo(' | <a href="personEdit.php?id=' . 'new' . '">Update Account</a>');
+            echo(' | <a href="' . $path . 'personSearch.php">Update Account</a>');
             echo(' | <a href="' . $path . 'about.php">About Us</a>');
 	    }
 	    else if ($_SESSION['access_level'] == 1) {
@@ -105,8 +89,8 @@
 	        echo('<br> Admin Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
             echo(' | <a href="' . $path . 'viewSchedule.php">Availability</a>');
             echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
-            echo(' | <a href="personEdit.php?id=' . 'new' . '">Create Admin Account</a>');
-            echo(' | <a href="personEdit.php?id=' . 'new' . '">Create Watcher Account</a>');
+            echo(' | <a href="' . $path . 'personSearch.php">Create Admin Account</a>');
+            echo(' | <a href="' . $path . 'personSearch.php">Create Watcher Account</a>');
             echo(' | <a href="' . $path . 'personSearch.php">Guardians</a>');
             echo(' | <a href="' . $path . 'reports.php">Update Capacity</a>');
         }
