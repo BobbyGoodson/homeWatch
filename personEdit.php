@@ -63,7 +63,6 @@ if ($id == 'new') {
     </head>
     <body>
         <div id="container">
-            <?PHP include('header.php'); ?>
             <div id="content">
                 <?PHP
                 include('personValidate.inc');
@@ -84,22 +83,24 @@ if ($id == 'new') {
                     // this was a successful form submission; update the database and exit
                     else
                         process_form($id,$person);
-                        include('login_form.php');
-                        die();
+                        // redirect to login page
+                        echo "<script type=\"text/javascript\">window.location = \"login_form.php\";</script>";
                 }
 
                 /**
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
                 function process_form($id,$person) {
+
+
                     //step one: sanitize data by replacing HTML entities and escaping the ' character
                    	$first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
                     $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['last_name'])));
 
                     $phone = trim(str_replace(' ', '', htmlentities($_POST['phone'])));
                     $password = $_POST['password'];
-                    //$email = $id;
-                    $email = "test@example.com";
+                    $email = $_SESSION['emailaddress'];
+                    //$email = "test@example.com";
                     $position = 'guardian';
                     $barcode = trim(str_replace('\\\'', '\'', htmlentities($_POST['barcode'])));
 
@@ -137,13 +138,13 @@ if ($id == 'new') {
                         //check if there's already an entry
                         $dup = retrieve_person($id);
                         if ($dup)
-                            //echo('<p class="error">Unable to add ' . $first_name . ' ' . $last_name . ' to the database. <br>Email already in use.');
-                            echo('<p class="error">Unable to create an account. ' . 'The email address "' . $email . '" is already in use.');
+                            echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $email . '" is already in use.');
                         else {
                             $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password);
                             $result = add_person($newperson);
                             
-                            echo('<p class="success">Account successfully created!');
+                            // echo('<p class="success">Account successfully created!');
+                            
                             //if (!$result)
                             //    echo ('<p class="error">Unable to add " .$first_name." ".$last_name. " in the database. <br>Please report this error to the House Manager.');
                             //else if ($_SESSION['access_level'] == 0)
