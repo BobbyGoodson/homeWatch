@@ -3,8 +3,9 @@
  * Email Authentication 
  */
 
-	//session_start();
-	//session_cache_expire(30);
+	session_start();
+	session_cache_expire(30);
+	include_once('database/dbPersons.php');
 ?>
 <html>
 	<head>
@@ -15,8 +16,8 @@
 	</head>
 	<body>
 		<div id="container">
-
 			<div id="content">
+				<form method = "post">
 				<?PHP
 				/*
 				sends email
@@ -85,26 +86,50 @@
 				echo('<p><strong>Email Authentication</strong><br /><br />');
 				echo('<p>To create an account, please enter and verify your email address. Click the link sent to you via email. </p>');
                	echo('<p>Do not see it? Try looking in your spam folder or sending it again by pressing Resend below. </p>');
+				
+            	echo('<input type="hidden" name="_submit_check" value="true">');
+				echo('<p>Email: <input type="text" name="email" tabindex="1"></p>');
+				//echo('<p><input type="submit" name="resend" value="Resend"></p>');
+				//echo('<input type="submit" name="submit" value="Submit">');
+				echo('<p><table><form method="post">
+            	<tr>
+                <td colspan="2" align="left"><input type="submit" name="resend" value="Resend"></td>
+            	<td colspan="2" align="left"><input type="submit" name="submit" value="Submit"></td>
+                </tr>
+                </table></p>');
 
-            	echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true">
-				<tr><td>Email:</td><td><input type="text" name="email" tabindex="1"></td></tr>
-            	<tr><td colspan="2" align="left"><input type="submit" name="resend" value="resend"></td>
-            	<td colspan="2" align="right"><input type="submit" name="submit" value="submit"></td></tr></table></p>');
+				?>
+				</form>
+				<?php
 
-				$submit = $_POST['submit'];
-				$resend = $_POST['resend'];
-				if ($submit || $resend){
+					// store submit button in variable
+					$submit = $_POST['submit'];
+					// store email entered in text field in variable
 					$userEmail = $_POST['email'];
-					email_send($userEmail);
-				}
+					// create SESSION 'emailaddress' and store email in it
+					$_SESSION['emailaddress'] = $userEmail;
+	
+					// if email field is not left empty AND submit button is pressed
+					if ($userEmail != "" && $submit) {
+	
+						// check if there's already an entry
+						$dup = retrieve_person($userEmail);
+						if ($dup)
+							// show error message
+							echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $userEmail . '" is already in use.');
+						else {
+							// redirect to create account page
+							echo "<script type=\"text/javascript\">window.location = \"personEdit.php?id=new\";</script>";
+						}
+					}
+					// if email field is left empty AND submit button is pressed
+					else if ($userEmail == "" && $submit) {
 
-				// if ($submit) {
-					
-				// 	echo "<script type=\"text/javascript\">window.location = \"personEdit.php?id=new\";</script>";
-				// }
+						// show error message
+						echo('<p class="error">Error: Didn\'t enter an email address.');
+					}
 				?>
 			</div>
-		</div>
 		</div>
 	</body>
 </html>
