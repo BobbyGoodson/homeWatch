@@ -5,22 +5,7 @@
  * 	@author Oliver Radwan, Xun Wang and Allen Tucker
  * 	@version 9/1/2008, revised 4/1/2012, revised 3/11/2015
  */
-
-
-/*if ($_SESSION['_id'] != $person->get_id()) {
-    echo("<p id=\"error\">You do not have sufficient permissions to edit this user.</p>");
-    include('footer.inc');
-    echo('</div></div></body></html>');
-    die();
-} else {
-    echo '<p><strong>Personnel Edit Form</strong>';
-    echo(' Here you can edit your own information in the database.' .
-    '<br>When finished, hit <b>Submit</b> at the bottom of this page.');
-}*/
-//echo '<br> (<span style="font-size:x-small;color:FF0000">*</span>required information).';
 ?>
-
-
 
 <form method="post">
 <?php
@@ -77,7 +62,6 @@ Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="tex
 
 <?php 	
     // The submit button
-    // echo('<input type="hidden" name="password" value="' . $person->get_password() . ')">');
     echo('<input type="hidden" name="_submit_check" value="1"><p>');
     echo('<input type="submit" value="Create" name="create_button"><br /><br />');
 ?>
