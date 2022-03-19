@@ -25,31 +25,32 @@ session_cache_expire(30);
             <?PHP include('header.php'); ?>
             <div id="content">
                 <?PHP
+                //If they aren't logged in, display our homepage with create account and login buttons
                 if (!isset($_SESSION['logged_in'])) {
                     include('mainPage.php');
-                } 
+                }
+
                 include_once('database/dbPersons.php');
                 include_once('domain/Person.php');
                 include_once('database/dbLog.php');
                 include_once('domain/Shift.php');
                 include_once('database/dbShifts.php');
                 date_default_timezone_set('America/New_York');
-            //    fix_all_birthdays();
-                if ($_SESSION['_id'] != "guest") {
+
+                // welcome message for each user logging in
+                if ($_SESSION['_id'] != "") {
                     $person = retrieve_person($_SESSION['_id']);
                     echo "<p>Welcome, " . $person->get_first_name() . ", to Homebase!";
+                    echo "   You are a " . $person->get_position() . " and this is your homepage.";
+                    echo "<p>Today is " . date('l F j, Y') . ".</p>";
                 }
-                else 
-                    echo "<p>Welcome!";
-                echo "   Today is " . date('l F j, Y') . ".<p>";
                 ?>
 
                 <!-- your main page data goes here. This is the place to enter content -->
                 <p>
                     <?PHP
-                    if ($_SESSION['access_level'] == 0)
-                        echo('<p> To apply for volunteering at the Portland or Bangor Ronald McDonald House, '.
-                        		'please select <b>apply</b>.');
+                    if ($_SESSION['_id'] != "" && $_SESSION['access_level'] >= 0)
+                        echo('<p></br> Use the toolbar above to navigate your account.');
                     if ($person) {
                          //Check type of person, and display home page based on that.
                          //all: password check
