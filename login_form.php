@@ -16,8 +16,16 @@ session_cache_expire(30);
  * @version 3/28/2008, revised 7/1/2015
  */
 ?>
-
-<div id="content">
+<html>
+    <head>
+        <title>
+            Login
+        </title>
+        <link rel="stylesheet" href="styles.css" type="text/css" />
+    </head>
+<body id="bodyForm">
+<div id="container">
+<div id="form">
     <?PHP
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
@@ -26,9 +34,8 @@ session_cache_expire(30);
         echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
     }
     if (!array_key_exists('_submit_check', $_POST)) {
-        echo('<div align="left"><p>Login with your username and a password. ' .
-        '<ul>'
-        );
+        //echo('<div align="center"><p>Login with your username and a password. ' .'<ul>');
+        echo('<p><strong>Login</strong><br /><br />');
         // echo('<li>If you are applying for a volunteer position, enter the Username \'guest\' and a blank Password. ');
         // echo('<li>If you are a volunteer logging in for the first time, your Username is your first name followed by your ten digit phone number. ' .
         // 'After you have logged in, you can change your password.  ');
@@ -36,7 +43,7 @@ session_cache_expire(30);
         // 		<a href="mailto:allen@npfi.org"><i>Portland House Manager</i></a>
         // 		or the <a href="mailto:allen@npfi.org"><i>Bangor House Manager</i></a>.) ');
         // echo '</ul>';
-        echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true">
+        echo('<p><table class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
                 <tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr>
         		<tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
     } else {

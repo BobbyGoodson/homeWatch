@@ -13,9 +13,9 @@
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
-	<body>
+	<body id="bodyForm">
 		<div id="container">
-			<div id="content">
+			<div id="form">
 				<?php
 				/*
 				sends email

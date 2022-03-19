@@ -61,9 +61,9 @@ if ($id == 'new') {
 			//})
 		</script>
     </head>
-    <body>
+    <body id="bodyForm">
         <div id="container">
-            <div id="content">
+            <div id="form">
                 <?PHP
                 include('personValidate.inc');
                 if ($_POST['_submit_check'] != 1){

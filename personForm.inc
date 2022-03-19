@@ -10,27 +10,27 @@
 <form method="post">
 <?php
     if ($person->get_first_name()=="new"){
-        echo 'Create New Account';
-        echo '<p>First Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="first_name" tabindex="1">';
+        echo('<p><strong>Create New Account</strong><br /><br />');
+        echo '<p>First Name<span style="font-size:12px;color:FF0000">*</span>: <input type="text" name="first_name" tabindex="1" style="width:200px">';
     } else {
     	echo '<p>First Name: '.$person->get_first_name();
     }
 ?>  
 &nbsp;&nbsp;&nbsp;&nbsp;  
-Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="last_name" tabindex="2">
+Last Name<span style="font-size:12px;color:FF0000">*</span>: <input type="text" name="last_name" tabindex="2" style="width:200px">
     
 
 <?php     
     // This is the form you see
     if ($person->get_first_name()=="new") {
     // for creating a new accunt
-        echo '<p>Password<span style="font-size:x-small;color:FF0000">*</span>: '; 
+        echo '<p>Password<span style="font-size:12px;color:FF0000">*</span>: '; 
         echo '<input type="password" name="password" tabindex="3">';
 
-    	echo '<p>Phone Number<span style="font-size:x-small;color:FF0000">*</span>: ';
+    	echo '<p>Phone Number<span style="font-size:12px;color:FF0000">*</span>: ';
     	echo '<input type="text" name="phone" MAXLENGTH=12 tabindex="4">';
 
-        echo '<p>YMCA Membership Barcode Number<span style="font-size:x-small;color:FF0000">*</span>: ';
+        echo '<p>YMCA Membership Barcode Number<span style="font-size:12px;color:FF0000">*</span>: ';
         echo '<input type="text" name="barcode" tabindex="5">';
     }
     else {
