@@ -63,11 +63,21 @@ table#spacedRowTable td{
 }
 
 /* LINK STYLES */
-A			{ color: #001460; text-decoration: none; img-decoration: none; }
-A:link		{ color: #018AFEE; text-decoration: none; img-decoration: none; }
+A { 
+    /*color: #ffffff; 
+    background: #6A1A41;
+    border:1px solid #6A1A41;
+    padding-left: 15px;
+    padding-right: 15px;*/
+    color: #6A1A41; 
+    border-radius: 1em;
+    padding: 0.1em 1em;
+    text-decoration: none; 
+}
+/*A:link		{ color: #018AFEE; text-decoration: none; img-decoration: none; }
 A:visited	{ color: #001460; text-decoration: none; img-decoration: none; }
 A:active	{ color: #BE0000;  }
-A:hover		{ color: #BE0000;  }
+A:hover		{ color: #BE0000;  }*/
 
 /*INFO BOXES*/
 .infobox{

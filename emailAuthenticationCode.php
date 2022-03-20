@@ -6,7 +6,7 @@
 session_start();
 session_cache_expire(30);
 include_once('sendEmailFunction.php');
-include('emailCode.inc');
+//include('emailCode.inc');
 ?>
 <html>
 	<head>
@@ -19,6 +19,7 @@ include('emailCode.inc');
 		<div id="container">
 			<div id="form">
 				<?php
+				include('emailCode.inc');
 				
 				// if $_SESSION['generatedCode'] is not set
                 if (!isset($_SESSION['generatedCode'])){
