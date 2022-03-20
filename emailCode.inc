@@ -2,7 +2,7 @@
 	<?PHP
 		//This is the form in email Authentication for submitting the sent code
         echo('<input type="hidden" name="_submit_check" value="true">');
-		echo('<p>Code: <input type="text" name="userCode" tabindex="1"></p>');
+		echo('<p>Verification Code: <input type="text" name="userCode" tabindex="1"></p>');
         
 		echo('<p><table class="form"><form method="post">
         <tr>

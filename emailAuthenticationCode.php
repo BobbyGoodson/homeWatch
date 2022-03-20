@@ -2,9 +2,11 @@
 /*
  * Email Authentication step 2
  */
-
-	session_start();
-	session_cache_expire(30);
+	
+session_start();
+session_cache_expire(30);
+include_once('sendEmailFunction.php');
+include('emailCode.inc');
 ?>
 <html>
 	<head>
@@ -17,63 +19,37 @@
 		<div id="container">
 			<div id="form">
 				<?php
-				/*
-				sends email
-				*/
-				function email_send($email, $code){
-					//$to = $email;
-					ini_set("SMTP", "smtp.netcorecloud.net");
-					ini_set("sendmail_from", "ymcahomewatchsmtp@pepisandbox.com");
-         			$subject = "YMCA Child Watch Email Verification";
-         			$message = "<b>http://localhost/homeWatch/personEdit.php?id=new</b>";
-         			$header = "From:ymcahomewatchsmtp@pepisandbox.com\r\n"; //this is my email but you may change it, i dont know how to make it work
-         			//$header .= "Cc:afgh@somedomain.com \r\n";
-         			//$header .= "MIME-Version: 1.0\r\n";
-         			//$header .= "Content-type: text/html\r\n";
-         			$retval = mail ("ymcahomewatchsmtp@gmail.com",$subject,$message,$header);
-         			if( $retval == true ) {
-            			echo "Message sent successfully...";
-         			}else {
-            			echo "Message could not be sent...";
-         			}
-				}
-
-				/*
-				generate a random code
-				*/
-				function generate_code(){
-					$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-					$code = '';
-					for ($i = 0; $i < 6; $i++) {
-						$code .= $characters[rand(0, 61)];
-					}
-					return $code;
-				}
-
-                //now ask the user to enter this code
-				include('emailCode.inc');
-				//send an email with the generated code
+				
+				// if $_SESSION['generatedCode'] is not set
                 if (!isset($_SESSION['generatedCode'])){
-				    //$generatedCode = generate_code();
+
+					// call generate_code() function and store return value in session
                     $_SESSION['generatedCode'] = generate_code();
-				    //email_send($userEmail, $_SESSION['generatedCode']);
                 }
-                echo($_SESSION['generatedCode']);
 
 				$submit2 = $_POST['submit2'];
 				$resend = $_POST['resend'];
-
 				$userCode = $_POST['userCode'];
+
+				// if submit2 button is pressed
 				if ($submit2){
+					// if userCode is equal to generated code
 					if ($userCode == $_SESSION['generatedCode']){
+
 						// redirect to create account page
 						echo "<script type=\"text/javascript\">window.location = \"personEdit.php?id=new\";</script>";
+						// unset $_SESSION['generatedCode'] - so that it doesn't keep sending the same code to the next person
+						unset($_SESSION['generatedCode']);
 					} else {
 						echo('<p class="error">Error: The code "' . $userCode . '" is invalid.');
 					}
+				// else if resend button is pressed
 				} else if ($resend){
-					//resend email
-					//email_send($userEmail, $_SESSION['generatedCode']);
+					
+					// store new generated code in session
+					$_SESSION['generatedCode'] = generate_code();
+					// resend code to email
+					email_send($_SESSION['emailaddress'], $_SESSION['generatedCode']);
 				}
 				?>
 			</div>
