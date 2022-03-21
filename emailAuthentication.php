@@ -41,7 +41,6 @@ include_once('sendEmailFunction.php');
 	
 					// check if there's already an entry
 					$dup = retrieve_person($userEmail);
-
 					// if there is
 					if ($dup)
 						// show error message
