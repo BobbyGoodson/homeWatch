@@ -40,7 +40,8 @@ function add_person($person) {
                 $person->get_birthday() . '","' . 
                 $person->get_health_requirements() . '","' . 
                 $person->get_position() . '","' . 
-                $person->get_password() .
+                $person->get_password() . '","' .
+                $person->get_venue() .
                 '");');							
         mysqli_close($con);
         return true;
@@ -191,7 +192,8 @@ function make_a_person($result_row) {
                     $result_row['birthday'],
                     $result_row['health_requirements'],
                     $result_row['position'],
-                    $result_row['password']);   
+                    $result_row['password'], 
+                    $result_row['venue']);  
     return $thePerson;
 }
 

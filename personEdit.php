@@ -24,22 +24,13 @@ $id = str_replace("_"," ",$_GET["id"]);
 if ($id == 'new') {
     // for creating a new accunt
     // this is creating a starter person object.
-    // function __construct($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password)
-    $person = new Person('new', 'applicant', null, null, null, null, null, null, null, null);
+    $person = new Person('new', 'applicant', null, null, null, null, null, null, null, null, null);
 } else {
     // for editting an account
     $person = retrieve_person($id);
     if (!$person) { 
         echo('<p id="error">Error: unable to retrieve account information.</p>' . $id);
         die();
-        // try again by changing blanks to _ in id
-        /*
-        $id = str_replace(" ","_",$_GET["id"]);
-        $person = retrieve_person($id);
-        if (!$person) {
-            echo('<p id="error">Error: there\'s no person with this id</p>' . $id);
-            die();
-        }*/
     }
 }
 ?>
@@ -108,6 +99,8 @@ if ($id == 'new') {
                     $children = null;
                     $health_requirements = null;
 
+                    $venue = null;
+
                     //used for url path in linking user back to edit form
                     //$path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
                     //step two: try to make the deletion, password change, addition, or change
@@ -140,7 +133,7 @@ if ($id == 'new') {
                         if ($dup)
                             echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $email . '" is already in use.');
                         else {
-                            $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password);
+                            $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password, $venue);
                             $result = add_person($newperson);
                             
                             // echo('<p class="success">Account successfully created!');

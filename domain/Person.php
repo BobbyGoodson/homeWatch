@@ -28,11 +28,12 @@
 	private $health_requirements; // children health requirements
 	private $position;    // a person may be a "child", "watcher", "guardian", or "admin"
 	private $password;     // password for calendar and database access: default = $id
+	private $venue;			//location
 
 
 	/* constructor */
 
-	function __construct($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password) {
+	function __construct($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password, $venue) {
 		$this->id = $email;
 		$this->first_name = $first_name;
 		$this->last_name = $last_name;
@@ -44,6 +45,7 @@
 		$this->health_requirements = $health_requirements;
 		$this->position = $position;
 		$this->password = $password;
+		$this->venue = $venue;
 	}
 
 
@@ -93,6 +95,10 @@
 		return $this->password;
 	}
 
+	function get_venue() {
+		return $this->venue;
+	}
+
 
 	/* all setters */
 
@@ -131,6 +137,10 @@
 
 	function set_password($password) {
         $this->password= $password;
+    }
+
+	function set_venue($venue) {
+        $this->venue = $venue;
     }
 
 
