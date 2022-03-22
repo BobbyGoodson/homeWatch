@@ -114,19 +114,6 @@ function select_dbShifts($id) {
 }
 
 /**
- * Selects all shifts from the database for a given date and venue
- * @param shift id
- * @return array of shifts, or null (if there are no shifts for that date and venue)
- */
-function selectDateVenue_dbShifts($date, $venue) {
-    $con=connect();
-    $query = "SELECT * FROM dbShifts WHERE id LIKE '%" . $date . "%' AND venue LIKE '%" . $venue . "%'";
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-
-/**
  * Returns an array of $ids for all shifts scheduled for the person having $person_id
  */
 function selectScheduled_dbShifts($person_id) {
@@ -318,25 +305,7 @@ function remove_from_future_shifts($id) {
 		}
 	}
 }
-// this function is for exporting volunteer data
-function get_all_people_in_past_shifts() {
-    $today = date('y-m-d');
-    $people_in_shifts = array();
-    $all_shifts = get_all_shifts();
-    foreach ($all_shifts as $a_shift){
-        if (substr($a_shift->get_id(),6,2)>=substr($today,6,2) && substr($a_shift->get_id(),0,5)>=substr($today,0,5))
-            continue; // skip present and future shifts
-        // okay, this is a past shift, so add person-shift pairs 
-       $persons = explode('*',$a_shift->get_persons());
-  //     if (!$persons[0])  // skip vacant shifts
-  //        array_shift($persons);
-       foreach ($persons as $a_person)
-         if (strpos($a_person,"+")>0)
-           $people_in_shifts[] = substr($a_person,0,strpos($a_person,"+")).",". $a_shift->get_id() ;
-    }
-    sort($people_in_shifts);
-    return $people_in_shifts;
-}
+
 // this function is for reporting volunteer data
 function get_all_peoples_histories() {
     $today = date('y-m-d');
