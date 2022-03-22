@@ -27,6 +27,7 @@ if ($id == 'new') {
     $person = new Person('new', 'applicant', null, null, null, null, null, null, null, null, null);
 } else {
     // for editting an account
+    $id = $_SESSION['_id'];
     $person = retrieve_person($id);
     if (!$person) { 
         echo('<p id="error">Error: unable to retrieve account information.</p>' . $id);
@@ -58,9 +59,12 @@ if ($id == 'new') {
                 <?PHP
                 include('personValidate.inc');
                 if ($_POST['_submit_check'] != 1){
-                //if (isset($_POST['create_button'])) {
                     //in this case, the form has not been submitted, so show it
-                    include('personForm.inc');
+                    if ($person->get_first_name()=="new"){
+                        include('personForm.inc');
+                    } else {
+                        include('personEditAccount.inc');
+                    }
                 } else {
                     //in this case, the form has been submitted, so validate it
                     $errors = validate_form($person);  //step one is validation.
@@ -68,7 +72,11 @@ if ($id == 'new') {
                     if ($errors) {
                         // display the errors and the form to fix
                         show_errors($errors);
-                        include('personForm.inc');
+                        if ($person->get_first_name()=="new"){
+                            include('personForm.inc');
+                        } else {
+                            include('personEditAccount.inc');
+                        }
                         die();
                     }
                     // this was a successful form submission; update the database and exit

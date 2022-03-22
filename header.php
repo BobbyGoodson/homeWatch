@@ -77,7 +77,7 @@ session_cache_expire(30);
             echo('<br> Guardian Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
             echo(' | <a href="' . $path . 'viewSchedule.php">Availability</a>');
             echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
-            echo(' | <a href="' . $path . 'personSearch.php">Update Account</a>');
+            echo(' | <a href="' . $path . 'personEdit.php?' . $_SESSION['_id'] . '">Update Account</a>');
             echo(' | <a href="' . $path . 'about.php">About Us</a>');
 	    }
 	    else if ($_SESSION['access_level'] == 1) {
