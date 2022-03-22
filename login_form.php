@@ -52,7 +52,7 @@ session_cache_expire(30);
         if ($_POST['user'] == "" || $_POST['pass'] == "") {
 
             // show error message
-            echo('<div align="left"><p class="error">Error: Didn\'t fill in all of the required fields.<br />');
+            echo('<div align="center"><p class="error">Error: Didn\'t fill in all of the required fields.<br />');
             echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true"><tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr><tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
         }
         //otherwise authenticate their password
@@ -87,13 +87,13 @@ session_cache_expire(30);
                 // wrong password
                 else {
                     // error message
-                    echo('<div align="left"><p class="error">Error: invalid username/password.<br />If you cannot remember your password, reset your password.');
+                    echo('<div align="center"><p class="error">Error: invalid username/password.<br />If you cannot remember your password, reset your password.');
                     echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true"><tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr><tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
                 }
             //At this point, they failed to authenticate
             } else {
                 // error message
-                echo('<div align="left"><p class="error">Error: invalid username/password.<br />If you cannot remember your password, reset your password.');
+                echo('<div align="center"><p class="error">Error: invalid username/password.<br />If you cannot remember your password, reset your password.');
                 echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true"><tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr><tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
             }
         }

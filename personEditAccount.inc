@@ -16,7 +16,7 @@
     echo '<p>First Name: <input type="text" name="first_name" tabindex="1" value="'.$person->get_first_name().'" style="width:200px">';
 ?>  
 &nbsp;&nbsp;&nbsp;&nbsp;  
-Last Name<span style="font-size:12px;color:FF0000">*</span>: <input type="text" name="last_name" tabindex="2" style="width:200px" value="<?PHP echo($person->get_last_name()) ?>">
+Last Name: <input type="text" name="last_name" tabindex="2" style="width:200px" value="<?PHP echo($person->get_last_name()) ?>">
     
 
 <?php     
@@ -30,8 +30,10 @@ Last Name<span style="font-size:12px;color:FF0000">*</span>: <input type="text" 
 
 <fieldset>
     <legend>Children:</legend>
+    <?php
 
-
+    echo('<input type="submit" value="Add Child" name="addChild_button"><br /><br />');
+    ?>
 </fieldset>
 
 <?php 	
