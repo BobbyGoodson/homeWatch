@@ -1,5 +1,4 @@
 <!-- Begin Footer -->
-<!--
 <br /><br />
 <div align="center">
     <div align="center" style="border:dashed 1px #999; width:80%;">
@@ -12,5 +11,4 @@
         </p>
     </div>
 </div>
--->
 <!-- End Footer -->
