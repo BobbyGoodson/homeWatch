@@ -62,9 +62,21 @@ if ($id == 'new') {
                     if ($person->get_first_name()=="new"){
                         include('personForm.inc');
                     } else {
-                        //include('personEditAccount.inc');
+                        include('personEditAccount.inc');
                     }
                 } else {
+                    //FIRST: check if one of the additional buttons were clicked :
+                    //1. cancel button - go back to their main page
+                    if (isset($_POST['cancel_button'])){
+                        echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
+                    }
+                    //2. add child button - go to child form
+                    if (isset($_POST['addChild_button'])){
+                        echo "<script type=\"text/javascript\">window.location = \"childEdit.php?"  . $_SESSION['_id'] . "\";</script>";
+                    }
+
+
+                    //SECOND: validate the form
                     //in this case, the form has been submitted, so validate it
                     $errors = validate_form($person);  //step one is validation.
                     // errors array lists problems on the form submitted
@@ -78,19 +90,15 @@ if ($id == 'new') {
                         }
                         die();
                     }
-                    // this was a successful form submission; update the database and exit
+                    // LASTLY: this was a successful form submission; update the database and exit
                     else
                         process_form($id,$person);
-                        // redirect to login page
-                        echo "<script type=\"text/javascript\">window.location = \"login_form.php\";</script>";
                 }
 
                 /**
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
                 function process_form($id,$person) {
-
-
                     //step one: sanitize data by replacing HTML entities and escaping the ' character
                    	$first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
                     $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['last_name'])));
@@ -98,41 +106,17 @@ if ($id == 'new') {
                     $phone = trim(str_replace(' ', '', htmlentities($_POST['phone'])));
                     $password = $_POST['password'];
                     $email = $_SESSION['emailaddress'];
-                    //$email = "test@example.com";
                     $position = 'guardian';
                     $barcode = trim(str_replace('\\\'', '\'', htmlentities($_POST['barcode'])));
 
                     $birthday = null;
                     $children = null;
                     $health_requirements = null;
-
                     $venue = null;
 
-                    //used for url path in linking user back to edit form
-                    //$path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
-                    //step two: try to make the deletion, password change, addition, or change
-
                     
-                    // try to reset the person's password
-                    //else if ($_POST['reset_pass'] == "RESET") {
-                    //    $id = $_POST['old_id'];
-                    //    $result = remove_person($id);
-                    //    $pass = $first_name . $clean_phone1;
-                    //    $newperson = new Person($first_name, $last_name, $location, $address, $city, $state, $zip, $clean_phone1, $phone1type, $clean_phone2,$phone2type,
-                    //    				$email, $type, $screening_type, $screening_status, $status, $employer, $position, $credithours,
-                    //                    $commitment, $motivation, $specialties, $convictions, $availability, $schedule, $hours, 
-                    //                    $birthday, $start_date, $howdidyouhear, $notes, "");
-                    //    $result = add_person($newperson);
-                    //    if (!$result)
-                    //        echo ('<p class="error">Unable to reset ' . $first_name . ' ' . $last_name . "'s password.. <br>Please report this error to the House Manager.");
-                    //    else
-                    //        echo("<p>You have successfully reset " . $first_name . " " . $last_name . "'s password.</p>");
-                    //}
-                    
-
-                    // try to add a new person to the database
                     if($person->get_first_name()=="new") {
-                        //$id = $first_name . $clean_phone1;
+                        // try to add a new person to the database
                         $id = $email;
 
                         //check if there's already an entry
@@ -140,8 +124,12 @@ if ($id == 'new') {
                         if ($dup)
                             echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $email . '" is already in use.');
                         else {
+                            //making the account
                             $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password, $venue);
                             $result = add_person($newperson);
+
+                            // redirect to login page
+                            echo "<script type=\"text/javascript\">window.location = \"login_form.php\";</script>";
                             
                             // echo('<p class="success">Account successfully created!');
                             
@@ -152,31 +140,28 @@ if ($id == 'new') {
                             //else
                             //    echo('<p>You have successfully added <a href="' . $path . 'personEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $last_name . ' </b></a> to the database.</p>');
                             }
-                    }
+                    } else {
+                        //try to update a person in the database
+                        //confirm previous password
 
-                    // try to replace an existing person in the database by removing and adding
-                    
-                    //WE WILL COME BACK TO THIS
-                    //else {
-                    //    $id = $_POST['old_id'];
-                    //    $pass = $_POST['old_pass'];
-                    //    $result = remove_person($id);
-                    //    if (!$result)
-                    //        echo ('<p class="error">Unable to update ' . $first_name . ' ' . $last_name . '. <br>Please report this error to the House Manager.');
-                    //    else {
-                    //        $newperson = new Person($first_name, $last_name, $location, $address, $city, $state, $zip, $clean_phone1, $phone1type, $clean_phone2,$phone2type,
-                    //    				$email, $type, $screening_type, $screening_status, $status, $employer, $position, $credithours,
-                    //                    $commitment, $motivation, $specialties, $convictions, $availability, $schedule, $hours, 
-                    //                    $birthday, $start_date, $howdidyouhear, $notes, $pass);
-                    //        $result = add_person($newperson);
-                    //        if (!$result)
-                    //            echo ('<p class="error">Unable to update ' . $first_name . ' ' . $last_name . '. <br>Please report this error to the House Manager.');
-                    //        //else echo("<p>You have successfully edited " .$first_name." ".$last_name. " in the database.</p>");
-                    //        else
-                    //            echo('<p>You have successfully edited <a href="' . $path . 'personEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $last_name . ' </b></a> in the database.</p>');
-                    //        add_log_entry('<a href=\"personEdit.php?id=' . $id . '\">' . $first_name . ' ' . $last_name . '</a>\'s Personnel Edit Form has been changed.');
-                    //    }
-                    //}
+                        if ($person->get_password() == $_POST['passwordConfirm']){
+                            $person->set_first_name($first_name);
+                            $person->set_last_name($last_name);
+                            $person->set_phone($phone);
+                            $person->set_barcode($barcode);
+                            $person->set_password($password);
+                            // no need to updateother information
+
+                            //remove from database
+                            remove_person($id);
+
+                            //add the new updated account
+                            add_person($person);
+                        }
+
+                        //reinitiate this page, so we may stay on this page after updating
+                        echo "<script type=\"text/javascript\">window.location = \"personEdit.php?" . $_SESSION['_id'] . "\";</script>";
+                    }
                 }
                 ?>
             </div>

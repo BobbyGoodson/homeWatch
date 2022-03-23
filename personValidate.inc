@@ -24,6 +24,8 @@ function validate_form($person) {
     if (!valid_phone($_POST['phone'])) {
         $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
     }
+    if ($person->get_password() != $_POST['passwordConfirm'])
+        $errors[] = 'Invalid Password. No changes were made.';
     return $errors;
 }
 

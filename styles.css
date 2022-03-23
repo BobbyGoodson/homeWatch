@@ -207,6 +207,7 @@ p.error {color: #FF0000;}
     padding: 10px;
     background:#ffffff;
     overflow:hidden;
+    justify-content: center;
 }
 
 /*INPUT TYPES*/
