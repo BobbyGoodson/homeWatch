@@ -11,17 +11,16 @@
 ?>
 
 <fieldset>
-    <legend>Personal information:</legend>
-<?php
-    echo '<p>First Name: <input type="text" name="first_name" tabindex="1" value="'.$person->get_first_name().'" style="width:200px">';
-?>  
-&nbsp;&nbsp;&nbsp;&nbsp;  
-Last Name: <input type="text" name="last_name" tabindex="2" style="width:200px" value="<?PHP echo($person->get_last_name()) ?>">
-    
+    <legend>Personal information:</legend>     
+<?php   
+    echo '<p>First Name: <input type="text" name="first_name" tabindex="1" value="'.$person->get_first_name().'">';
 
-<?php     
+    echo '<p>Last Name: <input type="text" name="last_name" tabindex="2" value="'.$person->get_last_name().'">';
+
     echo '<p>Password: <input type="password" name="password" tabindex="3" value="'.$person->get_password().'">';
+
     echo '<p>Phone Number: <input type="text" name="phone" MAXLENGTH=12 tabindex="4" value="'.phone_edit($person->get_phone()).'">';
+
     echo '<p>YMCA Membership Barcode Number: <input type="text" name="barcode" tabindex="5" value="'.$person->get_barcode().'">';
 ?>
 <script src="lib/jquery-1.9.1.js"></script>
@@ -31,14 +30,14 @@ Last Name: <input type="text" name="last_name" tabindex="2" style="width:200px" 
 <fieldset>
     <legend>Children:</legend>
     <?php
-
-    echo('<input type="submit" value="Add Child" name="addChild_button"><br /><br />');
+        // The add child button
+        echo('<div style= "text-align:right"><input type="submit" value="Add Child" name="addChild_button"><br /><br /></div>');
     ?>
 </fieldset>
 
 <?php 	
     // The submit button
     echo('<input type="hidden" name="_submit_check" value="1"><p>');
-    echo('<input type="submit" value="Update" name="create_button"><br /><br />');
+    echo('<div style= "text-align:center"><input type="submit" value="Update" name="create_button"><br /><br /></div>');
 ?>
 </form>

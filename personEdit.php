@@ -62,7 +62,7 @@ if ($id == 'new') {
                     if ($person->get_first_name()=="new"){
                         include('personForm.inc');
                     } else {
-                        //include('personEditAccount.inc');
+                        include('personEditAccount.inc');
                     }
                 } else {
                     //in this case, the form has been submitted, so validate it

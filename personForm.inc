@@ -9,16 +9,15 @@
 ?>
 
 <form method="post">
-<?php
-    //creating an account
-    echo('<p align="center"><strong>Create New Account</strong><br /><br />');
-    echo '<p>First Name<span style="font-size:12px;color:FF0000">*</span>: <input type="text" name="first_name" tabindex="1" style="width:200px">';
-?>  
-&nbsp;&nbsp;&nbsp;&nbsp;  
-Last Name<span style="font-size:12px;color:FF0000">*</span>: <input type="text" name="last_name" tabindex="2" style="width:200px">
-    
-
 <?php     
+    echo('<p align="center"><strong>Create New Account</strong><br /><br />');
+
+    echo '<p>First Name<span style="font-size:12px;color:FF0000">*</span>: '; 
+    echo '<input type="text" name="first_name" tabindex="1">';
+
+    echo '<p>Last Name<span style="font-size:12px;color:FF0000">*</span>: '; 
+    echo '<input type="text" name="last_name" tabindex="2">';
+
     echo '<p>Password<span style="font-size:12px;color:FF0000">*</span>: '; 
     echo '<input type="password" name="password" tabindex="3">';
 
@@ -34,6 +33,6 @@ Last Name<span style="font-size:12px;color:FF0000">*</span>: <input type="text" 
 <?php 	
     // The submit button
     echo('<input type="hidden" name="_submit_check" value="1"><p>');
-    echo('<input type="submit" value="Create" name="create_button"><br /><br />');
+    echo('<div style= "text-align:center"><input type="submit" value="Create" name="create_button"><br /><br /></div>');
 ?>
 </form>
