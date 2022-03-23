@@ -54,8 +54,7 @@ if ($id == 'new') {
 		</script>
     </head>
     <body id="bodyForm">
-        <div id="container">
-            <div id="form">
+            <div id="formPerson">
                 <?PHP
                 include('personValidate.inc');
                 if ($_POST['_submit_check'] != 1){
@@ -63,7 +62,7 @@ if ($id == 'new') {
                     if ($person->get_first_name()=="new"){
                         include('personForm.inc');
                     } else {
-                        include('personEditAccount.inc');
+                        //include('personEditAccount.inc');
                     }
                 } else {
                     //in this case, the form has been submitted, so validate it
@@ -181,7 +180,5 @@ if ($id == 'new') {
                 }
                 ?>
             </div>
-
-        </div>
     </body>
 </html>

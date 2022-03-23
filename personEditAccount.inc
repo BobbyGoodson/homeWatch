@@ -7,7 +7,7 @@
 
 <form method="post">
 <?php
-    echo('<p><strong>Update Account</strong><br /><br />');
+    echo('<p align="center"><strong>Update Account</strong><br /><br />');
 ?>
 
 <fieldset>

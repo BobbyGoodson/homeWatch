@@ -190,8 +190,20 @@ p.error {color: #FF0000;}
     border-bottom:3px solid #428BCA;
     border-right:3px solid #428BCA;
     border-top:3px solid #428BCA;
-    box-align:center;
+    box-align: center;
     text-align: center;
+    padding: 10px;
+    background:#ffffff;
+    overflow:hidden;
+}
+
+#formPerson{
+    border-left:3px solid #428BCA;
+    border-bottom:3px solid #428BCA;
+    border-right:3px solid #428BCA;
+    border-top:3px solid #428BCA;
+    box-align: center;
+    text-align: left;
     padding: 10px;
     background:#ffffff;
     overflow:hidden;

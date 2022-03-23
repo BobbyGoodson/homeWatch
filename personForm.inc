@@ -11,7 +11,7 @@
 <form method="post">
 <?php
     //creating an account
-    echo('<p><strong>Create New Account</strong><br /><br />');
+    echo('<p align="center"><strong>Create New Account</strong><br /><br />');
     echo '<p>First Name<span style="font-size:12px;color:FF0000">*</span>: <input type="text" name="first_name" tabindex="1" style="width:200px">';
 ?>  
 &nbsp;&nbsp;&nbsp;&nbsp;  
