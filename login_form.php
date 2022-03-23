@@ -35,7 +35,8 @@ session_cache_expire(30);
     }
     if (!array_key_exists('_submit_check', $_POST)) {
         //echo('<div align="center"><p>Login with your username and a password. ' .'<ul>');
-        echo('<p><strong>Login</strong><br /><br />');
+        //echo('<p><strong>Login</strong><br /><br />');
+        echo('<div align = "center"><img src="images/YMCAlogo.png" width="200" height="150"></div>');
         // echo('<li>If you are applying for a volunteer position, enter the Username \'guest\' and a blank Password. ');
         // echo('<li>If you are a volunteer logging in for the first time, your Username is your first name followed by your ten digit phone number. ' .
         // 'After you have logged in, you can change your password.  ');
@@ -45,7 +46,8 @@ session_cache_expire(30);
         // echo '</ul>';
         echo('<p><table class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
                 <tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr>
-        		<tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
+        		<tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"><br /><br /></td></tr>
+                <tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
     } else {
 
         // if either field is left blank
