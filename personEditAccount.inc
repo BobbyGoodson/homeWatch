@@ -38,9 +38,7 @@
 
 <?php 	
     // The submit button
-    //echo '<p>Confirm Password: <input type="password" name="passwordConfirm">';
-    //echo('<input type="hidden" name="_submit_check" value="1"><p>');
-    //echo('<div style= "text-align:center"><input type="submit" value="Update" name="create_button"><br /><br /></div>');
+    echo '<p style="font-size:12px"><span style="color:FF0000">*</span>Must confirm password to update your account.';
     echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="1">
                 <tr><td><p>Confirm Password: <input type="password" name="passwordConfirm"></td>
                     <td><div style= "text-align:center"><input type="submit" value="Update" name="create_button"></div></td>

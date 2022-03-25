@@ -45,8 +45,8 @@ session_cache_expire(30);
         // 		or the <a href="mailto:allen@npfi.org"><i>Bangor House Manager</i></a>.) ');
         // echo '</ul>';
         echo('<p><table class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
-                <tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr>
-        		<tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"><br /><br /></td></tr>
+                <tr><td>Username:<br /><br /></td><td><input type="text" name="user" tabindex="1"><br /><br /></td></tr>
+        		<tr><td>Password: <br /><br /></td><td><input type="password" name="pass" tabindex="2"><br /><br /></td></tr>
                 <tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
     } else {
 
