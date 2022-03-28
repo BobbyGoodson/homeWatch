@@ -24,7 +24,7 @@ $id = str_replace("_"," ",$_GET["id"]);
 if ($id == 'new') {
     // for creating a new accunt
     // this is creating a starter person object.
-    $person = new Person('new', 'applicant', null, null, null, null, null, null, null, null, null);
+    $person = new Person('new', 'applicant', null, null, null, null, null, null, null);
 } else {
     // for editting an account
     $id = $_SESSION['_id'];
@@ -109,9 +109,7 @@ if ($id == 'new') {
                     $position = 'guardian';
                     $barcode = trim(str_replace('\\\'', '\'', htmlentities($_POST['barcode'])));
 
-                    $birthday = null;
                     $children = null;
-                    $health_requirements = null;
                     $venue = null;
 
                     
@@ -125,7 +123,7 @@ if ($id == 'new') {
                             echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $email . '" is already in use.');
                         else {
                             //making the account
-                            $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password, $venue);
+                            $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $position, $password, $venue);
                             $result = add_person($newperson);
 
                             // redirect to login page

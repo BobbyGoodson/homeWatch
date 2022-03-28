@@ -36,9 +36,6 @@ function add_person($person) {
                 $person->get_phone() . '","' .
                 $person->get_barcode() . '","' .
                 $person->get_email() . '","' .
-                $person->get_children() . '","' .
-                $person->get_birthday() . '","' . 
-                $person->get_health_requirements() . '","' . 
                 $person->get_position() . '","' . 
                 $person->get_password() . '","' .
                 $person->get_venue() .
@@ -189,8 +186,6 @@ function make_a_person($result_row) {
                     $result_row['barcode'],
                     $result_row['email'],
                     $result_row['children'],
-                    $result_row['birthday'],
-                    $result_row['health_requirements'],
                     $result_row['position'],
                     $result_row['password'], 
                     $result_row['venue']);  

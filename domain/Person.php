@@ -24,8 +24,6 @@
 	private $barcode; // ymca barcode as string
 	private $email;   // email address as a string
 	private $children; // array of persons (children)
-	private $birthday;     // format: 64-03-12
-	private $health_requirements; // children health requirements
 	private $position;    // a person may be a "child", "watcher", "guardian", or "admin"
 	private $password;     // password for calendar and database access: default = $id
 	private $venue;			//location
@@ -33,7 +31,7 @@
 
 	/* constructor */
 
-	function __construct($first_name, $last_name, $phone, $barcode, $email, $children, $birthday, $health_requirements, $position, $password, $venue) {
+	function __construct($first_name, $last_name, $phone, $barcode, $email, $children, $position, $password, $venue) {
 		$this->id = $email;
 		$this->first_name = $first_name;
 		$this->last_name = $last_name;
@@ -41,8 +39,6 @@
 		$this->barcode = $barcode;
 		$this->email = $email;
 		$this->children = $children;
-		$this->birthday = $birthday;
-		$this->health_requirements = $health_requirements;
 		$this->position = $position;
 		$this->password = $password;
 		$this->venue = $venue;
@@ -77,14 +73,6 @@
 
 	function get_children() {
 		return $this->children;
-	}
-
-	function get_birthday() {
-		return $this->birthday;
-	}
-
-	function get_health_requirements() {
-		return $this->health_requirements;
 	}
 
 	function get_position() {
@@ -123,14 +111,6 @@
 		$this->id = $email;
 	}
 
-	function set_birthday($birthday) {
-		$this->birthday= $birthday;
-	}
-
-	function set_health_requirements($health_requirements) {
-        $this->health_requirements= $health_requirements;
-    }
-
 	function set_position($position) {
         $this->position= $position;
     }
@@ -144,27 +124,27 @@
     }
 
 
-	// add child function
-	function add_child($child) {
+	// // add child function
+	// function add_child($child) {
 
-		// push new child's first name to "children" array
-		array_push($this->children, $child->get_first_name);
-		// add new child to database
-		add_person($child);
-	}
+	// 	// push new child's first name to "children" array
+	// 	array_push($this->children, $child->get_first_name);
+	// 	// add new child to database
+	// 	add_person($child);
+	// }
 
-	// delete child function
-	function delete_child($child) {
+	// // delete child function
+	// function delete_child($child) {
 
-		// loop through "children" array and search for child's first name
-		if ($key = array_search($child->get_first_name, $children, $strict) != FALSE) {
+	// 	// loop through "children" array and search for child's first name
+	// 	if ($key = array_search($child->get_first_name, $children, $strict) != FALSE) {
 
-			// remove that child from "children" array
-			unset($this->children[$key]);
-		}
+	// 		// remove that child from "children" array
+	// 		unset($this->children[$key]);
+	// 	}
 
-		// remove child from database
-		remove_person($child->get_id);
-	}
+	// 	// remove child from database
+	// 	remove_person($child->get_id);
+	// }
 }
 ?>
