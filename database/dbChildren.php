@@ -31,17 +31,11 @@ function add_child($child) {
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_query($con,'INSERT INTO dbChildren VALUES("' .  
                 $child->get_id() . '","' .
+		    $child->get_DOB() . '","' .
                 $child->get_first_name() . '","' .
-                $child->get_last_name() . '","' .
-                $child->get_phone() . '","' .
-                $child->get_barcode() . '","' .
-                $child->get_email() . '","' .
-                $child->get_children() . '","' .
-                $child->get_birthday() . '","' . 
+                $child->get_last_name() . '","'
                 $child->get_health_requirements() . '","' . 
-                $child->get_position() . '","' . 
-                $child->get_password() . '","' .
-                $child->get_venue() .
+                $child->get_parent_email() . '","'.
                 '");');							
         mysqli_close($con);
         return true;
@@ -123,7 +117,7 @@ function update_hours($id, $new_hours) {
 
 function update_birthday($id, $new_birthday) {
 	$con=connect();
-	$query = 'UPDATE dbChildren SET birthday = "' . $new_birthday . '" WHERE id = "' . $id . '"';
+	$query = 'UPDATE dbChildren SET DOB = "' . $new_birthday . '" WHERE id = "' . $id . '"';
 	$result = mysqli_query($con,$query);
 	mysqli_close($con);
 	return $result;
@@ -183,17 +177,12 @@ function getall_volunteer_names() {
 function make_a_child($result_row) {
 	
     $theChild = new Child(
+                    $result_row['id'],
+                    $result_row['DOB'],
                     $result_row['first_name'],
                     $result_row['last_name'],
-                    $result_row['phone'],
-                    $result_row['barcode'],
-                    $result_row['email'],
-                    $result_row['children'],
-                    $result_row['birthday'],
-                    $result_row['health_requirements'],
-                    $result_row['position'],
-                    $result_row['password'], 
-                    $result_row['venue']);  
+                    $result_row['health_requirements'], 
+                    $result_row['parent_email']);  
     return $theChild;
 }
 

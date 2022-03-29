@@ -17,26 +17,45 @@
 
 	/* private fields */
 
-         
+      private $id; 
+      private $DOB;  
 	private $first_name; // first name as a string
 	private $last_name;  // last name as a string
-	private $health_requirements; // children health requirements
+	private $health_requirements;
+      private $parent_email; // children health requirements
 				
 
 
 	/* constructor */
 
-	function __construct($first_name, $last_name, $health_requirements) {
-		
+	function __construct($id, $DOB, $first_name, $last_name, $health_requirements) {
+		$this->id = $id;
+            $this->DOB = $DOB;
 		$this->first_name = $first_name;
 		$this->last_name = $last_name;
-		$this->health_requirements = $health_requirements;
+		$this->health_requirements = $health_requirements;\
+            $this->parent_email = $parent_email;
 	}
 
 
 	/* all getters */
 
-	
+	function get_id() {
+		return $this->id;
+	}
+
+      function get_parent_email() {
+		return $this->parent_email;
+	}
+
+      function get_health_requirements() {
+		return $this->health_requirements;
+	}
+
+      function get_DOB() {
+		return $this->first_DOB;
+	}
+
 
 	function get_first_name() {
 		return $this->first_name;
@@ -44,14 +63,6 @@
 
 	function get_last_name() {
 		return $this->last_name;
-	}
-
-	
-
-	
-
-	function get_health_requirements() {
-		return $this->health_requirements;
 	}
 
 	
@@ -65,12 +76,22 @@
 	function set_last_name($last_name) {
         $this->last_name = $last_name;
     }
-
-	
+    function set_DOB($DOB) {
+        $this->DOB = $DOB;
+    }
 
 	function set_health_requirements($health_requirements) {
-        $this->health_requirements= $health_requirements;
+        $this->health_requirements = $health_requirements;
     }
+    function set_parent_email($parent_email) {
+        $this->parent_email = $parent_email;
+    }
+
+	function set_id($id) {
+        $this->id = $id;
+    }
+
+
 
 	
 
