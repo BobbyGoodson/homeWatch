@@ -199,40 +199,12 @@ function get_shift_name_from_id($id) {
     return $shift_name;
 }
 
-/**
- * Tries to move a shift to a new start and end time.  New times must
- * not overlap with any other shift on the same date and venue
- * @return false if shift doesn't exist or there's an overlap
- * Otherwise, change the shift in the database and @return true
- */
-function move_shift($s, $new_start, $new_end) {
-// first, see if it exists
-    $old_s = select_dbShifts($s->get_id());
-    if ($old_s == null)
-        return false;
-// now see if it can be moved by looking at all other shifts for the same date and venue
-    $new_s = $s->set_start_end_time($new_start, $new_end);
-    $current_shifts = selectDateVenue_dbShifts($s->get_date(), $s->get_venue());
-    $con=connect();
-    for ($i = 0; $i < mysqli_num_rows($current_shifts); ++$i) {
-        $same_day_shift = mysqli_fetch_row($current_shifts);
-        if ($old_s->get_id() == $same_day_shift[0])  // skip its own entry
-            continue;
-        if (timeslots_overlap($same_day_shift[1], $same_day_shift[2], $new_s->get_start_time(), $new_s->get_end_time())) {
-            $s = $old_s;
-            mysqli_close($con);
-            return false;
-        }
-    }
-    mysqli_close($con);
-// we're good to go
-    replace_dbDates($old_s, $new_s);
-    delete_dbShifts($old_s);
-    return true;
-}
 
 /**
  * @result == true if $s1's timeslot overlaps $s2's timeslot, and false otherwise.
+ * 
+ * This can be modified to make sure people don't sign up for time slots back to back
+ * IE: 8:00am-10:00am then 10:00am- 12:00pm
  */
 function timeslots_overlap($s1_start, $s1_end, $s2_start, $s2_end) {
 	if ($s1_start == "0")
@@ -265,6 +237,12 @@ function make_a_shift($result_row) {
     return $the_shift;
 }
 
+/**
+ * We could use this to make sure people are only signed up, up to two times, since each time slot is
+ * 2 hours and we are putting their unique ID (First, Last, Email) for each time frame it falls under,
+ * so 8:00am-10:00am they would be in 8:00am-8:30am and 8:30am-9:00am we can just count to see if they
+ * show up for a max of 8 times (4 for each reservation)
+ */
 function get_all_shifts() {
     $con=connect();
     $query = "SELECT * FROM dbShifts";
@@ -283,6 +261,10 @@ function get_all_shifts() {
     return $shifts;
 }
 // remove a person from all future shifts in the current year
+
+/**
+ * Could be kept and modified for when people get banned for a week
+ */
 function remove_from_future_shifts($id) {
 	$today = date('y-m-d');
 	$con=connect();
@@ -306,39 +288,10 @@ function remove_from_future_shifts($id) {
 	}
 }
 
-// this function is for reporting volunteer data
-function get_all_peoples_histories() {
-    $today = date('y-m-d');
-    $histories = array();
-    $all_shifts = get_all_shifts();
-    foreach ($all_shifts as $a_shift){
-       $persons = explode('*',$a_shift->get_persons());
-       if (!$persons[0])  // skip vacant shifts
-          array_shift($persons);
-       if (count($persons)>0) {
-         foreach ($persons as $a_person) {
-           if (strpos($a_person,"+")>0) {
-             $person_id = substr($a_person,0,strpos($a_person,"+"));
-             if (array_key_exists($person_id, $histories))
-                 $histories[$person_id] .= ",". $a_shift->get_id();
-             else 
-                 $histories[$person_id] = $a_shift->get_id();
-           }
-         }
-       }
-    }
-    ksort($histories);
-    return $histories;
-}
-
-function date_create_from_yyyy_mm_dd($yyyy_mm_dd) {
-	if (strpos($yyyy_mm_dd,"/")>0)
-		return mktime(0,0,0,substr($yyyy_mm_dd,0,2),substr($yyyy_mm_dd,3,2),substr($yyyy_mm_dd,6,4));
-	else
-		return mktime(0,0,0,substr($yyyy_mm_dd,3,2),substr($yyyy_mm_dd,6,2),"20".substr($yyyy_mm_dd,0,2));
-}
-
 //returns an array of date:shift:venue:totalhours
+/**
+ * Could be useful for watchers and admins to see a location
+ */
 
 function get_all_venue_shifts($from, $to, $venue) {
 	if($venue == ""){
@@ -359,41 +312,6 @@ function get_all_venue_shifts($from, $to, $venue) {
     	}
 	}
 	return $all_shifts;
-}
-
-function get_volunteer_hours($from,$to,$venue){ //Used for Total Hours Report echo
-	$the_hours = array();
-	$all_shifts = get_all_venue_shifts($from,$to,$venue);
-    foreach($all_shifts as $a_shift){
-    	$the_date = $a_shift->get_date();	
-    	if($the_date >= $from && $the_date <= $to){  
-       		if($a_shift->get_hours() == "night"){	
-        		$length = 12;
-       		}else{
-        		$length = 3;
-       		}
-       		$num_people = count($a_shift->get_persons());
-       		$num_hours = $num_people * $length;
-       		$shift_info = $a_shift->get_day().":".$a_shift->get_hours().":".$num_hours;
-       		$the_hours[] = $shift_info;
-    	}
-    }  
-    return $the_hours;
-}
-
-function get_shifts_staffed($from, $to, $venue) {
-	$the_hours = array();
-	$all_shifts = get_all_venue_shifts($from, $to, $venue);
-    foreach($all_shifts as $a_shift){
-    	$the_date = $a_shift->get_date();	//date of this shift
-    	if($the_date >= $from && $the_date <= $to){  //keeps dates within range, only looks @ relevant
-       		$num_people = count($a_shift->get_persons());
-       		$slots = $a_shift->get_vacancies() + $num_people;
-    		$shift_info = $a_shift->get_day().":".$a_shift->get_hours().":".$a_shift->num_vacancies().":".$slots;
-       		$the_hours[] = $shift_info;
-    	}
-    }
-    return $the_hours;
 }
 
 ?>

@@ -18,7 +18,6 @@ include_once(dirname(__FILE__).'/../database/dbPersons.php');
 
 class Shift {
 
-    private $yy_mm_dd;      // String: "yy-mm-dd".
     private $hours;          // String: '9-1', '1-5', '5-9' or 'night'
     private $start_time;    // Integer: e.g. 10 (meaning 10:00am)     
     private $end_time;      // Integer: e.g. 13 (meaning 1:00pm)	  
@@ -130,10 +129,6 @@ class Shift {
     /*
      * getters and setters
      */
-    function get_yy_mm_dd() {
-    	return $this->yy_mm_dd;
-    }
-
     function get_hours() {
         return $this->hours;
     }
