@@ -17,24 +17,23 @@
 
 	/* private fields */
 
-      private $id; 
-      private $DOB;  
-	private $first_name; // first name as a string
-	private $last_name;  // last name as a string
+    private $id; 
+	private $first_name;
+	private $last_name;
+	private $DOB;  
 	private $health_requirements;
-      private $parent_email; // children health requirements
+    private $parent_email;
 				
-
 
 	/* constructor */
 
-	function __construct($id, $DOB, $first_name, $last_name, $health_requirements) {
-		$this->id = $id;
-            $this->DOB = $DOB;
+	function __construct($first_name, $last_name, $DOB, $health_requirements, $parent_email) {
+		$this->id = $first_name . "," . $last_name . "," . $parent_email;
 		$this->first_name = $first_name;
 		$this->last_name = $last_name;
-		$this->health_requirements = $health_requirements;\
-            $this->parent_email = $parent_email;
+		$this->DOB = $DOB;
+		$this->health_requirements = $health_requirements;
+        $this->parent_email = $parent_email;
 	}
 
 
@@ -44,19 +43,6 @@
 		return $this->id;
 	}
 
-      function get_parent_email() {
-		return $this->parent_email;
-	}
-
-      function get_health_requirements() {
-		return $this->health_requirements;
-	}
-
-      function get_DOB() {
-		return $this->first_DOB;
-	}
-
-
 	function get_first_name() {
 		return $this->first_name;
 	}
@@ -65,7 +51,18 @@
 		return $this->last_name;
 	}
 
-	
+	function get_DOB() {
+		return $this->first_DOB;
+	}
+
+    function get_health_requirements() {
+		return $this->health_requirements;
+	}
+
+	function get_parent_email() {
+		return $this->parent_email;
+	}
+
 
 	/* all setters */
 
@@ -83,39 +80,33 @@
 	function set_health_requirements($health_requirements) {
         $this->health_requirements = $health_requirements;
     }
+
     function set_parent_email($parent_email) {
         $this->parent_email = $parent_email;
     }
 
-	function set_id($id) {
-        $this->id = $id;
-    }
 
+	// // add child function
+	// function add_child($child) {
 
+	// 	// push new child's first name to "children" array
+	// 	array_push($this->children, $child->get_first_name);
+	// 	// add new child to database
+	// 	add_child($child);
+	// }
 
-	
+	// // delete child function
+	// function delete_child($child) {
 
-	// add child function
-	function add_child($child) {
+	// 	// loop through "children" array and search for child's first name
+	// 	if ($key = array_search($child->get_first_name, $children, $strict) != FALSE) {
 
-		// push new child's first name to "children" array
-		array_push($this->children, $child->get_first_name);
-		// add new child to database
-		add_child($child);
-	}
+	// 		// remove that child from "children" array
+	// 		unset($this->children[$key]);
+	// 	}
 
-	// delete child function
-	function delete_child($child) {
-
-		// loop through "children" array and search for child's first name
-		if ($key = array_search($child->get_first_name, $children, $strict) != FALSE) {
-
-			// remove that child from "children" array
-			unset($this->children[$key]);
-		}
-
-		// remove child from database
-		remove_child($child->get_id);
-	}
+	// 	// remove child from database
+	// 	remove_child($child->get_id);
+	// }
 }
 ?>

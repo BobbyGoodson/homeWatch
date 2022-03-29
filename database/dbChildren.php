@@ -31,11 +31,11 @@ function add_child($child) {
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_query($con,'INSERT INTO dbChildren VALUES("' .  
                 $child->get_id() . '","' .
-		    $child->get_DOB() . '","' .
                 $child->get_first_name() . '","' .
-                $child->get_last_name() . '","'
+                $child->get_last_name() . '","' .
+                $child->get_DOB() . '","' .
                 $child->get_health_requirements() . '","' . 
-                $child->get_parent_email() . '","'.
+                $child->get_parent_email() .
                 '");');							
         mysqli_close($con);
         return true;
@@ -177,10 +177,9 @@ function getall_volunteer_names() {
 function make_a_child($result_row) {
 	
     $theChild = new Child(
-                    $result_row['id'],
-                    $result_row['DOB'],
                     $result_row['first_name'],
                     $result_row['last_name'],
+                    $result_row['DOB'],
                     $result_row['health_requirements'], 
                     $result_row['parent_email']);  
     return $theChild;
