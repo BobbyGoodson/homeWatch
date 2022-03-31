@@ -57,6 +57,8 @@ session_cache_expire(30);
 
         // pages only admin can view
         // everything guardians and watchers can view
+        $permission_array['listGuardians.php'] = 2;
+        $permission_array['listChildren.php'] = 2;
         $permission_array['reports.php'] = 2;
 
         //Check if they're at a valid page for their access level.

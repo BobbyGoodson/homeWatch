@@ -7,7 +7,6 @@ session_start();
 session_cache_expire(30);
 include_once('database/dbPersons.php');
 include_once('sendEmailFunction.php');
-//include('emailAuthenticationForm.inc');
 ?>
 <html>
 	<head>

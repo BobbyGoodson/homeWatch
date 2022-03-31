@@ -6,7 +6,6 @@
 session_start();
 session_cache_expire(30);
 include_once('sendEmailFunction.php');
-//include('emailCode.inc');
 ?>
 <html>
 	<head>
