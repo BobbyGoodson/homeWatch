@@ -45,7 +45,7 @@
 	//TEST OF PRINTING the slots for the current day
 
 	//set time zone
-	date_default_timezone_set('America/New York');
+	date_default_timezone_set('America/New_York');
 	//get the current day of the week (this is returned as a number with Monday being 1 Tuesday being 2 ect
 	$date = date('w');
 	
