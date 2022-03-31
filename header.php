@@ -55,6 +55,8 @@ session_cache_expire(30);
 
         // pages only admin can view
         // everything guardians and watchers can view
+        $permission_array['listGuardians.php'] = 2;
+        $permission_array['listChildren.php'] = 2;
         $permission_array['reports.php'] = 2;
 
         //Check if they're at a valid page for their access level.
@@ -91,7 +93,7 @@ session_cache_expire(30);
             echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
             echo(' | <a href="' . $path . 'personSearch.php">Create Admin Account</a>');
             echo(' | <a href="' . $path . 'personSearch.php">Create Watcher Account</a>');
-            echo(' | <a href="' . $path . 'personSearch.php">Guardians</a>');
+            echo(' | <a href="' . $path . 'listGuardians.php">Guardians</a>');
             echo(' | <a href="' . $path . 'reports.php">Update Capacity</a>');
         }
             
