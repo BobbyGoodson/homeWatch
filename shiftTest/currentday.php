@@ -59,49 +59,62 @@
 		//TEST OF PRINTING the slots for the current day
 
 		//set time zone
-		date_default_timezone_set('America/Richmond');
+		date_default_timezone_set('America/New_York');
 		//get the current day of the week (this is returned as a number with Monday being 1 Tuesday being 2 ect
 		$date = date('w');
 
+		//get time
+		$minute = date('i');
+		if ($minute > 30){
+			$minute = 55;
+		}
+		$hour = date('H');
+		$currentTime = $hour . "." . $minute;
+		//echo($currentTime);
 
 		//connect to database and make query
 		$con=connect();
-		$query = "SELECT * FROM dbshiftsnew WHERE day_num = '" . $date . "' ORDER BY start_time_value ASC";
+		$query = "SELECT * FROM dbshiftsnew WHERE day_num = '" . $date . "' AND start_time_value > '". $currentTime ."' UNION SELECT * FROM dbshiftsnew WHERE day_num = '" . $date+1 . "' ORDER BY day_num, start_time_value ASC";
 		$results = mysqli_query($con,$query);
+		if ($results == NULL){
+			echo('No times available.');
 
-		echo "<table>
-			<thead>
-				<tr>
-				<th>Date</th>
-				<th>Time Slots</th>
-				<th>Availability</th>
-			</thead>
-			</tr>";
+		} else {
 
-		//object returned from database must be iterated through row by row to print.	
-		while($row = $results->fetch_assoc()){
-			$start = $row['start_time_text'];
-			//this if statement prevents the program from showing shifts starting later than the 2 hour cuttoff
-			if($start == "5:30PM"){
-				break;
+			echo "<table>
+				<thead>
+					<tr>
+					<th>Date</th>
+					<th>Time Slots</th>
+					<th>Availability</th>
+				</thead>
+				</tr>";
+
+			//object returned from database must be iterated through row by row to print.	
+			while($row = $results->fetch_assoc()){
+				$start = $row['start_time_text'];
+				//this if statement prevents the program from showing shifts starting later than the 2 hour cuttoff
+				/*if($start == "5:30PM"){
+					break;
+				}*/
+
+				//if there is no available slots, do not show
+				$openSlots = slots_open($row);
+				if ($openSlots == 0){
+					continue;
+				}
+
+				$end = end_time($start);		
+				//echo( $row['day']." ".$row['start_time_text']." to ".$end." "."<br>");
+				echo "<tr>";
+				echo "<td>" . $row['day'] . " " . date("m/d") . "</td>";
+				echo "<td>" . $row['start_time_text'] . "-" . $end . "</td>";
+  				echo "<td>" . $openSlots . "</td>";
+  				echo "</tr>";
 			}
-
-			//if there is no available slots, do not show
-			$openSlots = slots_open($row);
-			if ($openSlots == 0){
-				continue;
-			}
-
-			$end = end_time($start);		
-			//echo( $row['day']." ".$row['start_time_text']." to ".$end." "."<br>");
-			echo "<tr>";
-			echo "<td>" . $row['day'] . " " . date("m/d") . "</td>";
-			echo "<td>" . $row['start_time_text'] . "-" . $end . "</td>";
-  			echo "<td>" . $openSlots . "</td>";
-  			echo "</tr>";
-		}
-		echo "</table>";
-		mysqli_close($con);			
+			echo "</table>";
+			mysqli_close($con);		
+		}	
 		?>
 	</body>
 </html>
