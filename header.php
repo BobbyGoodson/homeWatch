@@ -12,7 +12,8 @@ session_cache_expire(30);
 ?>
 <!-- Begin Header -->
 <style type="text/css">
-    h1 {padding-left: 0px; padding-right:165px;}
+    table.header{width:100%; border:none; font-family:verdana, arial, sans-serif; }
+    table.header tr,td{font-size:24px; padding:3px; }
 </style>
 <div id="header">
 <!--<br><br><img src="images/rmhHeader.gif" align="center"><br>
@@ -28,10 +29,11 @@ session_cache_expire(30);
     if (!isset($_SESSION['logged_in'])) {
 
         // align logo to top left
-        echo('<div align = "left"><img src="images/YMCAlogo.png" width="150" height="100"></div>');
-
+        echo('<table class="header"><tr><td><div align = "left"><img src="images/YMCAlogo.png" width="150" height="100"></div></td><td>');
+        echo('<div align = "right">');
         echo('<a href="' . $path . 'emailAuthentication.php">Create Account</a>');
-        echo(' | <a href="' . $path . 'login_form.php">Login</a>');
+        echo('<a href="' . $path . 'login_form.php">Login</a>');
+        echo('</div></td></tr></table>');
     } else if ($_SESSION['logged_in']) {
 
         /*         * Set our permission array.
@@ -71,31 +73,33 @@ session_cache_expire(30);
         }
         
         // align logo to top left
-        echo('<div align = "left"><img src="images/YMCAlogo.png" width="150" height="100"></div>');
+        echo('<table class="header"><tr><td><div align = "left"><img src="images/YMCAlogo.png" width="150" height="100"></div></td><td>');
+        echo('<div align = "right">');
 
         if ($_SESSION['access_level'] == 0) {
             echo('<br> Guardian Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
-            echo(' | <a href="' . $path . 'viewSchedule.php">Availability</a>');
-            echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
-            echo(' | <a href="' . $path . 'personEdit.php?' . $_SESSION['_id'] . '">Update Account</a>');
-            echo(' | <a href="' . $path . 'about.php">About Us</a>');
+            echo(' <a href="' . $path . 'viewSchedule.php">Availability</a>');
+            echo(' <a href="' . $path . 'personSearch.php">Current Reservations</a>');
+            echo(' <a href="' . $path . 'personEdit.php?' . $_SESSION['_id'] . '">Update Account</a>');
+            echo(' <a href="' . $path . 'about.php">About Us</a>');
 	    }
 	    else if ($_SESSION['access_level'] == 1) {
 	        echo('<br> Watcher Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
-            echo(' | <a href="' . $path . 'viewSchedule.php">Availability</a>');
-            echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
+            echo(' <a href="' . $path . 'viewSchedule.php">Availability</a>');
+            echo(' <a href="' . $path . 'personSearch.php">Current Reservations</a>');
 	    }
         else if ($_SESSION['access_level'] == 2) {
 	        echo('<br> Admin Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
-            echo(' | <a href="' . $path . 'viewSchedule.php">Availability</a>');
-            echo(' | <a href="' . $path . 'personSearch.php">Current Reservations</a>');
-            echo(' | <a href="' . $path . 'personSearch.php">Create Admin Account</a>');
-            echo(' | <a href="' . $path . 'personSearch.php">Create Watcher Account</a>');
-            echo(' | <a href="' . $path . 'personSearch.php">Guardians</a>');
-            echo(' | <a href="' . $path . 'reports.php">Update Capacity</a>');
+            echo(' <a href="' . $path . 'viewSchedule.php">Availability</a>');
+            echo(' <a href="' . $path . 'personSearch.php">Current Reservations</a>');
+            echo(' <a href="' . $path . 'personSearch.php">Create Admin Account</a>');
+            echo(' <a href="' . $path . 'personSearch.php">Create Watcher Account</a>');
+            echo(' <a href="' . $path . 'personSearch.php">Guardians</a>');
+            echo(' <a href="' . $path . 'reports.php">Update Capacity</a>');
         }
             
-	    echo(' | <a href="' . $path . 'logout.php">Logout</a><br>');  
+	    echo(' <a href="' . $path . 'logout.php">Logout</a><br>');  
+        echo('</div></td></tr></table>');
     }
     ?>
 </div>
