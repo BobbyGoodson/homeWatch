@@ -7,15 +7,11 @@
 				
         echo('<input type="hidden" name="_submit_check" value="true">');
 		echo('<p>Email: <input type="text" name="email" tabindex="1"></p>');
-		//echo('<p><input type="submit" name="resend" value="Resend"></p>');
-		//echo('<input type="submit" name="submit" value="Submit">');
         
 		echo('<p><table class="form"><form method="post">
         <tr>
         <td colspan="2" align="left"><input type="submit" name="submit" value="Submit"></td>
         </tr>
         </table></p>');
-        //<td colspan="2" align="left"><input type="submit" name="resend" value="Resend"></td>
-
 	?>
 </form>
