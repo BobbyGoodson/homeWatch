@@ -16,6 +16,10 @@
 	<body>
 		<?php
     		echo "<br><br><center><strong>Child Care</strong></center><br><br><br>";
+
+            if ($_SESSION['reserve_error'] != null){
+                echo("<center><font color=\"red\">" . "*" . $_SESSION['reserve_error'] . "</font></center>\n");
+            }
 		?>
 		<?php
 		include_once('database/dbinfo.php');
@@ -59,7 +63,7 @@
 				echo "<td><center>" . $row['day'] . ", " . date("m/d") . "</center></td>";
 				echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
   				echo "<td><center>" . $openSlots . "</center></td>";
-                echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="reserve.php?day_num=' . $row['day_num'] . '&time=' . $row['start_time_value'] . '">Reserve</a></center></td>';
+                echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="reserve.php?day_num=' . $row['day_num'] . '&time=' . $row['start_time_value'] . '&day=' . $row['day'] . '&frame=' . $row['start_time_text'] . '">Reserve</a></center></td>';
                 //echo "<td><div style= 'text-align:center'><input type='submit' value='Reserve' name='" . $row['day'] . "'.'" . $row['start_time_text'] . "'></div></td>";
                 echo "</tr>";
 			}

@@ -81,22 +81,21 @@ function retrieve_child($id) {
 //    mysqli_close($con);
     return $theChild;
 }
-// Name is first concat with last name. Example 'James Jones'
-// return array of Childs.
-function retrieve_child_by_name ($name) {
-	$child = array();
-	if (!isset($name) || $name == "" || $name == null) return $child;
-	$con=connect();
-	$name = explode(" ", $name);
-	$first_name = $name[0];
-	$last_name = $name[1];
-    $query = "SELECT * FROM dbChildren WHERE first_name = '" . $first_name . "' AND last_name = '". $last_name ."'";
+
+/*
+    retrieve children id using the gaurdian's email
+*/
+function retrieve_child_by_email($email){
+    $children_id = array();
+    $con=connect();
+    $query = "SELECT * FROM dbChildren WHERE parent_email = '" . $email . "'";
     $result = mysqli_query($con,$query);
+    $i = 0;
     while ($result_row = mysqli_fetch_assoc($result)) {
-        $the_child = make_a_child($result_row);
-        $child[] = $the_child;
+        $children_id[$i] = $result_row['id'];
+        $i = $i + 1;
     }
-    return $child;	
+    return $children_id;
 }
 
 function change_password($id, $newPass) {
@@ -107,25 +106,9 @@ function change_password($id, $newPass) {
     return $result;
 }
 
-function update_hours($id, $new_hours) {
-    $con=connect();
-    $query = 'UPDATE dbChildren SET hours = "' . $new_hours . '" WHERE id = "' . $id . '"';
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-
 function update_birthday($id, $new_birthday) {
 	$con=connect();
 	$query = 'UPDATE dbChildren SET DOB = "' . $new_birthday . '" WHERE id = "' . $id . '"';
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return $result;
-}
-
-function update_start_date($id, $new_start_date) {
-	$con=connect();
-	$query = 'UPDATE dbChildren SET start_date = "' . $new_start_date . '" WHERE id = "' . $id . '"';
 	$result = mysqli_query($con,$query);
 	mysqli_close($con);
 	return $result;
@@ -155,23 +138,6 @@ function getall_dbChildren($name_from, $name_to, $venue) {
     }
 
     return $theChilds;
-}
-
-function getall_volunteer_names() {
-	$con=connect();
-	$query = "SELECT first_name, last_name FROM dbChildren ORDER BY last_name,first_name";
-    $result = mysqli_query($con,$query);
-    if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_close($con);
-        return false;
-    }
-    $result = mysqli_query($con,$query);
-    $names = array();
-    while ($result_row = mysqli_fetch_assoc($result)) {
-        $names[] = $result_row['first_name'].' '.$result_row['last_name'];
-    }
-    mysqli_close($con);
-    return $names;   	
 }
 
 function make_a_child($result_row) {
@@ -224,73 +190,6 @@ function getall_available($type, $day, $shift, $venue) {
 }
 
 
-// retrieve only those child that match the criteria given in the arguments
-function getonlythose_dbChildren($type, $status, $name, $day, $shift, $venue) {
-   $con=connect();
-   $query = "SELECT * FROM dbChildren WHERE type LIKE '%" . $type . "%'" .
-           " AND status LIKE '%" . $status . "%'" .
-           " AND (first_name LIKE '%" . $name . "%' OR last_name LIKE '%" . $name . "%')" .
-           " AND availability LIKE '%" . $day . "%'" . 
-           " AND availability LIKE '%" . $shift . "%'" . 
-           " AND venue = '" . $venue . "'" . 
-           " ORDER BY last_name,first_name";
-   $result = mysqli_query($con,$query);
-   $theChilds = array();
-   while ($result_row = mysqli_fetch_assoc($result)) {
-       $theChild = make_a_child($result_row);
-       $theChilds[] = $theChild;
-   }
-   mysqli_close($con);
-   return $theChilds;
-}
-
-function phone_edit($phone) {
-    if ($phone!="")
-		return substr($phone, 0, 3) . "-" . substr($phone, 3, 3) . "-" . substr($phone, 6);
-	else return "";
-}
-
-function get_people_for_export($attr, $first_name, $last_name, $type, $status, $start_date, $city, $zip, $phone, $email) {
-	$first_name = "'".$first_name."'";
-	$last_name = "'".$last_name."'";
-	$status = "'".$status."'";
-	$start_date = "'".$start_date."'";
-	$city = "'".$city."'";
-	$zip = "'".$zip."'";
-	$phone = "'".$phone."'";
-	$email = "'".$email."'";
-	$select_all_query = "'.'";
-	if ($start_date == $select_all_query) $start_date = $start_date." or start_date=''";
-	if ($email == $select_all_query) $email = $email." or email=''";
-    
-	$type_query = "";
-    if (!isset($type) || count($type) == 0) $type_query = "'.'";
-    else {
-    	$type_query = implode("|", $type);
-    	$type_query = "'.*($type_query).*'";
-    }
-    
-    error_log("query for start date is ". $start_date);
-    error_log("query for type is ". $type_query);
-    
-   	$con=connect();
-    $query = "SELECT ". $attr ." FROM dbChildren WHERE 
-    			first_name REGEXP ". $first_name . 
-    			" and last_name REGEXP ". $last_name . 
-    			" and (type REGEXP ". $type_query .")". 
-    			" and status REGEXP ". $status . 
-    			" and (start_date REGEXP ". $start_date . ")" .
-    			" and city REGEXP ". $city .
-    			" and zip REGEXP ". $zip .
-    			" and (phone1 REGEXP ". $phone ." or phone2 REGEXP ". $phone . " )" .
-    			" and (email REGEXP ". $email .") ORDER BY last_name, first_name";
-	error_log("Querying database for exporting");
-	error_log("query = " .$query);
-    $result = mysqli_query($con,$query);
-    return $result;
-
-}
-
 //return an array of "last_name:first_name:birth_date", and sorted by month and day
 function get_birthdays($name_from, $name_to, $venue) {
 	$con=connect();
@@ -307,30 +206,4 @@ function get_birthdays($name_from, $name_to, $venue) {
    	return $theChilds;
 }
 
-//return an array of "last_name;first_name;hours", which is "last_name;first_name;date:start_time-end_time:venue:totalhours"
-// and sorted alphabetically
-function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
-	$con=connect();
-   	$query = "SELECT first_name,last_name,hours,venue FROM dbChildren "; 
-   	$query.= " WHERE venue = '" .$venue. "'";
-   	$query.= " AND last_name BETWEEN '" .$name_from. "' AND '" .$name_to. "'";
-   	$query.= " ORDER BY last_name,first_name";
-	$result = mysqli_query($con,$query);
-	$theChilds = array();
-	while ($result_row = mysqli_fetch_assoc($result)) {
-		if ($result_row['hours']!="") {
-			$shifts = explode(',',$result_row['hours']);
-			$goodshifts = array();
-			foreach ($shifts as $shift) 
-			    if (($from == "" || substr($shift,0,8) >= $from) && ($to =="" || substr($shift,0,8) <= $to))
-			    	$goodshifts[] = $shift;
-			if (count($goodshifts)>0) {
-				$newshifts = implode(",",$goodshifts);
-				array_push($theChilds,$result_row['last_name'].";".$result_row['first_name'].";".$newshifts);
-			}   // we've just selected those shifts that follow within a date range for the given venue
-		}
-	}
-   	mysqli_close($con);
-   	return $theChilds;
-}
 ?>
