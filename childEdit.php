@@ -19,6 +19,9 @@ $id = str_replace("_"," ",$_GET["id"]);
         </title>
         <link rel="stylesheet" href="lib/jquery-ui.css" />
         <link rel="stylesheet" href="styles.css" type="text/css" />
+        <style>
+
+        </style>
         <script src="lib/jquery-1.9.1.js"></script>
 		<script src="lib/jquery-ui.js"></script>
     </head>
@@ -30,11 +33,11 @@ $id = str_replace("_"," ",$_GET["id"]);
                     //in this case, the form has not been submitted, so show it
                     include('childForm.inc');
                 } else {
-                    echo('hey');
+                    $fname = $_POST['first_name'];
                     //in this case, the form has been submitted, so validate it
 
                     // LASTLY: this was a successful form submission; update the database and exit
-                    //process_child($id,$person);
+                    process_child($id,$child);
 
                     //go back to the guardians update account page
                     echo "<script type=\"text/javascript\">window.location = \"personEdit.php?"  . $_SESSION['_id'] . "\";</script>";
@@ -44,7 +47,7 @@ $id = str_replace("_"," ",$_GET["id"]);
                 /**
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
-                function process_child($id,$person) {
+                function process_child($id,$child) {
                     //Process the form
                     echo('hey');
                 }

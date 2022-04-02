@@ -128,15 +128,6 @@ if ($id == 'new') {
 
                             // redirect to login page
                             echo "<script type=\"text/javascript\">window.location = \"login_form.php\";</script>";
-                            
-                            // echo('<p class="success">Account successfully created!');
-                            
-                            //if (!$result)
-                            //    echo ('<p class="error">Unable to add " .$first_name." ".$last_name. " in the database. <br>Please report this error to the House Manager.');
-                            //else if ($_SESSION['access_level'] == 0)
-                            //    echo("<p>Your application has been successfully submitted.<br>  The House Manager will contact you soon.  Thank you!");
-                            //else
-                            //    echo('<p>You have successfully added <a href="' . $path . 'personEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $last_name . ' </b></a> to the database.</p>');
                             }
                     } else {
                         //try to update a person in the database

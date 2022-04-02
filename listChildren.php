@@ -25,18 +25,18 @@ include_once('database/dbinfo.php');
         		color: gray; 
         	}
 
-			table, th, td {
+			table.ChildrenList,table.ChildrenList th,table.ChildrenList td {
 			text-align: center;
 			border: 1px solid black;
 			border-collapse: collapse;
 			}
 
-			th {
+			table.ChildrenList th {
 			font-size: 25px;
   			background-color: #b9a1e8;
 			}
 
-			td {
+			table.ChildrenList td {
 			font-size: 20px;
 			background-color: #ddd2f4;
 			}
@@ -48,7 +48,7 @@ include_once('database/dbinfo.php');
             <div id="content">
 
 				<p style="text-align:center"><strong>List of Children</strong><br /><br />
-				<table style="width:100%" align = "center" name = "Children">
+				<table style="width:100%" align = "center" class = "ChildrenList">
 					<tr>
 						<th>First Name</th>
 						<th>Last Name</th>

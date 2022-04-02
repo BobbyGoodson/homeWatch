@@ -25,7 +25,7 @@ session_cache_expire(30);
     <head>
         <meta HTTP-EQUIV="REFRESH" content="2; url=index.php">
         <title>
-            Logged out of RMH Homebase
+            Logged out
         </title>
         <link rel="stylesheet" href="styles.css" type="text/css" />
     </head>
@@ -37,8 +37,7 @@ session_cache_expire(30);
                 session_unset();
                 session_write_close();
                 ?>
-                <p>You are now logged out of Homebase.</p>
-                <?PHP include('footer.inc'); ?>
+                <p>Logging out...</p>
             </div>
         </div>
     </body>
