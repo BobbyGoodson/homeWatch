@@ -64,5 +64,44 @@ function get_availableTimes(){
     return $results;
 }
 
+// increments reserved in the approprate entires of the shift table
+function increment_reserved($num_children, $day_num, $time){
+    $con=connect();
 
+    $query = "SELECT * FROM dbshiftsnew WHERE day_num = '" . $day_num . "' AND start_time_value >= '" . $time . "' AND start_time_value < '" . $time+2 . "' ORDER BY start_time_value ASC";
+    $results = mysqli_query($con,$query);
+
+    //First, check if all rows can handle the number of children are being reserved in time slot
+    while($row = $results->fetch_assoc()){
+        // check if there is enough space.
+        // if not, return false (cannot reserve space)
+        // if yes, continue to reserving space
+        if(($row['capacity'] - $row['reserved']) < $num_children){
+            mysqli_close($con);
+            return false;
+        }
+    }
+
+    $query = "SELECT * FROM dbshiftsnew WHERE day_num = '" . $day_num . "' AND start_time_value >= '" . $time . "' AND start_time_value < '" . $time+2 . "' ORDER BY start_time_value ASC";
+    $results = mysqli_query($con,$query);
+    
+    //Second, update the reserved spot in the 4 incremented slots
+    while($row = $results->fetch_assoc()){
+        $new_reserved = $row['reserved'] + $num_children;
+        $start_time = $row['start_time_value'];
+        $query = "UPDATE dbshiftsnew SET reserved = '" . $new_reserved . "' WHERE day_num = '" . $day_num . "' AND start_time_value = '" . $start_time . "'";
+        //$query = "UPDATE dbshiftsnew SET reserved = '$new_reserved' WHERE day_num = '$day_num' AND start_time_value = '$start_time'";
+        mysqli_query($con,$query);
+    }
+    
+    mysqli_close($con);
+    return true;
+}
+
+// adds children to reserved children table
+/*
+function reserve_space($children){
+
+}
+*/
 ?>

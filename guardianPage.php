@@ -59,11 +59,11 @@
 				echo "<td><center>" . $row['day'] . ", " . date("m/d") . "</center></td>";
 				echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
   				echo "<td><center>" . $openSlots . "</center></td>";
-                echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="' . $path . 'listChildren.php?guardianID=' . $guardianEmail. '">Reserve</a></center></td>';
-  				echo "</tr>";
+                echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="reserve.php?day_num=' . $row['day_num'] . '&time=' . $row['start_time_value'] . '">Reserve</a></center></td>';
+                //echo "<td><div style= 'text-align:center'><input type='submit' value='Reserve' name='" . $row['day'] . "'.'" . $row['start_time_text'] . "'></div></td>";
+                echo "</tr>";
 			}
-			echo "</table>";
-			mysqli_close($con);		
+			echo "</table>";	
 		}	
 		?>
 	</body>
