@@ -3,6 +3,8 @@
 *  personEditAccount.inc
 *  Update Account GUI
 */
+
+include_once('database/dbinfo.php');
 ?>
 
 <form method="post">
@@ -30,6 +32,25 @@
 <fieldset>
     <legend>Children:</legend>
     <?php
+
+        $guardianEmail = $person->get_email();
+
+		echo '<table style="width:100%" align = "center" class = "ChildrenList">';
+        
+        $con=connect();
+		// query dbChildren to select all children with parent email address = 'email of guardian'
+		$query = "SELECT first_name FROM dbChildren WHERE parent_email = '$guardianEmail'";
+		$result = mysqli_query($con,$query);
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				echo '<tr>';
+				echo '<td>' . $row['first_name'] . '</td>';
+                echo '</tr>';
+			}
+		}
+
+        echo'</table>';
+        
         // The add child button
         echo('<input type="hidden" name="_submit_check" value="1"><p>');
         echo('<div style= "text-align:right"><input type="submit" value="Add Child" name="addChild_button"><br /><br /></div>');

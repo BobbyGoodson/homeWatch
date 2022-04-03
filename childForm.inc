@@ -20,7 +20,7 @@
 
 	 echo '<p>Health Requirements</span>: ';
 	 //echo '<input type="text" name="health_requirements" tabindex="4">';
-       echo "<textarea rows='5' cols='30' name='health_requirements' > List Health Requirements. </textarea>";
+       echo "<textarea rows='5' cols='30' name='health_requirements'></textarea>";
 
 ?>
 <script src="lib/jquery-1.9.1.js"></script>
@@ -30,5 +30,6 @@
     // The submit button
     echo('<input type="hidden" name="_submit_child" value="1"><p>');
     echo('<div style= "text-align:center"><input type="submit" value="Add" name="add"><br /><br /></div>');
+    //echo('<div style= "text-align:center"><input type="submit" value="Cancel" name="cancel"><br /><br /></div>');
 ?>
 </form>
