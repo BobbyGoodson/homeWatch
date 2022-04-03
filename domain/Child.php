@@ -33,7 +33,7 @@
 		$this->last_name = $last_name;
 		$this->DOB = $DOB;
 		$this->health_requirements = $health_requirements;
-        $this->parent_email = $parent_email;
+            $this->parent_email = $parent_email;
 	}
 
 
@@ -73,6 +73,7 @@
 	function set_last_name($last_name) {
         $this->last_name = $last_name;
     }
+
     function set_DOB($DOB) {
         $this->DOB = $DOB;
     }
@@ -86,14 +87,14 @@
     }
 
 
-	// // add child function
-	// function add_child($child) {
+	 // add child function
+	 function add_child($child) {
 
-	// 	// push new child's first name to "children" array
-	// 	array_push($this->children, $child->get_first_name);
-	// 	// add new child to database
-	// 	add_child($child);
-	// }
+	 	// push new child's first name to "children" array
+	 	array_push($this->children, $child->get_first_name);
+	 	// add new child to database
+	 	add_child($child);
+	 }
 
 	// // delete child function
 	// function delete_child($child) {

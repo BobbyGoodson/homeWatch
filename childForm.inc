@@ -19,7 +19,8 @@
 	 echo '<input type="text" name="DOB" tabindex="3">';
 
 	 echo '<p>Health Requirements</span>: ';
-	 echo '<input type="text" name="health_requirements" tabindex="4">';
+	 //echo '<input type="text" name="health_requirements" tabindex="4">';
+       echo "<textarea rows='5' cols='30' name='health_requirements' > List Health Requirements. </textarea>";
 
 ?>
 <script src="lib/jquery-1.9.1.js"></script>
