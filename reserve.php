@@ -35,14 +35,15 @@ session_cache_expire(30);
         */
         $day = intval($_GET['day_num']);
         $time = intval($_GET['time']);
-        $reserveAttempt = increment_reserved($num_children, $day, $time);
+        $venue = $_GET['venue'];
+        $reserveAttempt = increment_reserved($num_children, $day, $time, $venue);
 
         if ($reserveAttempt == false){
             //lets send some error message about not having enough space
             $end = end_time($_GET['frame']);
-            $_SESSION['reserve_error'] = "Not enough space for " . $num_children . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end;
+            $_SESSION['reserve_error'] = "Not enough space for " . $num_children . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end . "at the " . $venue . " location";
         } else {
-            echo('success');
+            //echo('success');
             /*
              * Third, put these children along with the chosen time slot into the children_in_slots table
             */
