@@ -1,0 +1,11 @@
+Homebase is a web-based application that provides database and scheduling support
+for the Ronald McDonald Houses in Maine and Rhode Island.
+
+Installation: Homebase runs on an Apache/MySQL/PHP server.  To install it, visit the
+project Wiki at https://github.com/megandalster/homebasedemo2017/wiki/installation-and-reuse/.
+
+Credits: Homebase was originally developed in 2008 by Oliver Radwan, Maxwell Palmer, 
+Nolan McNair, Taylor Talmage, and Allen Tucker.  Since then, it has been significantly 
+upgraded by other student teams and is currently maintained by NPFI (https://npfi.org).
+
+License: GNU General Public License v3.0 (https://www.gnu.org/licenses/gpl.txt)
