@@ -73,6 +73,7 @@ if ($id == 'new') {
                     //2. add child button - go to child form
                     if (isset($_POST['addChild_button'])){
                         echo "<script type=\"text/javascript\">window.location = \"childEdit.php?"  . $_SESSION['_id'] . "\";</script>";
+                        
                     }
 
 
@@ -100,7 +101,7 @@ if ($id == 'new') {
                  */
                 function process_form($id,$person) {
                     //step one: sanitize data by replacing HTML entities and escaping the ' character
-                   	$first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
+                    $first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
                     $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['last_name'])));
 
                     $phone = trim(str_replace(' ', '', htmlentities($_POST['phone'])));

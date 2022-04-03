@@ -5,11 +5,13 @@
  */
 session_start();
 session_cache_expire(30);
-include_once('database/dbPersons.php');
-include_once('domain/Person.php');
+include_once('database/dbChildren.php');
+include_once('domain/Child.php');
+include_once('database/dbLog.php');
 
 //obtain the guardian to which this child is being added to
-$id = str_replace("_"," ",$_GET["id"]);
+//$id = str_replace("_"," ",$_GET["id"]);
+//$child = new Child('Joe', 'Child', '07-06-2021', 'athsma', 'bob@gmail.com');
 
 ?>
 <html>
@@ -26,7 +28,7 @@ $id = str_replace("_"," ",$_GET["id"]);
 		<script src="lib/jquery-ui.js"></script>
     </head>
     <body id="bodyForm">
-            <div id="formPerson">
+            <div id="formperson">
                 <?PHP
                 //include('personValidate.inc');
                 if ($_POST['_submit_child'] != 1){
@@ -37,19 +39,30 @@ $id = str_replace("_"," ",$_GET["id"]);
                     //in this case, the form has been submitted, so validate it
 
                     // LASTLY: this was a successful form submission; update the database and exit
-                    process_child($id,$child);
+                    process_child($child);
 
                     //go back to the guardians update account page
-                    echo "<script type=\"text/javascript\">window.location = \"personEdit.php?"  . $_SESSION['_id'] . "\";</script>";
+                    //echo "<script type=\"text/javascript\">window.location = \"personEdit.php?"  . $_SESSION['_id'] . "\";</script>";
                 }
 
                 
                 /**
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
-                function process_child($id,$child) {
+                function process_child($child) {
                     //Process the form
-                    echo('hey');
+
+                   $first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
+                   $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['last_name'])));
+                   $DOB = trim(str_replace('\\\'', '\'', htmlentities($_POST['DOB'])));
+                   $health_requirements = trim(str_replace('\\\'', '\'', htmlentities($_POST['health_requirements'])));
+                   $parent_email = $_SESSION['_id'];
+			 
+                   $newchild = new Child($first_name, $last_name, $DOB, $health_requirements, $parent_email);
+                   add_child($newchild);
+                   
+                   echo "<script type=\"text/javascript\">window.location = \"personEdit.php?"  . $_SESSION['_id'] . "\";</script>";
+                    
                 }
                 ?>
             </div>
