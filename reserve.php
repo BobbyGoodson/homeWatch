@@ -16,6 +16,7 @@ session_cache_expire(30);
         <?php
         include_once('database/dbShiftsNew.php');
         include_once('database/dbChildren.php');
+        include_once('database/dbChildren_in_shifts.php');
 
         $_SESSION['reserve_error'] = null;
 
@@ -43,12 +44,15 @@ session_cache_expire(30);
             $end = end_time($_GET['frame']);
             $_SESSION['reserve_error'] = "Not enough space for " . $num_children . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end . "at the " . $venue . " location";
         } else {
-            //echo('success');
             /*
              * Third, put these children along with the chosen time slot into the children_in_slots table
             */
-
-
+            foreach ($children_id as $child){
+                $result = add_entry($child, $day, $time);
+                if ($result == false){
+                    $_SESSION['reserve_error'] = "Could not add " . $child . "";
+                }
+            }
         }
         header("Location: http://localhost/homeWatch/index.php");
         ?>
