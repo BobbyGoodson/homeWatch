@@ -1,5 +1,5 @@
 <?php
-//TEST SHOWING CURRENT DAY
+//TEST of adding a child to the database 
 
 	include_once('dbinfo.php');
 
@@ -42,7 +42,7 @@
 		return $openSlots;
 	}
 			
-	//TEST OF PRINTING the slots for the current day
+	//main
 
 	//set time zone
 	date_default_timezone_set('America/New_York');
