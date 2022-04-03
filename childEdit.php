@@ -60,6 +60,7 @@ include_once('database/dbLog.php');
 			 
                    $newchild = new Child($first_name, $last_name, $DOB, $health_requirements, $parent_email);
                    add_child($newchild);
+                   
                    echo "<script type=\"text/javascript\">window.location = \"personEdit.php?"  . $_SESSION['_id'] . "\";</script>";
                     
                 }

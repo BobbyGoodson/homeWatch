@@ -73,6 +73,7 @@ if ($id == 'new') {
                     //2. add child button - go to child form
                     if (isset($_POST['addChild_button'])){
                         echo "<script type=\"text/javascript\">window.location = \"childEdit.php?"  . $_SESSION['_id'] . "\";</script>";
+                        
                     }
 
 
