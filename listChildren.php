@@ -59,7 +59,7 @@ include_once('database/dbinfo.php');
 					$guardianEmail = $_GET['guardianID'];
 					$con=connect();
 					// query dbChildren to select all children with parent email address = 'email of guardian'
-					$query = "SELECT id, first_name, last_name, DOB, health_requirements FROM dbChildren where parent_email = '$guardianEmail'";
+					$query = "SELECT id, first_name, last_name, DOB, health_requirements FROM dbChildren WHERE parent_email = '$guardianEmail'";
 					$result = mysqli_query($con,$query);
 					if (mysqli_num_rows($result) > 0) {
 						while ($row = mysqli_fetch_assoc($result)) {

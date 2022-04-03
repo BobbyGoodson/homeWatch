@@ -94,7 +94,7 @@ session_cache_expire(30);
             echo(' <a href="' . $path . 'personSearch.php">Current Reservations</a>');
             echo(' <a href="' . $path . 'personSearch.php">Create Admin Account</a>');
             echo(' <a href="' . $path . 'personSearch.php">Create Watcher Account</a>');
-            echo(' <a href="' . $path . 'personSearch.php">Guardians</a>');
+            echo(' <a href="' . $path . 'listGuardians.php">Guardians</a>');
             echo(' <a href="' . $path . 'reports.php">Update Capacity</a>');
         }
             
