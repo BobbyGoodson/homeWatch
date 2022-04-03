@@ -5,12 +5,13 @@
  */
 session_start();
 session_cache_expire(30);
-include_once('database/dbChild.php');
+include_once('database/dbChildren.php');
 include_once('domain/Child.php');
+include_once('database/dbLog.php');
 
 //obtain the guardian to which this child is being added to
 //$id = str_replace("_"," ",$_GET["id"]);
-$child = new Child('Joe', 'Child', '07-06-2021', 'athsma', 'bob@gmail.com');
+//$child = new Child('Joe', 'Child', '07-06-2021', 'athsma', 'bob@gmail.com');
 
 ?>
 <html>
@@ -27,7 +28,7 @@ $child = new Child('Joe', 'Child', '07-06-2021', 'athsma', 'bob@gmail.com');
 		<script src="lib/jquery-ui.js"></script>
     </head>
     <body id="bodyForm">
-            <div id="formPerson">
+            <div id="formperson">
                 <?PHP
                 //include('personValidate.inc');
                 if ($_POST['_submit_child'] != 1){
@@ -41,7 +42,7 @@ $child = new Child('Joe', 'Child', '07-06-2021', 'athsma', 'bob@gmail.com');
                     process_child($child);
 
                     //go back to the guardians update account page
-                    echo "<script type=\"text/javascript\">window.location = \"personEdit.php?"  . $_SESSION['_id'] . "\";</script>";
+                    //echo "<script type=\"text/javascript\">window.location = \"personEdit.php?"  . $_SESSION['_id'] . "\";</script>";
                 }
 
                 
@@ -55,11 +56,11 @@ $child = new Child('Joe', 'Child', '07-06-2021', 'athsma', 'bob@gmail.com');
                    $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['last_name'])));
                    $DOB = trim(str_replace('\\\'', '\'', htmlentities($_POST['DOB'])));
                    $health_requirements = trim(str_replace('\\\'', '\'', htmlentities($_POST['health_requirements'])));
-                   $parent_email = $_SESSION['emailaddress'];
+                   $parent_email = $_SESSION['_id'];
 			 
                    $newchild = new Child($first_name, $last_name, $DOB, $health_requirements, $parent_email);
-                   $result = add_child($newchild);
-                    echo "<script type=\"text/javascript\">window.location = \"personEdit.php?" . $_SESSION['_id'] . "\";</script>";
+                   add_child($newchild);
+                   echo "<script type=\"text/javascript\">window.location = \"personEdit.php?"  . $_SESSION['_id'] . "\";</script>";
                     
                 }
                 ?>

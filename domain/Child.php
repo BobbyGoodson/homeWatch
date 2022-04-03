@@ -28,7 +28,7 @@
 	/* constructor */
 
 	function __construct($first_name, $last_name, $DOB, $health_requirements, $parent_email) {
-		$this->id = $first_name . "," . $last_name . "," . $parent_email;
+		$this->id = $first_name . "/" . $last_name . "/" . $parent_email;
 		$this->first_name = $first_name;
 		$this->last_name = $last_name;
 		$this->DOB = $DOB;
@@ -52,7 +52,7 @@
 	}
 
 	function get_DOB() {
-		return $this->first_DOB;
+		return $this->DOB;
 	}
 
     function get_health_requirements() {
@@ -88,13 +88,13 @@
 
 
 	 // add child function
-	 function add_child($child) {
+	 //function add_child($child) {
 
 	 	// push new child's first name to "children" array
-	 	array_push($this->children, $child->get_first_name);
+	 	//array_push($this->children, $child->get_first_name);
 	 	// add new child to database
-	 	add_child($child);
-	 }
+	 	//add_child($child);
+	 //}
 
 	// // delete child function
 	// function delete_child($child) {

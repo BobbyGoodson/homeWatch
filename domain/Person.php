@@ -125,13 +125,13 @@
 
 
 	// // add child function
-	 function add_child($child) {
+	 //function add_child($child) {
 
 	 	// push new child's first name to "children" array
-	 	array_push($this->children, $child->get_first_name);
+	 	//array_push($this->children, $child->get_first_name);
 	 	// add new child to database
-	 	add_person($child);
-	 }
+	 	//add_person($child);
+	 //}
 
 	// // delete child function
 	// function delete_child($child) {
