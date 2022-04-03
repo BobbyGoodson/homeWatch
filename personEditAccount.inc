@@ -34,22 +34,34 @@ include_once('database/dbinfo.php');
     <?php
 
         $guardianEmail = $person->get_email();
-
-		echo '<table style="width:100%" align = "center" class = "ChildrenList">';
         
         $con=connect();
 		// query dbChildren to select all children with parent email address = 'email of guardian'
-		$query = "SELECT first_name FROM dbChildren WHERE parent_email = '$guardianEmail'";
+		$query = "SELECT * FROM dbChildren WHERE parent_email = '$guardianEmail'";
 		$result = mysqli_query($con,$query);
 		if (mysqli_num_rows($result) > 0) {
+            echo '<table style="width:100%" align = "center" class = "ChildrenList">';
+			echo '<tr>';
+				echo '<th>First Name</th>';
+				echo '<th>Last Name</th>';
+				echo '<th>DOB</th>';
+                echo '<th>Health Requirements</th>';
+                echo '<th>Remove</th>';
+			echo '</tr>';
 			while ($row = mysqli_fetch_assoc($result)) {
 				echo '<tr>';
-				echo '<td>' . $row['first_name'] . '</td>';
+				echo '<td><center>' . $row['first_name'] . '</center></td>';
+                echo '<td><center>' . $row['last_name'] . '</center></td>';
+                echo '<td><center>' . $row['DOB'] . '</center></td>';
+                echo '<td><center>' . $row['health_requirements'] . '</center></td>';
+                echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="removeChild.php?id=' . $id . '&first_name=' . $row['first_name'] . '&last_name=' . $row['last_name'] . '">X</a></center></td>';
                 echo '</tr>';
 			}
-		}
+            echo'</table>';
 
-        echo'</table>';
+		} else {
+            echo 'You currently have no children attached to your account. You may add by clicking the "Add Child" button below.';
+        }
         
         // The add child button
         echo('<input type="hidden" name="_submit_check" value="1"><p>');

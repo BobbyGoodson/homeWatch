@@ -31,9 +31,9 @@ function add_child($child) {
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_query($con,'INSERT INTO dbChildren VALUES("' .
                 $child->get_id() . '","' .
-                $child->get_DOB() . '","' .
                 $child->get_first_name() . '","' .
                 $child->get_last_name() . '","' .
+                $child->get_DOB() . '","' .
                 $child->get_health_requirements() . '","' .
                 $child->get_parent_email() .
                 '");');							
