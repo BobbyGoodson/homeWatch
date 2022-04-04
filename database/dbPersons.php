@@ -110,28 +110,24 @@ function change_password($id, $newPass) {
     return $result;
 }
 
+function get_phone($id){
+    $con=connect();
+    $query = 'SELECT phone from dbPersons WHERE id = "' . $id . '" LIMIT 1';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    //just get the one
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row['phone'];
+    }
+    return false;
+}
+
 function update_hours($id, $new_hours) {
     $con=connect();
     $query = 'UPDATE dbPersons SET hours = "' . $new_hours . '" WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
     mysqli_close($con);
     return $result;
-}
-
-function update_birthday($id, $new_birthday) {
-	$con=connect();
-	$query = 'UPDATE dbPersons SET birthday = "' . $new_birthday . '" WHERE id = "' . $id . '"';
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return $result;
-}
-
-function update_start_date($id, $new_start_date) {
-	$con=connect();
-	$query = 'UPDATE dbPersons SET start_date = "' . $new_start_date . '" WHERE id = "' . $id . '"';
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return $result;
 }
 
 /*
@@ -192,14 +188,6 @@ function make_a_person($result_row) {
     return $thePerson;
 }
 
-function getall_names($status, $type, $venue) {
-    $con=connect();
-    $result = mysqli_query($con,"SELECT id,first_name,last_name,type FROM dbPersons " .
-            "WHERE venue='".$venue."' AND status = '" . $status . "' AND TYPE LIKE '%" . $type . "%' ORDER BY last_name,first_name");
-    mysqli_close($con);
-    return $result;
-}
-
 /*
  * @return all active people of type $t or subs from dbPersons table ordered by last name
  */
@@ -213,20 +201,6 @@ function getall_type($t) {
         return false;
     }
     mysqli_close;
-    return $result;
-}
-
-/*
- *   get all active volunteers and subs of $type who are available for the given $frequency,$week,$day,and $shift
- */
-
-function getall_available($type, $day, $shift, $venue) {
-    $con=connect();
-    $query = "SELECT * FROM dbPersons WHERE (type LIKE '%" . $type . "%' OR type LIKE '%sub%')" .
-            " AND availability LIKE '%" . $day .":". $shift .
-            "%' AND status = 'active' AND venue = '" . $venue . "' ORDER BY last_name,first_name";
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
     return $result;
 }
 
@@ -296,48 +270,5 @@ function get_people_for_export($attr, $first_name, $last_name, $type, $status, $
     $result = mysqli_query($con,$query);
     return $result;
 
-}
-
-//return an array of "last_name:first_name:birth_date", and sorted by month and day
-function get_birthdays($name_from, $name_to, $venue) {
-	$con=connect();
-   	$query = "SELECT * FROM dbPersons WHERE availability LIKE '%" . $venue . "%'" . 
-   	$query.= " AND last_name BETWEEN '" .$name_from. "' AND '" .$name_to. "'";
-    $query.= " ORDER BY birthday";
-	$result = mysqli_query($con,$query);
-	$thePersons = array();
-	while ($result_row = mysqli_fetch_assoc($result)) {
-    	$thePerson = make_a_person($result_row);
-        $thePersons[] = $thePerson;
-	}
-   	mysqli_close($con);
-   	return $thePersons;
-}
-
-//return an array of "last_name;first_name;hours", which is "last_name;first_name;date:start_time-end_time:venue:totalhours"
-// and sorted alphabetically
-function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
-	$con=connect();
-   	$query = "SELECT first_name,last_name,hours,venue FROM dbPersons "; 
-   	$query.= " WHERE venue = '" .$venue. "'";
-   	$query.= " AND last_name BETWEEN '" .$name_from. "' AND '" .$name_to. "'";
-   	$query.= " ORDER BY last_name,first_name";
-	$result = mysqli_query($con,$query);
-	$thePersons = array();
-	while ($result_row = mysqli_fetch_assoc($result)) {
-		if ($result_row['hours']!="") {
-			$shifts = explode(',',$result_row['hours']);
-			$goodshifts = array();
-			foreach ($shifts as $shift) 
-			    if (($from == "" || substr($shift,0,8) >= $from) && ($to =="" || substr($shift,0,8) <= $to))
-			    	$goodshifts[] = $shift;
-			if (count($goodshifts)>0) {
-				$newshifts = implode(",",$goodshifts);
-				array_push($thePersons,$result_row['last_name'].";".$result_row['first_name'].";".$newshifts);
-			}   // we've just selected those shifts that follow within a date range for the given venue
-		}
-	}
-   	mysqli_close($con);
-   	return $thePersons;
 }
 ?>

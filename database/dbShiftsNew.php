@@ -13,6 +13,28 @@ function end_time($start){
     return $end;	
 }
 
+function start_time($start_number){
+    $con=connect();
+    $query = 'SELECT start_time_text from dbshiftsnew WHERE start_time_value = "' . $start_number . '" LIMIT 1';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row['start_time_text'];
+    }
+    return false;
+}
+
+function day($day_number){
+    $con=connect();
+    $query = 'SELECT day from dbshiftsnew WHERE day_num = "' . $day_number . '"';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row['day'];
+    }
+    return false;
+}
+
 //function that takes a start shift and checks how many slots are open. $row is a single row from an sql result
 function slots_open($row){
     $openSlots = 1000000;

@@ -98,20 +98,23 @@ function retrieve_child_by_email($email){
     return $children_id;
 }
 
-function change_password($id, $newPass) {
-    $con=connect();
-    $query = 'UPDATE dbChildren SET password = "' . $newPass . '" WHERE id = "' . $id . '"';
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-
 function update_birthday($id, $new_birthday) {
 	$con=connect();
 	$query = 'UPDATE dbChildren SET DOB = "' . $new_birthday . '" WHERE id = "' . $id . '"';
 	$result = mysqli_query($con,$query);
 	mysqli_close($con);
 	return $result;
+}
+
+function get_health_requirements($id){
+    $con=connect();
+    $query = 'SELECT health_requirements from dbChildren WHERE id = "' . $id . '" LIMIT 1';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row['health_requirements'];
+    }
+    return false;
 }
 
 /*
@@ -149,44 +152,6 @@ function make_a_child($result_row) {
                     $result_row['health_requirements'], 
                     $result_row['parent_email']);  
     return $theChild;
-}
-
-function getall_names($status, $type, $venue) {
-    $con=connect();
-    $result = mysqli_query($con,"SELECT id,first_name,last_name,type FROM dbChildren " .
-            "WHERE venue='".$venue."' AND status = '" . $status . "' AND TYPE LIKE '%" . $type . "%' ORDER BY last_name,first_name");
-    mysqli_close($con);
-    return $result;
-}
-
-/*
- * @return all active people of type $t or subs from dbChildren table ordered by last name
- */
-
-function getall_type($t) {
-    $con=connect();
-    $query = "SELECT * FROM dbChildren WHERE (type LIKE '%" . $t . "%' OR type LIKE '%sub%') AND status = 'active'  ORDER BY last_name,first_name";
-    $result = mysqli_query($con,$query);
-    if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_close($con);
-        return false;
-    }
-    mysqli_close;
-    return $result;
-}
-
-/*
- *   get all active volunteers and subs of $type who are available for the given $frequency,$week,$day,and $shift
- */
-
-function getall_available($type, $day, $shift, $venue) {
-    $con=connect();
-    $query = "SELECT * FROM dbChildren WHERE (type LIKE '%" . $type . "%' OR type LIKE '%sub%')" .
-            " AND availability LIKE '%" . $day .":". $shift .
-            "%' AND status = 'active' AND venue = '" . $venue . "' ORDER BY last_name,first_name";
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
 }
 
 
