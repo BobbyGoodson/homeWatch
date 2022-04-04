@@ -47,7 +47,7 @@
 			while($row = $results->fetch_assoc()){
                 //get the info of child: first_name, last_name, and email
                 $childInfo = array();
-                $childInfo = explode("/", $row['child_id']);
+                $childInfo = explode("*", $row['child_id']);
                 $first_name = $childInfo[0];
                 $last_name = $childInfo[1];
                 $email = $childInfo[2];
