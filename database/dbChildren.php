@@ -19,6 +19,7 @@ include_once(dirname(__FILE__).'/../domain/Child.php');
 
 /*
  * add a child to dbChildren table: if already there, return false
+ * if not, add them in the table
  */
 
 function add_child($child) {

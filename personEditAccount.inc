@@ -40,6 +40,7 @@ include_once('database/dbinfo.php');
 		$query = "SELECT * FROM dbChildren WHERE parent_email = '$guardianEmail'";
 		$result = mysqli_query($con,$query);
 		if (mysqli_num_rows($result) > 0) {
+            //a table to list the guardian's children
             echo '<table style="width:100%" align = "center" class = "ChildrenList">';
 			echo '<tr>';
 				echo '<th>First Name</th>';
