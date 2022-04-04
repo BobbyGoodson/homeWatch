@@ -57,6 +57,7 @@
 
                 //get phone number
                 $phone = get_phone($email);
+				$formatted_phone = phone_edit($phone);
 
                 //get times
                 $start = start_time($row['shifts_start_time']);
@@ -70,7 +71,7 @@
 				echo "<td><center>" . $last_name . "</center></td>";
   				echo "<td><center>" . $day . "</center></td>";
                 echo "<td><center>" . $start . "-" . $end . "</center></td>";
-                echo "<td><center>" . $phone . "</center></td>";
+                echo "<td><center>" . $formatted_phone . "</center></td>";
                 echo "<td><center>" . $email. "</center></td>";
                 echo "<td><center>" . $health . "</center></td>";
                 echo "</tr>";

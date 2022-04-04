@@ -13,6 +13,7 @@
 session_start();
 session_cache_expire(30);
 include_once('database/dbinfo.php');
+include_once('database/dbPersons.php')
 ?>
 <html>
     <head>
@@ -66,8 +67,7 @@ include_once('database/dbinfo.php');
 						while ($row = mysqli_fetch_assoc($result)) {
 						 	$guardianEmail = $row['id'];
 							$phone = $row['phone'];
-							// format phone number
-							$formatted_phone = preg_replace("/^(\d{3})(\d{3})(\d{4})$/", "$1-$2-$3", $phone);
+							$formatted_phone = phone_edit($phone);
 							echo '<tr>';
 							echo '<td>' . $row['first_name'] . '</td>';
 							echo '<td>' . $row['last_name'] . '</td>';

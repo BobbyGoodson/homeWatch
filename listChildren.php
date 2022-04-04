@@ -25,7 +25,7 @@ include_once('database/dbinfo.php');
         		color: gray; 
         	}
 
-			table.ChildrenList,table.ChildrenList th,table.ChildrenList td {
+			table.ChildrenList, table.ChildrenList th, table.ChildrenList td {
 			text-align: center;
 			border: 1px solid black;
 			border-collapse: collapse;
