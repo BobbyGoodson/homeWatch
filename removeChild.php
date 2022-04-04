@@ -24,7 +24,7 @@ session_cache_expire(30);
             echo('Cannot perform action.');
         } else {
             //we may perform
-            $childID = $_GET['first_name'] . "/" . $_GET['last_name'] . "/" . $_GET['id'];
+            $childID = $_GET['first_name'] . "*" . $_GET['last_name'] . "*" . $_GET['id'];
             //echo($childID);
             remove_child($childID);
         }
