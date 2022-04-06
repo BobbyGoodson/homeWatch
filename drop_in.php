@@ -49,8 +49,8 @@ session_cache_expire(30);
                 <?PHP
                 //include('dropinValidate.inc');
                 //let's get some information about the time slot, taken from the url
-                $end = $_GET['start'];
-                $start = $_GET['end'];
+                $end = $_GET['end'];
+                $start = $_GET['start'];
                 $date = $_GET['date'];
                 include('personValidate.inc');
                 if ($_POST['_submit_dropin'] != 1){
