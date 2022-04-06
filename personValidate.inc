@@ -30,6 +30,20 @@ function validate_form($person) {
 }
 
 /**
+ * validate the drop-in form in drop_in.php and drop_in.inc
+ */
+function validate_dropin_form(){
+    if ($_POST['g_first_name'] == NULL || $_POST['g_last_name'] == NULL || $_POST['c_age'] == NULL ||
+        $_POST['g_whereabouts'] == null || $_POST['c_first_name'] == null || $_POST['c_last_name'] == null){
+        $errors[] = 'Missing field(s)';
+    }
+    if (!valid_phone($_POST['phone'])) {
+        $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
+    }
+    return $errors;
+}
+
+/**
  * valid_phone validates a phone on the following parameters:
  * 		it assumes the characters '-' ' ' '+' '(' and ')' are valid, but ignores them
  * 		every other digit must be a number

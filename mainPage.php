@@ -52,10 +52,12 @@
 					continue;
 				}
 
+				$date= date("m/d", strtotime($row['day']));
+
 				$end = end_time($start);		
 				//echo( $row['day']." ".$row['start_time_text']." to ".$end." "."<br>");
 				echo "<tr>";
-				echo "<td><center>" . $row['day'] . ", " . date("m/d") . "</center></td>";
+				echo "<td><center>" . $row['day'] . ", " . $date . "</center></td>";
 				echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
   				echo "<td><center>" . $openSlots . "</center></td>";
   				echo "</tr>";

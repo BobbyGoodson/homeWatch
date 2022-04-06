@@ -27,8 +27,6 @@ session_cache_expire(30);
                 <?PHP
                 include_once('database/dbPersons.php');
                 include_once('domain/Person.php');
-                include_once('domain/Shift.php');
-                include_once('database/dbShifts.php');
                 date_default_timezone_set('America/New_York');
 
                 //If they aren't logged in, display our homepage with create account and login buttons
@@ -42,12 +40,11 @@ session_cache_expire(30);
                         include('guardianPage.php');
                     } else if ($_SESSION['access_level'] == 1){
                         //Watcher Dashboard
-                        echo('watcher');
-                        //include('watcherPage.php');
+                        include('watcherPage.php');
                     } else if ($_SESSION['access_level'] == 2){
                         //Admin Dashboard
                         echo('admin');
-                        //include('watcherPage.php');
+                        //include('adminPage.php');
                     } else {
                         echo('Something went wrong.');
                     }
