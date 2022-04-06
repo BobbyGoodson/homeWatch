@@ -37,12 +37,6 @@ session_cache_expire(30);
                     include('mainPage.php');
                 }
                 else {
-                    /*if ($_SESSION['_id'] != "") {
-                    $person = retrieve_person($_SESSION['_id']);
-                    echo "<p>Welcome, " . $person->get_first_name() . ", to Homebase!";
-                    echo "   You are a " . $person->get_position() . " and this is your homepage.";
-                    echo "<p>Today is " . date('l F j, Y') . ".</p>";
-                    }*/
                     if ($_SESSION['access_level'] == 0){
                         //Guardian Dashboard
                         include('guardianPage.php');

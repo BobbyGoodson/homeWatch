@@ -34,16 +34,7 @@ session_cache_expire(30);
         echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
     }
     if (!array_key_exists('_submit_check', $_POST)) {
-        //echo('<div align="center"><p>Login with your username and a password. ' .'<ul>');
-        //echo('<p><strong>Login</strong><br /><br />');
         echo('<div align = "center"><img src="images/YMCAlogo.png" width="200" height="150"></div>');
-        // echo('<li>If you are applying for a volunteer position, enter the Username \'guest\' and a blank Password. ');
-        // echo('<li>If you are a volunteer logging in for the first time, your Username is your first name followed by your ten digit phone number. ' .
-        // 'After you have logged in, you can change your password.  ');
-        // echo('<li>(If you are having difficulty logging in or have forgotten your Password, please contact either the 
-        // 		<a href="mailto:allen@npfi.org"><i>Portland House Manager</i></a>
-        // 		or the <a href="mailto:allen@npfi.org"><i>Bangor House Manager</i></a>.) ');
-        // echo '</ul>';
         echo('<p><table class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
                 <tr><td>Username:<br /><br /></td><td><input type="text" name="user" tabindex="1"><br /><br /></td></tr>
         		<tr><td>Password: <br /><br /></td><td><input type="password" name="pass" tabindex="2"><br /><br /></td></tr>

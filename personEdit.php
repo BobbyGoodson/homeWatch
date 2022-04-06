@@ -24,7 +24,7 @@ $id = str_replace("_"," ",$_GET["id"]);
 if ($id == 'new') {
     // for creating a new accunt
     // this is creating a starter person object.
-    $person = new Person('new', 'applicant', null, null, null, null, null, null, null);
+    $person = new Person('new', 'applicant', null, null, null, null, null, null);
 } else {
     // for editting an account
     $id = $_SESSION['_id'];
@@ -44,14 +44,6 @@ if ($id == 'new') {
         <link rel="stylesheet" href="styles.css" type="text/css" />
         <script src="lib/jquery-1.9.1.js"></script>
 		<script src="lib/jquery-ui.js"></script>
-		<script>
-			//$(function(){
-			//	$( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-			//	$( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-			//	$( "#end_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-			//	$( "#screening_status[]" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-			//})
-		</script>
     </head>
     <body id="bodyForm">
             <div id="formPerson">
@@ -109,8 +101,6 @@ if ($id == 'new') {
                     $email = $_SESSION['emailaddress'];
                     $position = 'guardian';
                     $barcode = trim(str_replace('\\\'', '\'', htmlentities($_POST['barcode'])));
-
-                    $children = null;
                     $venue = null;
 
                     
@@ -124,7 +114,7 @@ if ($id == 'new') {
                             echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $email . '" is already in use.');
                         else {
                             //making the account
-                            $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $children, $position, $password, $venue);
+                            $newperson = new Person($first_name, $last_name, $phone, $barcode, $email, $position, $password, $venue);
                             $result = add_person($newperson);
 
                             // redirect to login page

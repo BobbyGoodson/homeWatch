@@ -122,14 +122,6 @@ function get_phone($id){
     return false;
 }
 
-function update_hours($id, $new_hours) {
-    $con=connect();
-    $query = 'UPDATE dbPersons SET hours = "' . $new_hours . '" WHERE id = "' . $id . '"';
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-
 /*
  * @return all rows from dbPersons table ordered by last name
  * if none there, return false
@@ -156,22 +148,6 @@ function getall_dbPersons($name_from, $name_to, $venue) {
     return $thePersons;
 }
 
-function getall_volunteer_names() {
-	$con=connect();
-	$query = "SELECT first_name, last_name FROM dbPersons ORDER BY last_name,first_name";
-    $result = mysqli_query($con,$query);
-    if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_close($con);
-        return false;
-    }
-    $result = mysqli_query($con,$query);
-    $names = array();
-    while ($result_row = mysqli_fetch_assoc($result)) {
-        $names[] = $result_row['first_name'].' '.$result_row['last_name'];
-    }
-    mysqli_close($con);
-    return $names;   	
-}
 
 function make_a_person($result_row) {
 	
@@ -181,94 +157,15 @@ function make_a_person($result_row) {
                     $result_row['phone'],
                     $result_row['barcode'],
                     $result_row['email'],
-                    $result_row['children'],
                     $result_row['position'],
                     $result_row['password'], 
                     $result_row['venue']);  
     return $thePerson;
 }
 
-/*
- * @return all active people of type $t or subs from dbPersons table ordered by last name
- */
-
-function getall_type($t) {
-    $con=connect();
-    $query = "SELECT * FROM dbPersons WHERE (type LIKE '%" . $t . "%' OR type LIKE '%sub%') AND status = 'active'  ORDER BY last_name,first_name";
-    $result = mysqli_query($con,$query);
-    if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_close($con);
-        return false;
-    }
-    mysqli_close;
-    return $result;
-}
-
-
-// retrieve only those persons that match the criteria given in the arguments
-function getonlythose_dbPersons($type, $status, $name, $day, $shift, $venue) {
-   $con=connect();
-   $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type . "%'" .
-           " AND status LIKE '%" . $status . "%'" .
-           " AND (first_name LIKE '%" . $name . "%' OR last_name LIKE '%" . $name . "%')" .
-           " AND availability LIKE '%" . $day . "%'" . 
-           " AND availability LIKE '%" . $shift . "%'" . 
-           " AND venue = '" . $venue . "'" . 
-           " ORDER BY last_name,first_name";
-   $result = mysqli_query($con,$query);
-   $thePersons = array();
-   while ($result_row = mysqli_fetch_assoc($result)) {
-       $thePerson = make_a_person($result_row);
-       $thePersons[] = $thePerson;
-   }
-   mysqli_close($con);
-   return $thePersons;
-}
-
 function phone_edit($phone) {
     if ($phone!="")
 		return substr($phone, 0, 3) . "-" . substr($phone, 3, 3) . "-" . substr($phone, 6);
 	else return "";
-}
-
-function get_people_for_export($attr, $first_name, $last_name, $type, $status, $start_date, $city, $zip, $phone, $email) {
-	$first_name = "'".$first_name."'";
-	$last_name = "'".$last_name."'";
-	$status = "'".$status."'";
-	$start_date = "'".$start_date."'";
-	$city = "'".$city."'";
-	$zip = "'".$zip."'";
-	$phone = "'".$phone."'";
-	$email = "'".$email."'";
-	$select_all_query = "'.'";
-	if ($start_date == $select_all_query) $start_date = $start_date." or start_date=''";
-	if ($email == $select_all_query) $email = $email." or email=''";
-    
-	$type_query = "";
-    if (!isset($type) || count($type) == 0) $type_query = "'.'";
-    else {
-    	$type_query = implode("|", $type);
-    	$type_query = "'.*($type_query).*'";
-    }
-    
-    error_log("query for start date is ". $start_date);
-    error_log("query for type is ". $type_query);
-    
-   	$con=connect();
-    $query = "SELECT ". $attr ." FROM dbPersons WHERE 
-    			first_name REGEXP ". $first_name . 
-    			" and last_name REGEXP ". $last_name . 
-    			" and (type REGEXP ". $type_query .")". 
-    			" and status REGEXP ". $status . 
-    			" and (start_date REGEXP ". $start_date . ")" .
-    			" and city REGEXP ". $city .
-    			" and zip REGEXP ". $zip .
-    			" and (phone1 REGEXP ". $phone ." or phone2 REGEXP ". $phone . " )" .
-    			" and (email REGEXP ". $email .") ORDER BY last_name, first_name";
-	error_log("Querying database for exporting");
-	error_log("query = " .$query);
-    $result = mysqli_query($con,$query);
-    return $result;
-
 }
 ?>

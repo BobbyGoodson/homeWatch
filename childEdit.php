@@ -35,31 +35,8 @@ include_once('database/dbLog.php');
                     //in this case, the form has not been submitted, so show it
                     include('childForm.inc');
                 } else {
-
-                    // //cancel button - go back to their update account page
-                    // if (isset($_POST['cancel'])){
-                    //     echo "<script type=\"text/javascript\">window.location = \"personEdit.php?"  . $_SESSION['_id'] . "\";</script>";
-                    // }
-
-                    // //validate the form
-                    // //in this case, the form has been submitted, so validate it
-                    // $errors = validate_form($child);  //step one is validation.
-                    // // errors array lists problems on the form submitted
-                    // if ($errors) {
-                    //     // display the errors and the form to fix
-                    //     show_errors($errors);
-                    //     if ($child->get_first_name()=="new"){
-                    //         include('personForm.inc');
-                    //     } else {
-                    //         include('childForm.inc');
-                    //     }
-                    //     die();
-                    // }
-                    //else this was a successful form submission; add child to the database and redirect to update account page
-                    //else{
                         process_child($child);
                         echo "<script type=\"text/javascript\">window.location = \"childEdit.php?"  . $_SESSION['_id'] . "\";</script>";  
-                    //}
                 }
                 
                 /**
