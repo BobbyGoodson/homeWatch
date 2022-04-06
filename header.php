@@ -16,8 +16,6 @@ session_cache_expire(30);
     table.header tr,td{font-size:24px; padding:3px; }
 </style>
 <div id="header">
-<!--<br><br><img src="images/rmhHeader.gif" align="center"><br>
-<h1><br><br>Homebase <br></h1>-->
 </div>
 
 

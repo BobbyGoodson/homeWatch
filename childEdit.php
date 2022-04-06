@@ -7,12 +7,6 @@ session_start();
 session_cache_expire(30);
 include_once('database/dbChildren.php');
 include_once('domain/Child.php');
-include_once('database/dbLog.php');
-
-//obtain the guardian to which this child is being added to
-//$id = str_replace("_"," ",$_GET["id"]);
-//$child = new Child('Joe', 'Child', '07-06-2021', 'athsma', 'bob@gmail.com');
-
 ?>
 <html>
     <head>
