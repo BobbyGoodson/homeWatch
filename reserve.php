@@ -1,6 +1,6 @@
 <?php
 /*
- * 
+ * Make a Reservation
  */
 
 session_start();

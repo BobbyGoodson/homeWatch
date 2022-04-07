@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>
-            Main Page
+            Current Reservations
         </title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 		<style>
@@ -18,7 +18,6 @@
     		echo "<br><center><strong>Reserved Child List</strong></center></br>";
 		?>
 		<?php
-		include_once('database/dbinfo.php');
 		include_once('database/dbShiftsNew.php');
         include_once('database/dbChildren_in_shifts.php');
         include_once('database/dbPersons.php');
