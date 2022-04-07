@@ -29,8 +29,17 @@ include_once('domain/Child.php');
                     //in this case, the form has not been submitted, so show it
                     include('childForm.inc');
                 } else {
+                    $errors = validate_child_form();  //step one is validation.
+                    // errors array lists problems on the form submitted
+                    if ($errors) {
+                        // display the errors and the form to fix
+                        show_errors($errors);
+                        include('childForm.inc');
+                        die();
+                    } else {
                         process_child($child);
                         echo "<script type=\"text/javascript\">window.location = \"childEdit.php?"  . $_SESSION['_id'] . "\";</script>";  
+                    }
                 }
                 
                 /**

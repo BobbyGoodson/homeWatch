@@ -44,6 +44,47 @@ function validate_dropin_form(){
 }
 
 /**
+ * validate the add child form in childEdit.php and childEdit.inc
+ */
+function validate_child_form(){
+    if ($_POST['first_name'] == NULL || $_POST['last_name'] == NULL || $_POST['DOB'] == NULL){
+        $errors[] = 'Missing field(s)';
+    }
+    if (!valid_DOB($_POST['DOB'])){
+        $errors[] = 'DOB not valid (mm/dd/yyyy)';
+    }
+    return $errors;
+}
+
+/**
+ * Validate the DOB
+ */
+function valid_DOB(&$DOB){
+    if ($DOB == null){
+        return false;
+    }
+    $DOB = str_replace(' ', '', str_replace('/', '', str_replace('(', '', str_replace(')', '', str_replace('-', '', $DOB)))));
+    $test = str_replace('0', '', str_replace('1', '', str_replace('2', '', str_replace('3', '', str_replace('4', '', str_replace('5', '', str_replace('6', '', str_replace('7', '', str_replace('8', '', str_replace('9', '', $DOB))))))))));
+    if ($test != null)
+        return false;
+    if ((strlen($DOB)) != 8)
+        return false;
+
+    //check if dates amke sense
+    if (intval($DOB[0] . $DOB[1]) > 12){
+        return false;
+    }
+    if (intval($DOB[2] . $DOB[3]) > 31){
+        return false;
+    }
+    if (intval($DOB[4] . $DOB[5] . $DOB[6] . $DOB[7]) > date("Y",strtotime("now"))){
+        return false;
+    }
+    $DOB = $DOB[0] . $DOB[1] . '/' . $DOB[2] . $DOB[3] . '/' . $DOB[4] . $DOB[5] . $DOB[6] . $DOB[7];
+    return true;
+}
+
+/**
  * valid_phone validates a phone on the following parameters:
  * 		it assumes the characters '-' ' ' '+' '(' and ')' are valid, but ignores them
  * 		every other digit must be a number
