@@ -11,6 +11,7 @@
 		echo('<p><table class="form"><form method="post">
         <tr>
         <td colspan="2" align="left"><input type="submit" name="submit" value="Submit"></td>
+		<td colspan="2" align="left"><input type="submit" name="cancel" value="Cancel"></td>
         </tr>
         </table></p>');
 	?>

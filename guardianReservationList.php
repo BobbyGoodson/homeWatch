@@ -63,7 +63,7 @@ session_cache_expire(30);
 				    echo '<tr>';
 				    echo '<td><center>' . $first_name . '</center></td>';
                     echo '<td><center>' . $last_name . '</center></td>';
-                    echo '<td><center>' . $day . ',' . $start . '-' . $end . '</center></td>';
+                    echo '<td><center>' . $day . ', ' . $start . '-' . $end . '</center></td>';
                     echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="reserveCancel.php?id=' . $result['child_id'] . '&shift_start=' . $result['shifts_start_time'] . '&day_num=' . $result['shifts_day'] . '"">Cancel</a></center></td>';
                     echo '</tr>';
 			    } else {

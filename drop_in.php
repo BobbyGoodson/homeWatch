@@ -57,17 +57,29 @@ session_cache_expire(30);
                     //in this case, the form has not been submitted, so show it
                     include('drop_in.inc');
                 } else {
-                    //validate the form
-                    //in this case, the form has been submitted, so validate it
-                    $errors = validate_dropin_form();
-                    if ($errors) {
-                        show_errors($errors);
-                        include('drop_in.inc');
-                        die();
-                    } else {
-                        process_dropin();
-                        //go back
-                        echo "<script type=\"text/javascript\">window.location = \"index.php?"  . $_SESSION['_id'] . "\";</script>";
+                    // if cancel button was clicked - redirect to watchers's homepage
+                    if (isset($_POST['cancel_button'])){
+                        echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
+                    }
+                    // else
+                    else {
+                        //validate drop in form
+                        $errors = validate_dropin_form();
+
+                        // errors array lists problems on the form submitted
+                        if ($errors) {
+                            // display the errors and the form to fix
+                            show_errors($errors);
+                            include('drop_in.inc');
+                            die();
+                        } 
+                        // else
+                        else {
+                            // process form
+                            process_dropin();
+                            //go back
+                            echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
+                        }
                     }
                 }
                 

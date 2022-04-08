@@ -89,18 +89,16 @@ if ($id == 'new') {
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
                 function process_form($id,$person) {
-                    //step one: sanitize data by replacing HTML entities and escaping the ' character
+                    //Process the form
                     $first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
                     $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['last_name'])));
-
                     $phone = trim(str_replace(' ', '', htmlentities($_POST['phone'])));
                     $password = $_POST['password'];
                     $email = $_SESSION['emailaddress'];
                     $position = 'guardian';
                     $barcode = trim(str_replace('\\\'', '\'', htmlentities($_POST['barcode'])));
                     $venue = null;
-
-                    
+    
                     if($person->get_first_name()=="new") {
                         // try to add a new person to the database
                         $id = $email;

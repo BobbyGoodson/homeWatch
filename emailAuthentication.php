@@ -20,9 +20,12 @@ include_once('sendEmailFunction.php');
 			<div id="form">
 				<?php
 				include('emailAuthenticationForm.inc');
-				
+				include('personValidate.inc');
+
 				// store submit button in variable
 				$submit = $_POST['submit'];
+				// store cancel button in variable
+				$cancel = $_POST['cancel'];
 				// store email entered in text field in variable
 				$userEmail = $_POST['email'];
 				// create SESSION 'emailaddress' and store email in it
@@ -40,10 +43,20 @@ include_once('sendEmailFunction.php');
 	
 					// check if there's already an entry
 					$dup = retrieve_person($userEmail);
-					// if there is
-					if ($dup)
+
+					// validate email
+					$errors = validate_email_form($userEmail);
+
+					// errors array lists problems on the form submitted
+					if ($errors) {
+						// display the errors and the form to fix
+						show_errors($errors);
+					}
+					// else if email already exists
+					else if ($dup)
 						// show error message
 						echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $userEmail . '" is already in use.');
+					// else
 					else {
 						// redirect to email authentication code page
 						// redirect to entering the code portion of email authentication
@@ -52,11 +65,15 @@ include_once('sendEmailFunction.php');
 						email_send($userEmail, $_SESSION['generatedCode']);
 					}
 				}
-				// if email field is left empty AND submit button is pressed
+				// else if email field is left empty AND submit button is pressed
 				else if ($userEmail == "" && $submit) {
-
 					// show error message
 					echo('<p class="error">Error: Didn\'t enter an email address.');
+				}
+				// else if cancel button is pressed
+				else if ($cancel) {
+					// redirect to home page
+					echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
 				}
 				?>
 			</div>

@@ -43,8 +43,7 @@ session_cache_expire(30);
                         include('watcherPage.php');
                     } else if ($_SESSION['access_level'] == 2){
                         //Admin Dashboard
-                        echo('admin');
-                        //include('adminPage.php');
+                        include('adminPage.php');
                     } else {
                         echo('Something went wrong.');
                     }

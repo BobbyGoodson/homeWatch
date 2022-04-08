@@ -30,6 +30,34 @@ function validate_form($person) {
 }
 
 /**
+ * validate the create new admin and watcher forms in adminEdit.php/adminForm.inc AND watcherEdit.php/watcherForm.inc
+ */
+function validate_watcher_admin_form() {
+    if ($_POST['first_name'] == NULL || $_POST['last_name'] == NULL || $_POST['password'] == null){
+        $errors[] = 'Missing field(s)';
+    }
+    if (!valid_phone($_POST['phone'])) {
+        $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
+    }
+
+    if (!valid_email($_POST['email'])){
+        $errors[] = 'Enter a valid email address (test@example.com)';
+    }
+    return $errors;
+}
+
+/**
+ * validate the email authentication form in emailAuthentication.php and emailAuthenticationForm.inc
+ */
+function validate_email_form() {
+
+    if (!valid_email($_POST['email'])){
+        $errors[] = 'Enter a valid email address (test@example.com)';
+    }
+    return $errors;
+}
+
+/**
  * validate the drop-in form in drop_in.php and drop_in.inc
  */
 function validate_dropin_form(){
@@ -51,7 +79,7 @@ function validate_child_form(){
         $errors[] = 'Missing field(s)';
     }
     if (!valid_DOB($_POST['DOB'])){
-        $errors[] = 'DOB not valid (mm/dd/yyyy)';
+        $errors[] = 'Enter a valid DOB (mm/dd/yyyy)';
     }
     return $errors;
 }
@@ -70,7 +98,7 @@ function valid_DOB(&$DOB){
     if ((strlen($DOB)) != 8)
         return false;
 
-    //check if dates amke sense
+    //check if dates make sense
     if (intval($DOB[0] . $DOB[1]) > 12){
         return false;
     }

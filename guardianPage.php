@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>
-            Main Page
+            Guardian Homepage
         </title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 		<style>

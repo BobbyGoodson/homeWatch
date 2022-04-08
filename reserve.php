@@ -58,7 +58,7 @@ session_cache_expire(30);
             if ($reserveAttempt == false){
                 //lets send some error message about not having enough space
                 $end = end_time($_GET['frame']);
-                $_SESSION['reserve_error'] = "Not enough space for " . $num_children . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end . "at the " . $venue . " location";
+                $_SESSION['reserve_error'] = "Not enough space for " . $num_children . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end . " at the " . $venue . " location";
             } else {
                 /*
                 * Fourth, put these children along with the chosen time slot into the children_in_slots table

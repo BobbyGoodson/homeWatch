@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>
-            Watcher Homepage
+            Admin Homepage
         </title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 		<style>
@@ -16,12 +16,9 @@
 	<body>
 		<?php
     		echo "<br><br><center><strong>Child Care</strong></center><br><br><br>";
-
-            if ($_SESSION['reserve_error'] != null){
-                echo("<center><font color=\"red\">" . "*" . $_SESSION['reserve_error'] . "</font></center>\n");
-            }
 		?>
 		<?php
+		include_once('database/dbinfo.php');
 		include_once('database/dbShiftsNew.php');
 
 		//get the results by query
@@ -38,7 +35,6 @@
 					<th>Date</th>
 					<th>Time Slots</th>
 					<th>Availability</th>
-                    <th>Reserve Slot</th>
 				</thead>
 				</tr>";
 
@@ -56,7 +52,7 @@
 					continue;
 				}
 
-                $date= date("m/d", strtotime($row['day']));
+				$date= date("m/d", strtotime($row['day']));
 
 				$end = end_time($start);		
 				//echo( $row['day']." ".$row['start_time_text']." to ".$end." "."<br>");
@@ -64,11 +60,10 @@
 				echo "<td><center>" . $row['day'] . ", " . $date . "</center></td>";
 				echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
   				echo "<td><center>" . $openSlots . "</center></td>";
-                echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="drop_in.php?day_num=' . $row['day_num'] . '&time=' . $row['start_time_value'] . '&date=' . $date . '&venue=' . $row['venue'] . '&start=' . $row['start_time_text'] . '&end=' . $end . '">Reserve</a></center></td>';
-                //echo "<td><div style= 'text-align:center'><input type='submit' value='Reserve' name='" . $row['day'] . "'.'" . $row['start_time_text'] . "'></div></td>";
-                echo "</tr>";
+  				echo "</tr>";
 			}
-			echo "</table>";	
+			echo "</table>";
+			mysqli_close($con);		
 		}	
 		?>
 	</body>

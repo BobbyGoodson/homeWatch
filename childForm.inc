@@ -25,9 +25,10 @@
 <script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 
-<?php 	
-    // The submit button
-    echo('<input type="hidden" name="_submit_child" value="1"><p>');
-    echo('<div style= "text-align:center"><input type="submit" value="Add" name="add"><br /><br /></div>');
+<?php
+	// The submit and cancel buttons
+    echo('<p><table align = "center"><form method="post"><input type="hidden" name="_submit_child" value="1">
+    <td><input type="submit" value="Add" name="add"><br /><br /></td>
+    <td><input type="submit" value="Cancel" name="cancel_button"><br /><br /></td></table>');
 ?>
 </form>
