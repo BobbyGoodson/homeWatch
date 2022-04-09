@@ -34,11 +34,13 @@ session_cache_expire(30);
         echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
     }
     if (!array_key_exists('_submit_check', $_POST)) {
-        echo('<div align = "center"><img src="images/YMCAlogo.png" width="200" height="150"></div>');
-        echo('<p><table class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
-                <tr><td>Username:<br /><br /></td><td><input type="text" name="user" tabindex="1"><br /><br /></td></tr>
-        		<tr><td>Password: <br /><br /></td><td><input type="password" name="pass" tabindex="2"><br /><br /></td></tr>
-                <tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
+        echo('<p><strong>Login</strong></p>
+                <p><table style="text-align:center" class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
+                <tr><td><input type="text" name="user" placeholder="Email" tabindex="1"><br /><br /></td></tr>
+        		<tr><td><input type="password" name="pass" placeholder="Password"tabindex="2"><br /><br /></td></tr>
+                <tr><td colspan="2"><input type="submit" name="Login" value="Login"><br /><br /></td></tr>
+                <tr><td>Forgot your password?<a href="' . $path . 'forgetPasswordEmailAuthentication.php">Reset it.</a><br /><br /></td></tr>
+                <tr><td>Don\'t have an account?<a href="' . $path . 'emailAuthentication.php">Sign up for one!</a></td></tr></table></p>');
     } else {
 
         // if either field is left blank
@@ -46,7 +48,13 @@ session_cache_expire(30);
 
             // show error message
             echo('<div align="center"><p class="error">Error: Didn\'t fill in all of the required fields.<br />');
-            echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true"><tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr><tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
+            echo('<p><strong>Login</strong></p>
+                    <p><table style="text-align:center" class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
+                    <tr><td><input type="text" name="user" placeholder="Email" tabindex="1"><br /><br /></td></tr>
+                    <tr><td><input type="password" name="pass" placeholder="Password"tabindex="2"><br /><br /></td></tr>
+                    <tr><td colspan="2"><input type="submit" name="Login" value="Login"><br /><br /></td></tr>
+                    <tr><td>Forgot your password?<a href="' . $path . 'forgetPasswordEmailAuthentication.php">Reset it.</a><br /><br /></td></tr>
+                    <tr><td>Don\'t have an account?<a href="' . $path . 'emailAuthentication.php">Sign up for one!</a></td></tr></table></p>');
         }
         //otherwise authenticate their password
         else {
@@ -81,13 +89,25 @@ session_cache_expire(30);
                 else {
                     // error message
                     echo('<div align="center"><p class="error">Error: invalid username/password.<br />If you cannot remember your password, reset your password.');
-                    echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true"><tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr><tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
+                    echo('<p><strong>Login</strong></p>
+                    <p><table style="text-align:center" class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
+                    <tr><td><input type="text" name="user" placeholder="Email" tabindex="1"><br /><br /></td></tr>
+                    <tr><td><input type="password" name="pass" placeholder="Password"tabindex="2"><br /><br /></td></tr>
+                    <tr><td colspan="2"><input type="submit" name="Login" value="Login"><br /><br /></td></tr>
+                    <tr><td>Forgot your password?<a href="' . $path . 'forgetPasswordEmailAuthentication.php">Reset it.</a><br /><br /></td></tr>
+                    <tr><td>Don\'t have an account?<a href="' . $path . 'emailAuthentication.php">Sign up for one!</a></td></tr></table></p>');               
                 }
             //At this point, they failed to authenticate
             } else {
                 // error message
                 echo('<div align="center"><p class="error">Error: invalid username/password.<br />If you cannot remember your password, reset your password.');
-                echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true"><tr><td>Username:</td><td><input type="text" name="user" tabindex="1"></td></tr><tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
+                echo('<p><strong>Login</strong></p>
+                    <p><table style="text-align:center" class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
+                    <tr><td><input type="text" name="user" placeholder="Email" tabindex="1"><br /><br /></td></tr>
+                    <tr><td><input type="password" name="pass" placeholder="Password"tabindex="2"><br /><br /></td></tr>
+                    <tr><td colspan="2"><input type="submit" name="Login" value="Login"><br /><br /></td></tr>
+                    <tr><td>Forgot your password?<a href="' . $path . 'forgetPasswordEmailAuthentication.php">Reset it.</a><br /><br /></td></tr>
+                    <tr><td>Don\'t have an account?<a href="' . $path . 'emailAuthentication.php">Sign up for one!</a></td></tr></table></p>');
             }
         }
     }

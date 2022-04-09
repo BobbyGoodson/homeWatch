@@ -47,6 +47,17 @@ function validate_watcher_admin_form() {
 }
 
 /**
+ * validate the forget password forms in forgetPassword.php/forgetPasswordForm.inc
+ */
+function validate_forget_password_form() {
+
+    if ($_POST['password'] == NULL || $_POST['passwordConfirm'] == NULL){
+        $errors[] = 'Missing field(s)';
+    }
+    return $errors;
+}
+
+/**
  * validate the email authentication form in emailAuthentication.php and emailAuthenticationForm.inc
  */
 function validate_email_form() {
