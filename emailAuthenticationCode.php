@@ -10,7 +10,7 @@ include_once('sendEmailFunction.php');
 <html>
 	<head>
 		<title>
-			Email Authentication step 2: enter code
+			Create Account Email Authentication step 2: enter code
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>

@@ -11,7 +11,7 @@ include_once('sendEmailFunction.php');
 <html>
 	<head>
 		<title>
-			Email Authentication
+			Create Account Email Authentication
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
