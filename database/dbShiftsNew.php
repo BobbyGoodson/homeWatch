@@ -35,6 +35,22 @@ function day($day_number){
     return false;
 }
 
+function editCapacity($venue, $capacity){
+    $con=connect();
+    $query = 'UPDATE dbshiftsnew SET capacity = '" . $capacity . "' WHERE venue = "' . $venue . '"';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+      return true;
+}
+
+function editCapacity($venue, $day_num, $start_time_value, $capacity){
+    $con=connect();
+    $query = 'UPDATE dbshiftsnew SET reserved = '" . $capacity . "' WHERE day_num = "' . $day_num . '" AND start_time_value = '" . $start_time_value . "' AND venue = '" . $venue . "';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+      return true;
+}
+
 //function that takes a start shift and checks how many slots are open. $row is a single row from an sql result
 function slots_open($row){
     $openSlots = 1000000;
