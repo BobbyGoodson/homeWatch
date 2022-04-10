@@ -1,8 +1,8 @@
 <form method = "post">
 	<?PHP
-		//This is the form for email Authentication
+		//This is the form for forget Password Email Authentication
 		echo('<p style="text-align:center"><strong>Email Authentication</strong><br /><br />');
-		echo('<p style="text-align:center">To create an account, please enter and verify your email address. You will receive a verification code to confirm your email address.</p>');
+		echo('<p style="text-align:center">To reset your password, please enter and verify your email address. You will receive a verification code to confirm your email address.</p>');
 				
         echo('<input type="hidden" name="_submit_check" value="true">');
 		echo('<p style="text-align:center">Email<span style="font-size:12px;color:FF0000">*</span>:<input type="text" name="email" tabindex="1"></p>');

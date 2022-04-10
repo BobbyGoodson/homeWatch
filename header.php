@@ -16,8 +16,6 @@ session_cache_expire(30);
     table.header tr,td{font-size:24px; padding:3px; }
 </style>
 <div id="header">
-<!--<br><br><img src="images/rmhHeader.gif" align="center"><br>
-<h1><br><br>Homebase <br></h1>-->
 </div>
 
 
@@ -79,21 +77,20 @@ session_cache_expire(30);
         echo('<div align = "right">');
 
         if ($_SESSION['access_level'] == 0) {
-            echo('<br> Guardian Toolbar: <a href="' . $path . 'index.php">Availability</a>');
-            echo(' <a href="' . $path . 'reserveChildList.php">Current Reservations</a>');
-            echo(' <a href="' . $path . 'personEdit.php?' . $_SESSION['_id'] . '">Update Account</a>');
+            echo(' <a href="' . $path . 'index.php">Availability</a>');
+            echo(' <a href="' . $path . 'guardianReservationList.php">Current Reservations</a>');
+            echo(' <a href="' . $path . 'personEdit.php?id=' . $_SESSION['_id'] . '">Update Account</a>');
+            echo(' <a href="' . $path . 'about.php">About</a>');
 	    }
 	    else if ($_SESSION['access_level'] == 1) {
-	        echo('<br> Watcher Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
-            echo(' <a href="' . $path . 'viewSchedule.php">Availability</a>');
+	        echo(' <a href="' . $path . 'index.php">Availability</a>');
             echo(' <a href="' . $path . 'reserveChildList.php">Current Reservations</a>');
 	    }
         else if ($_SESSION['access_level'] == 2) {
-	        echo('<br> Admin Toolbar: <a href="' . $path . 'index.php">Homepage</a>');
-            echo(' <a href="' . $path . 'viewSchedule.php">Availability</a>');
+	        echo(' <a href="' . $path . 'index.php">Availability</a>');
             echo(' <a href="' . $path . 'reserveChildList.php">Current Reservations</a>');
-            echo(' <a href="' . $path . 'personSearch.php">Create Admin Account</a>');
-            echo(' <a href="' . $path . 'personSearch.php">Create Watcher Account</a>');
+            echo(' <a href="' . $path . 'adminEdit.php">Create Admin Account</a>');
+            echo(' <a href="' . $path . 'watcherEdit.php">Create Watcher Account</a>');
             echo(' <a href="' . $path . 'listGuardians.php">Guardians</a>');
             echo(' <a href="' . $path . 'reports.php">Update Capacity</a>');
         }

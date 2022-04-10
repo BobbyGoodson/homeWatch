@@ -32,7 +32,7 @@
 		$this->last_name = $last_name;
 		$this->DOB = $DOB;
 		$this->health_requirements = $health_requirements;
-            $this->parent_email = $parent_email;
+        $this->parent_email = $parent_email;
 	}
 
 
@@ -84,29 +84,5 @@
     function set_parent_email($parent_email) {
         $this->parent_email = $parent_email;
     }
-
-
-	 // add child function
-	 //function add_child($child) {
-
-	 	// push new child's first name to "children" array
-	 	//array_push($this->children, $child->get_first_name);
-	 	// add new child to database
-	 	//add_child($child);
-	 //}
-
-	// // delete child function
-	// function delete_child($child) {
-
-	// 	// loop through "children" array and search for child's first name
-	// 	if ($key = array_search($child->get_first_name, $children, $strict) != FALSE) {
-
-	// 		// remove that child from "children" array
-	// 		unset($this->children[$key]);
-	// 	}
-
-	// 	// remove child from database
-	// 	remove_child($child->get_id);
-	// }
 }
 ?>

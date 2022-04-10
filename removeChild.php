@@ -25,7 +25,6 @@ session_cache_expire(30);
         } else {
             //we may perform
             $childID = $_GET['first_name'] . "*" . $_GET['last_name'] . "*" . $_GET['id'];
-            //echo($childID);
             remove_child($childID);
         }
         header("Location: http://localhost/homeWatch/personEdit.php?id=" . $_GET['id'] . "");

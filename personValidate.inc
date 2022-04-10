@@ -30,6 +30,100 @@ function validate_form($person) {
 }
 
 /**
+ * validate the create new admin and watcher forms in adminEdit.php/adminForm.inc AND watcherEdit.php/watcherForm.inc
+ */
+function validate_watcher_admin_form() {
+    if ($_POST['first_name'] == NULL || $_POST['last_name'] == NULL || $_POST['password'] == null){
+        $errors[] = 'Missing field(s)';
+    }
+    if (!valid_phone($_POST['phone'])) {
+        $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
+    }
+
+    if (!valid_email($_POST['email'])){
+        $errors[] = 'Enter a valid email address (test@example.com)';
+    }
+    return $errors;
+}
+
+/**
+ * validate the forget password forms in forgetPassword.php/forgetPasswordForm.inc
+ */
+function validate_forget_password_form() {
+
+    if ($_POST['password'] == NULL || $_POST['passwordConfirm'] == NULL){
+        $errors[] = 'Missing field(s)';
+    }
+    return $errors;
+}
+
+/**
+ * validate the email authentication form in emailAuthentication.php and emailAuthenticationForm.inc
+ */
+function validate_email_form() {
+
+    if (!valid_email($_POST['email'])){
+        $errors[] = 'Enter a valid email address (test@example.com)';
+    }
+    return $errors;
+}
+
+/**
+ * validate the drop-in form in drop_in.php and drop_in.inc
+ */
+function validate_dropin_form(){
+    if ($_POST['g_first_name'] == NULL || $_POST['g_last_name'] == NULL || $_POST['c_age'] == NULL ||
+        $_POST['g_whereabouts'] == null || $_POST['c_first_name'] == null || $_POST['c_last_name'] == null){
+        $errors[] = 'Missing field(s)';
+    }
+    if (!valid_phone($_POST['phone'])) {
+        $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
+    }
+    return $errors;
+}
+
+/**
+ * validate the add child form in childEdit.php and childEdit.inc
+ */
+function validate_child_form(){
+    if ($_POST['first_name'] == NULL || $_POST['last_name'] == NULL || $_POST['DOB'] == NULL){
+        $errors[] = 'Missing field(s)';
+    }
+    if (!valid_DOB($_POST['DOB'])){
+        $errors[] = 'Enter a valid DOB (mm/dd/yyyy)';
+    }
+    return $errors;
+}
+
+/**
+ * Validate the DOB
+ */
+function valid_DOB(&$DOB){
+    if ($DOB == null){
+        return false;
+    }
+    $DOB = str_replace(' ', '', str_replace('/', '', str_replace('(', '', str_replace(')', '', str_replace('-', '', $DOB)))));
+    $test = str_replace('0', '', str_replace('1', '', str_replace('2', '', str_replace('3', '', str_replace('4', '', str_replace('5', '', str_replace('6', '', str_replace('7', '', str_replace('8', '', str_replace('9', '', $DOB))))))))));
+    if ($test != null)
+        return false;
+    if ((strlen($DOB)) != 8)
+        return false;
+
+    //check if dates make sense
+    if (intval($DOB[0] . $DOB[1]) > 12){
+        return false;
+    }
+    if (intval($DOB[2] . $DOB[3]) > 31){
+        return false;
+    }
+    if (intval($DOB[4] . $DOB[5] . $DOB[6] . $DOB[7]) > date("Y",strtotime("now"))){
+        return false;
+    }
+    $DOB = $DOB[0] . $DOB[1] . '/' . $DOB[2] . $DOB[3] . '/' . $DOB[4] . $DOB[5] . $DOB[6] . $DOB[7];
+    return true;
+}
+
+/**
  * valid_phone validates a phone on the following parameters:
  * 		it assumes the characters '-' ' ' '+' '(' and ')' are valid, but ignores them
  * 		every other digit must be a number

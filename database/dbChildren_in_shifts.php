@@ -50,6 +50,21 @@ function getall_currently_reserved() {
     return $result;
 }
 
+function get_child_reservation($child_id){
+    $con=connect();
+    $query = "SELECT * FROM children_in_shifts WHERE child_id = '" . $child_id . "'";
+    $result = mysqli_query($con,$query);
+    if($result == null || mysqli_num_rows($result) == 0) {
+        mysqli_close($con);
+        return false;
+    }
+    while ($row = mysqli_fetch_assoc($result)) {
+        mysqli_close($con);
+        return $row;
+    }
+    return false;
+}
+
 /*
  * check if a child is in any reserved space
  */
@@ -66,4 +81,15 @@ function check_if_child_reserved($childID){
     return true;
 }
 
+
+/*
+ * remove a reservation
+ */
+function remove_reservation($child_id, $start_time){
+    $con=connect();
+    $query = "DELETE FROM children_in_shifts WHERE child_id = '" . $child_id . "' AND shifts_start_time = '" . $start_time . "'";
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    return true;
+}
 ?>

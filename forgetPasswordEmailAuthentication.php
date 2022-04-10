@@ -1,6 +1,6 @@
 <?php
 /*
- * Email Authentication 
+ * Forget Password Email Authentication 
  */
 
 session_start();
@@ -11,7 +11,7 @@ include_once('sendEmailFunction.php');
 <html>
 	<head>
 		<title>
-			Create Account Email Authentication
+			Forget Password Email Authentication
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
@@ -19,7 +19,7 @@ include_once('sendEmailFunction.php');
 		<div id="container">
 			<div id="form">
 				<?php
-				include('emailAuthenticationForm.inc');
+				include('forgetPasswordEmailAuthenticationForm.inc');
 				include('personValidate.inc');
 
 				// store submit button in variable
@@ -41,7 +41,7 @@ include_once('sendEmailFunction.php');
 				// if email field is not left empty AND submit button is pressed
 				if ($userEmail != "" && $submit) {
 	
-					// check if there's already an entry
+					// check if user already exists in database
 					$dup = retrieve_person($userEmail);
 
 					// validate email
@@ -52,17 +52,19 @@ include_once('sendEmailFunction.php');
 						// display the errors and the form to fix
 						show_errors($errors);
 					}
-					// else if email already exists
-					else if ($dup)
-						// show error message
-						echo('<p class="error">Error: Unable to create an account. ' . 'The email address "' . $userEmail . '" is already in use.');
-					// else
-					else {
+					// else if email already exists in database
+					else if ($dup) {
 						// redirect to email authentication code page
 						// redirect to entering the code portion of email authentication
-						echo "<script type=\"text/javascript\">window.location = \"emailAuthenticationCode.php\";</script>";
+						echo "<script type=\"text/javascript\">window.location = \"forgetPasswordEmailAuthenticationCode.php\";</script>";
 						// send code to email
 						email_send($userEmail, $_SESSION['generatedCode']);
+					}
+					// else email doesn't exist in database
+					else {
+
+						// show error message
+						echo('<p class="error">Error: The email address "' . $userEmail . '" is not associated with an account.');
 					}
 				}
 				// else if email field is left empty AND submit button is pressed
