@@ -24,6 +24,7 @@ function start_time($start_number){
     return false;
 }
 
+//get the day in string format from the day number
 function day($day_number){
     $con=connect();
     $query = 'SELECT day from dbshiftsnew WHERE day_num = "' . $day_number . '"';
@@ -34,6 +35,33 @@ function day($day_number){
     }
     return false;
 }
+
+//get available times froma  specific day
+/*function get_availableTimes_wday($day){
+    date_default_timezone_set('America/New_York');
+	//get time
+	$minute = date('i');
+	if ($minute > 30){
+		$minute = 55;
+	}
+	$hour = date('H');
+	$currentTime = $hour . "." . $minute;
+	
+    $con=connect();
+	$query = "SELECT * FROM dbshiftsnew WHERE day = '" . $day . "' AND start_time_value > '". $currentTime ."' ORDER BY start_time_value ASC";
+	$results = mysqli_query($con,$query);
+    mysqli_close($con);
+    return $results;
+}
+
+//get available times froma  specific day
+function get_availableTimes_wday_allday($day){
+    $con=connect();
+	$query = "SELECT * FROM dbshiftsnew WHERE day = '" . $day . "' ORDER BY start_time_value ASC";
+	$results = mysqli_query($con,$query);
+    mysqli_close($con);
+    return $results;
+}*/
 
 //function that takes a start shift and checks how many slots are open. $row is a single row from an sql result
 function slots_open($row){

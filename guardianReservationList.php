@@ -33,7 +33,7 @@ session_cache_expire(30);
 		//get the children attached to the account
         $children_id = array();
         $children_id = retrieve_child_by_email($_SESSION['_id']);
-
+        
         if (count($children_id) != 0){
             echo '<table align = "center" class = "main">';
 			    echo '<tr>';
