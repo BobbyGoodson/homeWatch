@@ -1,7 +1,14 @@
+<?php
+/*
+ * 	This is the Main Admin page where they may see the available times slots.
+ */
+session_start();
+session_cache_expire(30);
+?>
 <html>
 	<head>
 		<title>
-            Main Page
+            Admin Page
         </title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 		<style>
