@@ -1,6 +1,6 @@
 <?php
 /*
- * Email Authentication step 2
+ * Forget Password Email Authentication step 2
  */
 	
 session_start();
@@ -10,7 +10,7 @@ include_once('sendEmailFunction.php');
 <html>
 	<head>
 		<title>
-			Create Account Email Authentication step 2: enter code
+			Forget Password Email Authentication step 2: enter code
 		</title>
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 	</head>
@@ -36,8 +36,8 @@ include_once('sendEmailFunction.php');
 					// if userCode is equal to generated code
 					if ($userCode == $_SESSION['generatedCode']){
 
-						// redirect to create account page
-						echo "<script type=\"text/javascript\">window.location = \"personEdit.php?id=new\";</script>";
+						// redirect to reset password page
+						echo "<script type=\"text/javascript\">window.location = \"forgetPassword.php\";</script>";
 						// unset $_SESSION['generatedCode'] - so that it doesn't keep sending the same code to the next person
 						unset($_SESSION['generatedCode']);
 					} else {

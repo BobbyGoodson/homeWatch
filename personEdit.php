@@ -125,7 +125,6 @@ if ($id == 'new') {
                             $person->set_phone($phone);
                             $person->set_barcode($barcode);
                             $person->set_password($password);
-                            // no need to updateother information
 
                             //remove from database
                             remove_person($id);

@@ -14,6 +14,7 @@
             table.top { border-collapse:collapse; font-family:verdana, arial, sans-serif; 
 				background: white; width: 80%; margin-left: auto; margin-right: auto; }
 			table.top th { border: none; font-size:24px; padding:10px; color: #808080; }
+			table.top tr{vertical-align: top;}
 		</style>
 	</head>
 	<body>
@@ -30,8 +31,8 @@
 
         echo "<table class='top'>
 				<tr>
-					<th><center>" . $today . ", " . date('d/m') . "</center></th>
-					<th><center>" . $tomorrow . ", " . date('d/m', strtotime('tomorrow')) . "</center></th>
+					<th><center>" . $today . ", " . date('m/d') . "</center></th>
+					<th><center>" . $tomorrow . ", " . date('m/d', strtotime('tomorrow')) . "</center></th>
 				</tr>
 				<tr>";
 					//FIRST TABLE
@@ -96,7 +97,7 @@
 
 							$end = end_time($start);		
 							//echo( $row['day']." ".$row['start_time_text']." to ".$end." "."<br>");
-							echo "<tr>";
+							echo "<tr VALIGN=TOP>";
 							echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
 			  				echo "<td><center>" . $openSlots . "</center></td>";
 			  				echo "</tr>";
