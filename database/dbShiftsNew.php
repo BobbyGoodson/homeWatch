@@ -37,7 +37,7 @@ function day($day_number){
 }
 
 //get available times froma  specific day
-/*function get_availableTimes_wday($day){
+function get_availableTimes_wday($day){
     date_default_timezone_set('America/New_York');
 	//get time
 	$minute = date('i');
@@ -61,7 +61,7 @@ function get_availableTimes_wday_allday($day){
 	$results = mysqli_query($con,$query);
     mysqli_close($con);
     return $results;
-}*/
+}
 
 //function that takes a start shift and checks how many slots are open. $row is a single row from an sql result
 function slots_open($row){
