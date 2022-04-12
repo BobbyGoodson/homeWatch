@@ -21,25 +21,11 @@ include_once('database/dbinfo.php');
         </title>
         <link rel="stylesheet" href="styles.css" type="text/css" />
         <style>
-        	#appLink:visited {
-        		color: gray; 
-        	}
-
-			table.ChildrenList, table.ChildrenList th, table.ChildrenList td {
-			text-align: center;
-			border: 1px solid black;
-			border-collapse: collapse;
-			}
-
-			table.ChildrenList th {
-			font-size: 25px;
-  			background-color: #b9a1e8;
-			}
-
-			table.ChildrenList td {
-			font-size: 20px;
-			background-color: #ddd2f4;
-			}
+        	table.main { border-collapse:collapse; font-family:verdana, arial, sans-serif; 
+				background: white; width: 65%; margin-left: auto; margin-right: auto; }
+			table.main td { border: 1px solid #D3D3D3; font-size:24px; padding:10px; }
+			table.main thead {background-color: white; }
+			table.main th { border: 1px solid #D3D3D3; font-size:24px; padding:10px; color: #808080; }
 		</style> 
     </head>
     <body>
@@ -48,7 +34,7 @@ include_once('database/dbinfo.php');
             <div id="content">
 
 				<p style="text-align:center"><strong>List of Children</strong><br /><br />
-				<table style="width:100%" align = "center" class = "ChildrenList">
+				<table align = "center" class = "main">
 					<tr>
 						<th>First Name</th>
 						<th>Last Name</th>
@@ -64,10 +50,10 @@ include_once('database/dbinfo.php');
 					if (mysqli_num_rows($result) > 0) {
 						while ($row = mysqli_fetch_assoc($result)) {
 							echo '<tr>';
-							echo '<td>' . $row['first_name'] . '</td>';
-							echo '<td>' . $row['last_name'] . '</td>';
-							echo '<td>' . $row['DOB'] . '</td>';
-							echo '<td>' . $row['health_requirements'] . '</td>';
+							echo '<td><center>' . $row['first_name'] . '</center></td>';
+							echo '<td><center>' . $row['last_name'] . '</center></td>';
+							echo '<td><center>' . $row['DOB'] . '</center></td>';
+							echo '<td><center>' . $row['health_requirements'] . '</center></td>';
 							echo '</tr>';
 						}
 					}
