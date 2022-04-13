@@ -51,7 +51,11 @@ function get_availableTimes_wday($day){
 	$query = "SELECT * FROM dbshiftsnew WHERE day = '" . $day . "' AND start_time_value > '". $currentTime ."' ORDER BY start_time_value ASC";
 	$results = mysqli_query($con,$query);
     mysqli_close($con);
-    return $results;
+    if (mysqli_num_rows($results) > 0){
+        return $results;
+    } else {
+        return false;
+    }
 }
 
 //get available times froma  specific day
@@ -60,7 +64,11 @@ function get_availableTimes_wday_allday($day){
 	$query = "SELECT * FROM dbshiftsnew WHERE day = '" . $day . "' ORDER BY start_time_value ASC";
 	$results = mysqli_query($con,$query);
     mysqli_close($con);
-    return $results;
+    if (mysqli_num_rows($results) > 0){
+        return $results;
+    } else {
+        return false;
+    }
 }
 
 function editCapacity($venue, $capacity){

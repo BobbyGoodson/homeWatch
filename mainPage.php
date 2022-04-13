@@ -40,8 +40,8 @@
 					//get the results by query
 					$results = get_availableTimes_wday($today);
 
-					if ($results == NULL){
-						echo('No times available.');
+					if ($results == false){
+						echo('<center>No times available.</center>');
 					} else {
 						echo "<table class='main'>
 							<tr>
@@ -76,8 +76,8 @@
 					//get the results by query
 					$results = get_availableTimes_wday_allday($tomorrow);
 
-					if ($results == NULL){
-						echo('No times available.');
+					if ($results == false){
+						echo('<center>No times available.</center>');
 					} else {
 						echo "<table class='main'>
 							<tr>
