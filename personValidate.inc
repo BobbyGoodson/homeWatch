@@ -72,12 +72,20 @@ function validate_email_form() {
  * validate the drop-in form in drop_in.php and drop_in.inc
  */
 function validate_dropin_form(){
-    if ($_POST['g_first_name'] == NULL || $_POST['g_last_name'] == NULL || $_POST['c_age'] == NULL ||
+    if ($_POST['g_first_name'] == NULL || $_POST['g_last_name'] == NULL ||
         $_POST['g_whereabouts'] == null || $_POST['c_first_name'] == null || $_POST['c_last_name'] == null){
         $errors[] = 'Missing field(s)';
     }
     if (!valid_phone($_POST['phone'])) {
         $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
+    }
+
+    if (!valid_email($_POST['email'])){
+        $errors[] = 'Enter a valid email address (test@example.com)';
+    }
+
+    if (!valid_DOB($_POST['c_DOB'])){
+        $errors[] = 'Enter a valid DOB (mm/dd/yyyy)';
     }
     return $errors;
 }

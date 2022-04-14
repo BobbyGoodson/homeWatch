@@ -22,13 +22,18 @@
     echo '</tr>';
 
     echo '<tr>';
-	echo '<td align="right"><p>Guardian\'s Intended Whereabouts<span style="font-size:12px;color:FF0000">*</span>: </td>';
-	echo '<td><input type="text" name="g_whereabouts" tabindex="3"></td>';
+    echo '<td align="right"><p>Phone Number<span style="font-size:12px;color:FF0000">*</span>: </td>';
+	echo '<td><input type="text" name="phone" tabindex="4"></td>';
     echo '</tr>';
 
     echo '<tr>';
-    echo '<td align="right"><p>Phone Number<span style="font-size:12px;color:FF0000">*</span>: </td>';
-	echo '<td><input type="text" name="phone" tabindex="4"></td>';
+    echo '<td align="right"><p>Email<span style="font-size:12px;color:FF0000">*</span>: </td>';
+	echo '<td><input type="text" name="email" tabindex="4"></td>';
+    echo '</tr>';
+
+    echo '<tr>';
+	echo '<td align="right"><p>Guardian\'s Intended Whereabouts<span style="font-size:12px;color:FF0000">*</span>: </td>';
+	echo '<td><input type="text" name="g_whereabouts" tabindex="3"></td>';
     echo '</tr>';
 
     echo '<tr>';
@@ -42,8 +47,8 @@
     echo '</tr>';
 
     echo '<tr>';
-    echo '<td align="right"><p>Child\'s Age<span style="font-size:12px;color:FF0000">*</span>: </td>';
-	echo '<td><input type="text" name="c_age" tabindex="7"></td>';
+    echo '<td align="right"><p>Child\'s DOB (mm/dd/yyyy)<span style="font-size:12px;color:FF0000">*</span>: </td>';
+	echo '<td><input type="text" name="c_DOB" tabindex="7"></td>';
     echo '</tr>';
 
     echo '<tr>';
