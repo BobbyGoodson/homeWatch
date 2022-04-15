@@ -37,7 +37,12 @@ session_cache_expire(30);
 		include_once('database/dbShiftsNew.php');
 
 		date_default_timezone_set("America/New_York");
+
 		$today = day(date('w'));
+
+		// hard code today as tomorrow
+		//$today = day(date('w', strtotime('tomorrow')));
+
 		$tomorrow = day(date('w', strtotime('tomorrow')));
 
         echo "<table class='top'>
@@ -50,6 +55,10 @@ session_cache_expire(30);
 					echo "<td>";
 					//get the results by query
 					$results = get_availableTimes_wday($today);
+
+					// hard code today as tomorrow
+					//$results = get_availableTimes_wday_allday($today);
+
 
 					if ($results == false){
 						echo('<center>No times available.</center>');
@@ -73,11 +82,10 @@ session_cache_expire(30);
 							}
 
 							$end = end_time($start);		
-							//echo( $row['day']." ".$row['start_time_text']." to ".$end." "."<br>");
 							echo "<tr>";
 							echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
 			  				echo "<td><center>" . $openSlots . "</center></td>";
-							echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="drop_in.php?day_num=' . $row['day_num'] . '&time=' . $row['start_time_value'] . '&date=' . $date . '&venue=' . $row['venue'] . '&start=' . $row['start_time_text'] . '&end=' . $end . '">Reserve</a></center></td>';
+							echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="drop_in.php?day_num=' . $row['day_num'] . '&dayofweek=' . $today . '&time=' . $row['start_time_value'] . '&date=' . $date . '&venue=' . $row['venue'] . '&start=' . $row['start_time_text'] . '&end=' . $end . '">Reserve</a></center></td>';
 			  				echo "</tr>";
 						}
 						echo "</table>";
@@ -97,7 +105,6 @@ session_cache_expire(30);
 							<tr>
 							<th>Time Slots</th>
 							<th>Availability</th>
-                            <th>Reserve Slot</th>
 							</tr>";
 
 						//object returned from database must be iterated through row by row to print.	
@@ -112,11 +119,9 @@ session_cache_expire(30);
 							}
 
 							$end = end_time($start);		
-							//echo( $row['day']." ".$row['start_time_text']." to ".$end." "."<br>");
 							echo "<tr VALIGN=TOP>";
 							echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
 			  				echo "<td><center>" . $openSlots . "</center></td>";
-							echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="drop_in.php?day_num=' . $row['day_num'] . '&time=' . $row['start_time_value'] . '&date=' . $date . '&venue=' . $row['venue'] . '&start=' . $row['start_time_text'] . '&end=' . $end . '">Reserve</a></center></td>';
 			  				echo "</tr>";
 						}
 						echo "</table>";
