@@ -7,6 +7,8 @@ session_start();
 session_cache_expire(30);
 include_once('database/dbChildren.php');
 include_once('domain/Child.php');
+include_once('database/dbChildren_in_shifts.php');
+include_once('database/dbShiftsNew.php');
 ?>
 <html>
     <head>
@@ -54,6 +56,7 @@ include_once('domain/Child.php');
                 $start = $_GET['start'];
                 $date = $_GET['date'];
                 $dayofweek = $_GET['dayofweek'];
+
                 
                 include('personValidate.inc');
 		        //include_once('database/dbinfo.php');
@@ -92,6 +95,15 @@ include_once('domain/Child.php');
                 function process_dropin() {
 
                     //Process the form
+		    //first make sure there is space
+		    $day_num = intval($_GET['day_num']);
+		    $time = floatval($_GET['time']);
+		    $venue = $_GET['venue'];
+		    $number_added = 1;
+		    
+		    $reserveAttempt = increment_reserved($number_added, $day_num, $time, $venue);
+			echo($reserveAttempt);
+		    //TODO: ACTUALLY ERROR CHECK FOR RESERVEATTEMPT
                     $first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['c_first_name']))));
                     $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['c_last_name'])));
                     $DOB = trim(str_replace('\\\'', '\'', htmlentities($_POST['c_DOB'])));
@@ -101,7 +113,9 @@ include_once('domain/Child.php');
 		
                     $newchild = new Child($first_name, $last_name, $DOB, $health_requirements, $parent_email);
                     add_child($newchild);
-
+		    //add child to db
+		    $newID = $newchild->get_id();
+		    add_entry($newID,$day_num,$time);
                     // redirect to watcher home page
                     echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
                 }
