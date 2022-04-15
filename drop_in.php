@@ -5,7 +5,8 @@
  */
 session_start();
 session_cache_expire(30);
-
+include_once('database/dbChildren.php');
+include_once('domain/Child.php');
 ?>
 <html>
     <head>
@@ -47,21 +48,16 @@ session_cache_expire(30);
     <body id="bodyForm">
             <div id="formperson">
                 <?PHP
-                //include('dropinValidate.inc');
+
                 //let's get some information about the time slot, taken from the url
                 $end = $_GET['end'];
                 $start = $_GET['start'];
                 $date = $_GET['date'];
-		//and the information we need from POST
-		$email = $_POST['email'];
-		$c_first_name =  $_POST['c_first_name'];
-		$c_last_name =  $_POST['c_last_name'];
-		$c_DOB =  $_POST['c_DOB'];
-		$health_requirements =  $_POST['health_requirements'];
-		
-		//includes
+                $dayofweek = $_GET['dayofweek'];
+                
                 include('personValidate.inc');
-		include_once('database/dbinfo.php');
+		        //include_once('database/dbinfo.php');
+
                 if ($_POST['_submit_dropin'] != 1){
                     //in this case, the form has not been submitted, so show it
                     include('drop_in.inc');
@@ -85,9 +81,7 @@ session_cache_expire(30);
                         // else
                         else {
                             // process form
-                            process_dropin($c_first_name,$c_last_name,$c_DOB,$health_requirements,$email,$start,$date);
-                            //go back
-                            echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
+                            process_dropin();
                         }
                     }
                 }
@@ -95,23 +89,21 @@ session_cache_expire(30);
                 /**
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
-                function process_dropin($c_first_name,$c_last_name,$c_DOB,$health_requirements,$email,$start,$date) {
+                function process_dropin() {
+
                     //Process the form
-			$id = $c_first_name . "*" . $c_last_name . "*" . $email;
-			$con=connect();
-			mysqli_query($con,'INSERT INTO dbChildren VALUES("' .
-                		$id . '","' .
-               			$c_first_name . '","' .
-                		$c_last_name . '","' .
-                		$c_DOB . '","' .
-                		$health_requirements . '","' .
-                		$email .
-                		'");');	
-			mysqli_close($con);
-			
+                    $first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['c_first_name']))));
+                    $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['c_last_name'])));
+                    $DOB = trim(str_replace('\\\'', '\'', htmlentities($_POST['c_DOB'])));
+                    $temp_health_requirements = trim($_POST['health_requirements']);
+                    $health_requirements = nl2br($temp_health_requirements);
+                    $parent_email = $_POST['email'];
 		
-                    //check if enough room, etc.
-                    echo('hey');
+                    $newchild = new Child($first_name, $last_name, $DOB, $health_requirements, $parent_email);
+                    add_child($newchild);
+
+                    // redirect to watcher home page
+                    echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
                 }
                 ?>
             </div>
