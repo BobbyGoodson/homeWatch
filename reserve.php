@@ -51,7 +51,7 @@ session_cache_expire(30);
             * Third, deal with the reserved spaces: check if there is enough space for the number of children
             */
             $day = intval($_GET['day_num']);
-            $time = intval($_GET['time']);
+            $time = floatval($_GET['time']);
             $venue = $_GET['venue'];
             $reserveAttempt = increment_reserved($num_children, $day, $time, $venue);
 
