@@ -27,6 +27,10 @@ session_cache_expire(30);
 	<body>
 		<?php
     		echo "<br><br><center><strong>Child Care</strong></center><br><br><br>";
+			if ($_SESSION['reserve_error'] != null){
+                echo("<center><font color=\"red\">" . "*" . $_SESSION['reserve_error'] . "</font></center>\n");
+				$_SESSION['reserve_error'] = null;
+            }
 		?>
 		<?php
 		include_once('database/dbinfo.php');

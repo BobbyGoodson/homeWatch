@@ -30,7 +30,8 @@ session_cache_expire(30);
 
             if ($_SESSION['reserve_error'] != null){
                 echo("<center><font color=\"red\">" . "*" . $_SESSION['reserve_error'] . "</font></center>\n");
-            }
+				$_SESSION['reserve_error'] = null;
+			}
 		?>
 		<?php
 		include_once('database/dbinfo.php');
@@ -85,7 +86,7 @@ session_cache_expire(30);
 							echo "<tr>";
 							echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
 			  				echo "<td><center>" . $openSlots . "</center></td>";
-							echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="drop_in.php?day_num=' . $row['day_num'] . '&dayofweek=' . $today . '&time=' . $row['start_time_value'] . '&date=' . $date . '&venue=' . $row['venue'] . '&start=' . $row['start_time_text'] . '&end=' . $end . '">Reserve</a></center></td>';
+							echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="drop_in.php?day_num=' . $row['day_num'] . '&day=' . $row['day'] . '&time=' . $row['start_time_value'] . '&date=' . $date . '&venue=' . $row['venue'] . '&frame=' . $row['start_time_text'] . '&end=' . $end . '">Reserve</a></center></td>';
 			  				echo "</tr>";
 						}
 						echo "</table>";

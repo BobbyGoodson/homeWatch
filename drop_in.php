@@ -52,15 +52,12 @@ include_once('database/dbShiftsNew.php');
                 <?PHP
 
                 //let's get some information about the time slot, taken from the url
+                // this is used at the top of the drop-in GUI
                 $end = $_GET['end'];
-                $start = $_GET['start'];
+                $start = $_GET['frame'];
                 $date = $_GET['date'];
-                $dayofweek = $_GET['dayofweek'];
-
                 
                 include('personValidate.inc');
-		        //include_once('database/dbinfo.php');
-
                 if ($_POST['_submit_dropin'] != 1){
                     //in this case, the form has not been submitted, so show it
                     include('drop_in.inc');
@@ -95,27 +92,64 @@ include_once('database/dbShiftsNew.php');
                 function process_dropin() {
 
                     //Process the form
-		    //first make sure there is space
-		    $day_num = intval($_GET['day_num']);
-		    $time = floatval($_GET['time']);
-		    $venue = $_GET['venue'];
-		    $number_added = 1;
-		    
-		    $reserveAttempt = increment_reserved($number_added, $day_num, $time, $venue);
-			echo($reserveAttempt);
-		    //TODO: ACTUALLY ERROR CHECK FOR RESERVEATTEMPT
+
                     $first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['c_first_name']))));
                     $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['c_last_name'])));
                     $DOB = trim(str_replace('\\\'', '\'', htmlentities($_POST['c_DOB'])));
                     $temp_health_requirements = trim($_POST['health_requirements']);
                     $health_requirements = nl2br($temp_health_requirements);
                     $parent_email = $_POST['email'];
+
+                    $child_ID = $first_name . "*" . $last_name . "*" . $parent_email;
+
+                    // first check if child have been in a reserved space. Send an error message.
+                    $result = check_if_child_reserved($child_ID);
+                    if ($result == true){
+                        $_SESSION['reserve_error'] = "This child has already been reserved.";
+                        $error = 1;
+                        header("Location: http://localhost/homeWatch/index.php");
+                    }
+
+                    // deal with the reserved spaces: check if there is enough space for the number of children
+                    if ($error == 0){
 		
-                    $newchild = new Child($first_name, $last_name, $DOB, $health_requirements, $parent_email);
-                    add_child($newchild);
-		    //add child to db
-		    $newID = $newchild->get_id();
-		    add_entry($newID,$day_num,$time);
+                        //first make sure there is space
+		                $day = intval($_GET['day_num']);
+		                $time = floatval($_GET['time']);
+		                $venue = $_GET['venue'];
+		                $number_added = 1;
+
+                        $reserveAttempt = increment_reserved($number_added, $day, $time, $venue);
+
+                        if ($reserveAttempt == false){
+                            //lets send some error message about not having enough space
+                            $end = end_time($_GET['frame']);
+                            $_SESSION['reserve_error'] = "Not enough space for " . $number_added . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end . " at the " . $venue . " location.";
+                        } else {
+                            
+                            //create new Child object using from form
+                            $newchild = new Child($first_name, $last_name, $DOB, $health_requirements, $parent_email);
+
+                            //get new child object's ID
+                            $new_Child_ID = $newchild->get_id();
+
+                            //check if child is already added in db
+                            $dup = retrieve_child($new_Child_ID);
+                            //if they are
+                            if ($dup) {
+
+                                //remove the child from db
+                                remove_child($new_Child_ID);
+                            }
+
+                            //add child to db with updated information from constructor above
+                            add_child($newchild);
+                            
+                            //add this child along with the chosen time slot into the children_in_shifts table
+                            add_entry($new_Child_ID, $day, $time);
+                        }
+                    }
+
                     // redirect to watcher home page
                     echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
                 }

@@ -40,7 +40,7 @@ session_cache_expire(30);
         foreach ($children_id as $child){
             $result = check_if_child_reserved($child);
             if ($result == true){
-                $_SESSION['reserve_error'] = "A child has already been reserved";
+                $_SESSION['reserve_error'] = "This child has already been reserved.";
                 $error = 1;
                 header("Location: http://localhost/homeWatch/index.php");
             }
@@ -58,15 +58,15 @@ session_cache_expire(30);
             if ($reserveAttempt == false){
                 //lets send some error message about not having enough space
                 $end = end_time($_GET['frame']);
-                $_SESSION['reserve_error'] = "Not enough space for " . $num_children . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end . " at the " . $venue . " location";
+                $_SESSION['reserve_error'] = "Not enough space for " . $num_children . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end . " at the " . $venue . " location.";
             } else {
                 /*
-                * Fourth, put these children along with the chosen time slot into the children_in_slots table
+                * Fourth, put these children along with the chosen time slot into the children_in_shifts table
                 */
                 foreach ($children_id as $child){
                     $result = add_entry($child, $day, $time);
                     if ($result == false){
-                        $_SESSION['reserve_error'] = "Could not add " . $child . "";
+                        $_SESSION['reserve_error'] = "Could not add " . $child . ".";
                     }
                 }
             }
