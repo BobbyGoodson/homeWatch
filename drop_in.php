@@ -52,7 +52,16 @@ session_cache_expire(30);
                 $end = $_GET['end'];
                 $start = $_GET['start'];
                 $date = $_GET['date'];
+		//and the information we need from POST
+		$email = $_POST['email'];
+		$c_first_name =  $_POST['c_first_name'];
+		$c_last_name =  $_POST['c_last_name'];
+		$c_DOB =  $_POST['c_DOB'];
+		$health_requirements =  $_POST['health_requirements'];
+		
+		//includes
                 include('personValidate.inc');
+		include_once('database/dbinfo.php');
                 if ($_POST['_submit_dropin'] != 1){
                     //in this case, the form has not been submitted, so show it
                     include('drop_in.inc');
@@ -76,7 +85,7 @@ session_cache_expire(30);
                         // else
                         else {
                             // process form
-                            process_dropin();
+                            process_dropin($c_first_name,$c_last_name,$c_DOB,$health_requirements,$email,$start,$date);
                             //go back
                             echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
                         }
@@ -86,8 +95,21 @@ session_cache_expire(30);
                 /**
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
-                function process_dropin() {
+                function process_dropin($c_first_name,$c_last_name,$c_DOB,$health_requirements,$email,$start,$date) {
                     //Process the form
+			$id = $c_first_name . "*" . $c_last_name . "*" . $email;
+			$con=connect();
+			mysqli_query($con,'INSERT INTO dbChildren VALUES("' .
+                		$id . '","' .
+               			$c_first_name . '","' .
+                		$c_last_name . '","' .
+                		$c_DOB . '","' .
+                		$health_requirements . '","' .
+                		$email .
+                		'");');	
+			mysqli_close($con);
+			
+		
                     //check if enough room, etc.
                     echo('hey');
                 }
