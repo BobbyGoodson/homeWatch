@@ -1,12 +1,5 @@
 <?php
 /*
- * Copyright 2015 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook, 
- * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan, 
- * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker. 
- * This program is part of RMH Homebase, which is free software.  It comes with 
- * absolutely no warranty. You can redistribute and/or modify it under the terms 
- * of the GNU General Public License as published by the Free Software Foundation
- * (see <http://www.gnu.org/licenses/ for more information).
  * 
  */
 
@@ -33,39 +26,63 @@ include_once('database/dbPersons.php')
         <div id="container">
             <?PHP include('header.php'); ?>
             <div id="content">
+				<?PHP
+				//A table that lists the results of guardian accounts
+				function list_table($result){
+					echo '<table align = "center" class = "main">
+						<tr>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Phone</th>
+							<th>Email</th>
+							<th>Barcode</th>
+							<th>Children</th>
+						</tr>';
+						if (mysqli_num_rows($result) > 0) {
+							while ($row = mysqli_fetch_assoc($result)) {
+							 	$guardianEmail = $row['id'];
+								$phone = $row['phone'];
+								$formatted_phone = phone_edit($phone);
+								echo '<tr>';
+								echo '<td><center>' . $row['first_name'] . '</center></td>';
+								echo '<td><center>' . $row['last_name'] . '</center></td>';
+								echo '<td><center>' . $formatted_phone . '</center></td>';
+								echo '<td><center>' . $row['email'] . '</center></td>';
+								echo '<td><center>' . $row['barcode'] . '</center></td>';
+								echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%" href="' . $path . 'listChildren.php?guardianID=' . $guardianEmail. '">View Children</a></center></td>';
+								echo '</tr>';
+							}
+						}
+					echo '</table>';
+				}
 
-				<p style="text-align:center"><strong>List of Guardians</strong><br /><br />
-				<table align = "center" class = "main">
-					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Phone</th>
-						<th>Email</th>
-						<th>Barcode</th>
-						<th>Children</th>
-					</tr>
-					<?php
+				echo '<p style="text-align:center"><strong>List of Guardians</strong><br /><br />';
+
+				//The Search bar and button
+				echo '<table align = "center">';
+					echo '<tr><form>';
+						echo '<td><input type="text" name="search_query"></td>';
+						echo '<td><input type="submit" value="Search" name="Search"></td>';
+					echo '</form></tr>';
+				echo' </table><br /><br />';
+
+				$search = $_GET['search_query'];
+				if ($search == NULL){
 					$con=connect();
 					// query through dbPersons to select all people with position = 'guardian'
-					$query = "SELECT id, first_name, last_name, phone, email, barcode FROM dbPersons WHERE position = 'guardian'";
+					$query = "SELECT id, first_name, last_name, phone, email, barcode FROM dbPersons WHERE position = 'guardian' ORDER BY id";
 					$result = mysqli_query($con,$query);
-					if (mysqli_num_rows($result) > 0) {
-						while ($row = mysqli_fetch_assoc($result)) {
-						 	$guardianEmail = $row['id'];
-							$phone = $row['phone'];
-							$formatted_phone = phone_edit($phone);
-							echo '<tr>';
-							echo '<td><center>' . $row['first_name'] . '</center></td>';
-							echo '<td><center>' . $row['last_name'] . '</center></td>';
-							echo '<td><center>' . $formatted_phone . '</center></td>';
-							echo '<td><center>' . $row['email'] . '</center></td>';
-							echo '<td><center>' . $row['barcode'] . '</center></td>';
-							echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%" href="' . $path . 'listChildren.php?guardianID=' . $guardianEmail. '">View Children</a></center></td>';
-							echo '</tr>';
-						}
+					list_table($result);
+				} else {
+					//table with the results from search, the search button has been pressed
+					$result = search_person($search);
+					if ($result == false){
+						echo 'No results found.';
+					} else {
+						list_table($result);
 					}
-					?>
-				</table>
+				}
+				?>
 			</div>
 		</div>
 	</body>
