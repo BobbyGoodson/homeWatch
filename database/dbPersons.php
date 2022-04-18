@@ -169,9 +169,9 @@ function phone_edit($phone) {
 	else return "";
 }
 
-function search_person($string){
+function search_person($string, $option){
     $con=connect();
-    $query = "SELECT id, first_name, last_name, phone, email, barcode FROM dbPersons WHERE position = 'guardian' AND id LIKE '%" . $string . "%'" . "ORDER BY id";
+    $query = "SELECT id, first_name, last_name, phone, email, barcode FROM dbPersons WHERE position = 'guardian' AND " . $option . " LIKE '%" . $string . "%'" . "ORDER BY id";
     $result = mysqli_query($con,$query);
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_close($con);

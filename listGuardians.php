@@ -20,6 +20,13 @@ include_once('database/dbPersons.php')
 			table.main td { border: 1px solid #D3D3D3; font-size:24px; padding:10px; }
 			table.main thead {background-color: white; }
 			table.main th { border: 1px solid #D3D3D3; font-size:24px; padding:10px; color: #808080; }
+			select {
+    			padding:5px; 
+    			background:#428BCA; 
+    			cursor:pointer;
+    			font-size:24px;
+    			color: 	#ffffff;
+			}
 		</style> 
     </head>
     <body>
@@ -61,12 +68,19 @@ include_once('database/dbPersons.php')
 				//The Search bar and button
 				echo '<table align = "center">';
 					echo '<tr><form>';
+						echo '<td><select name="searchOption" id="searchOption">';
+							echo '<option value="id">Email</option>';
+							echo '<option value="last_name">Last Name</option>';
+							echo '<option value="first_name">First Name</option>';
+							echo '<option value="barcode">Barcode</option>';
+						echo ' </select></td>';
 						echo '<td><input type="text" name="search_query"></td>';
 						echo '<td><input type="submit" value="Search" name="Search"></td>';
 					echo '</form></tr>';
 				echo' </table><br /><br />';
 
 				$search = $_GET['search_query'];
+				$option = $_GET['searchOption'];
 				if ($search == NULL){
 					$con=connect();
 					// query through dbPersons to select all people with position = 'guardian'
@@ -75,7 +89,7 @@ include_once('database/dbPersons.php')
 					list_table($result);
 				} else {
 					//table with the results from search, the search button has been pressed
-					$result = search_person($search);
+					$result = search_person($search, $option);
 					if ($result == false){
 						echo 'No results found.';
 					} else {
