@@ -17,10 +17,10 @@
       
         echo('<p align="center"><strong>Leave Day Number and Start Time Blank to change capcacity accross all time slots at location/venue</strong><br /><br />');
 
-      echo '<p>Day Number</span>: ';
+      echo '<p>Day Number(1-7 for Monday-Sunday)</span>: ';
 	echo '<input type="text" name="day_num" tabindex="3">';
 
-      echo '<p>Start Time</span>: ';
+      echo '<p>Start Time(Military Time 0-24 ex: 13.5 for 1:30)</span>: ';
 	echo '<input type="text" name="start_time_value" tabindex="2">';
 
 ?>
