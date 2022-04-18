@@ -104,6 +104,20 @@ function validate_child_form(){
 }
 
 /**
+ * validate the update capacity form in alterCapacity.php and alterCapacityForm.inc
+ */
+function validate_capacity_form(){
+    if ($_POST['capacity'] == NULL){
+        $errors[] = 'Missing field(s)';
+    }
+    
+    if (is_numeric($_POST['capacity']) == false){
+        $errors[] = 'Enter an integer';
+    }
+    return $errors;
+}
+
+/**
  * Validate the DOB
  */
 function valid_DOB(&$DOB){

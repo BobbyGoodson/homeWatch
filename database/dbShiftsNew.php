@@ -71,29 +71,59 @@ function get_availableTimes_wday_allday($day){
     }
 }
 
-function editCapacity($venue, $capacity){
+// update capacity for all days and all times
+function editCapacity($capacity){
     $con=connect();
     
-    //$query = 'UPDATE dbshiftsnew SET capacity = '" . $capacity . "' WHERE venue = "' . $venue . '"';
-    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE venue = "' . $venue . '"';
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '"';
     $result = mysqli_query($con,$query);
     mysqli_close($con);
       return true;
 }
 
-function editCapacity2($venue, $day_num, $start_time_value, $capacity){
+// update capacity for specific day and specific time
+function editCapacity2($day, $time, $capacity){
     $con=connect();
-    //$query = 'UPDATE dbshiftsnew SET reserved = '" . $capacity . "' WHERE day_num = "' . $day_num . '" AND start_time_value = '" . $start_time_value . "' AND venue = '" . $venue . "';
-    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE day_num = "' . $day_num . '" AND start_time_value = "' . $start_time_value . '" AND venue = "' . $venue . '"';
+
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE day = "' . $day . '" AND start_time_value = "' . $time . '"';
     $result = mysqli_query($con,$query);
-    $s = $start_time_value+0.5;
-    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE day_num = "' . $day_num . '" AND start_time_value = "' . $s . '" AND venue = "' . $venue . '"';
+    $time = $time+0.5;
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE day = "' . $day . '" AND start_time_value = "' . $time . '"';
     $result = mysqli_query($con,$query);
-    $s = $s+0.5;
-    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE day_num = "' . $day_num . '" AND start_time_value = "' . $s . '" AND venue = "' . $venue . '"';
+    $time = $time+0.5;
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE day = "' . $day . '" AND start_time_value = "' . $time . '"';
     $result = mysqli_query($con,$query);
-    $s = $s+0.5;
-    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE day_num = "' . $day_num . '" AND start_time_value = "' . $s . '" AND venue = "' . $venue . '"';
+    $time = $time+0.5;
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE day = "' . $day . '" AND start_time_value = "' . $time . '"';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+      return true;
+}
+
+// update capacity for specific day and all times
+function editCapacity3($day, $capacity){
+    $con=connect();
+    
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE day = "' . $day . '"';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+      return true;
+}
+
+// update capacity for all days and specific time
+function editCapacity4($time, $capacity){
+    $con=connect();
+    
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE start_time_value = "' . $time . '"';
+    $result = mysqli_query($con,$query);
+    $time = $time+0.5;
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE start_time_value = "' . $time . '"';
+    $result = mysqli_query($con,$query);
+    $time = $time+0.5;
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE start_time_value = "' . $time . '"';
+    $result = mysqli_query($con,$query);
+    $time = $time+0.5;
+    $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE start_time_value = "' . $time . '"';
     $result = mysqli_query($con,$query);
     mysqli_close($con);
       return true;
