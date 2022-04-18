@@ -1,16 +1,9 @@
-<?php
-/*
- * 	This is the Main Admin page where they may see the available times slots.
- */
-session_start();
-session_cache_expire(30);
-?>
 <html>
 	<head>
 		<title>
-            Admin Page
+            Main Page
         </title>
-		<link rel="stylesheet" href="styles.css" type="text/css" />
+		<link rel="stylesheet" href="../styles.css" type="text/css" />
 		<style>
 			table.main { border-collapse:collapse; font-family:verdana, arial, sans-serif; 
 				background: white; width: 100%; }
@@ -29,8 +22,8 @@ session_cache_expire(30);
     		echo "<br><br><center><strong>Child Care</strong></center><br><br><br>";
 		?>
 		<?php
-		include_once('database/dbinfo.php');
-		include_once('database/dbShiftsNew.php');
+		include_once('../database/dbinfo.php');
+		include_once('../database/dbShiftsNew.php');
 
 		date_default_timezone_set("America/New_York");
 		$today = day(date('w'));
@@ -47,13 +40,14 @@ session_cache_expire(30);
 					//get the results by query
 					$results = get_availableTimes_wday($today);
 
-					if ($results == false){
-						echo('<center>No times available.</center>');
+					if ($results == NULL){
+						echo('No times available.');
 					} else {
 						echo "<table class='main'>
 							<tr>
 							<th>Time Slots</th>
 							<th>Availability</th>
+                            <th>Reserve Slot</th>
 							</tr>";
 
 						//object returned from database must be iterated through row by row to print.	
@@ -67,9 +61,11 @@ session_cache_expire(30);
 							}
 
 							$end = end_time($start);		
+							//echo( $row['day']." ".$row['start_time_text']." to ".$end." "."<br>");
 							echo "<tr>";
 							echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
 			  				echo "<td><center>" . $openSlots . "</center></td>";
+                              echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="../reserve.php?day_num=' . $row['day_num'] . '&time=' . $row['start_time_value'] . '&day=' . $row['day'] . '&venue=' . $row['venue'] . '&frame=' . $row['start_time_text'] . '">Reserve</a></center></td>';
 			  				echo "</tr>";
 						}
 						echo "</table>";
@@ -82,13 +78,14 @@ session_cache_expire(30);
 					//get the results by query
 					$results = get_availableTimes_wday_allday($tomorrow);
 
-					if ($results == false){
-						echo('<center>No times available.</center>');
+					if ($results == NULL){
+						echo('No times available.');
 					} else {
 						echo "<table class='main'>
 							<tr>
 							<th>Time Slots</th>
 							<th>Availability</th>
+                            <th>Reserve Slot</th>
 							</tr>";
 
 						//object returned from database must be iterated through row by row to print.	
@@ -102,9 +99,11 @@ session_cache_expire(30);
 							}
 
 							$end = end_time($start);		
+							//echo( $row['day']." ".$row['start_time_text']." to ".$end." "."<br>");
 							echo "<tr VALIGN=TOP>";
 							echo "<td><center>" . $row['start_time_text'] . "-" . $end . "</center></td>";
 			  				echo "<td><center>" . $openSlots . "</center></td>";
+                            echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="../reserve.php?day_num=' . $row['day_num'] . '&time=' . $row['start_time_value'] . '&day=' . $row['day'] . '&venue=' . $row['venue'] . '&frame=' . $row['start_time_text'] . '">Reserve</a></center></td>';
 			  				echo "</tr>";
 						}
 						echo "</table>";

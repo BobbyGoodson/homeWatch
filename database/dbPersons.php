@@ -168,4 +168,17 @@ function phone_edit($phone) {
 		return substr($phone, 0, 3) . "-" . substr($phone, 3, 3) . "-" . substr($phone, 6);
 	else return "";
 }
+
+function search_person($string){
+    $con=connect();
+    $query = "SELECT id, first_name, last_name, phone, email, barcode FROM dbPersons WHERE position = 'guardian' AND id LIKE '%" . $string . "%'" . "ORDER BY id";
+    $result = mysqli_query($con,$query);
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        mysqli_close($con);
+        return false;
+    }else{
+        mysqli_close($con);
+        return $result;
+    }
+}
 ?>

@@ -34,7 +34,7 @@ session_cache_expire(30);
         echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
     }
     if (!array_key_exists('_submit_check', $_POST)) {
-        echo('<p><strong>Login</strong></p>
+        echo('<p><img src="images/YMCAlogo.png" width="200" height="150"></p>
                 <p><table style="text-align:center" class="form"><form method="post"><input type="hidden" name="_submit_check" value="true">
                 <tr><td><input type="text" name="user" placeholder="Email" tabindex="1"><br /><br /></td></tr>
         		<tr><td><input type="password" name="pass" placeholder="Password"tabindex="2"><br /><br /></td></tr>

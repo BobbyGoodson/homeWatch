@@ -40,7 +40,7 @@ session_cache_expire(30);
         foreach ($children_id as $child){
             $result = check_if_child_reserved($child);
             if ($result == true){
-                $_SESSION['reserve_error'] = "A child has already been reserved";
+                $_SESSION['reserve_error'] = "This child has already been reserved.";
                 $error = 1;
                 header("Location: http://localhost/homeWatch/index.php");
             }
@@ -51,22 +51,22 @@ session_cache_expire(30);
             * Third, deal with the reserved spaces: check if there is enough space for the number of children
             */
             $day = intval($_GET['day_num']);
-            $time = intval($_GET['time']);
+            $time = floatval($_GET['time']);
             $venue = $_GET['venue'];
             $reserveAttempt = increment_reserved($num_children, $day, $time, $venue);
 
             if ($reserveAttempt == false){
                 //lets send some error message about not having enough space
                 $end = end_time($_GET['frame']);
-                $_SESSION['reserve_error'] = "Not enough space for " . $num_children . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end . " at the " . $venue . " location";
+                $_SESSION['reserve_error'] = "Not enough space for " . $num_children . " children for the time slot: " . $_GET['day'] . ", " . $_GET['frame'] . "-" . $end . " at the " . $venue . " location.";
             } else {
                 /*
-                * Fourth, put these children along with the chosen time slot into the children_in_slots table
+                * Fourth, put these children along with the chosen time slot into the children_in_shifts table
                 */
                 foreach ($children_id as $child){
                     $result = add_entry($child, $day, $time);
                     if ($result == false){
-                        $_SESSION['reserve_error'] = "Could not add " . $child . "";
+                        $_SESSION['reserve_error'] = "Could not add " . $child . ".";
                     }
                 }
             }

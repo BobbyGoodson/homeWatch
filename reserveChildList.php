@@ -37,7 +37,6 @@
 					<th>Last name</th>
 					<th>Day</th>
                     <th>Time</th>
-                    <th>Phone</th>
                     <th>Email</th>
                     <th>Health Requirements</th>
 				</thead>
@@ -54,9 +53,9 @@
                 //get health requirements
                 $health = get_health_requirements($row['child_id']);
 
-                //get phone number
-                $phone = get_phone($email);
-				$formatted_phone = phone_edit($phone);
+                // //get phone number
+                // $phone = get_phone($email);
+				// $formatted_phone = phone_edit($phone);
 
                 //get times
                 $start = start_time($row['shifts_start_time']);
@@ -70,7 +69,7 @@
 				echo "<td><center>" . $last_name . "</center></td>";
   				echo "<td><center>" . $day . "</center></td>";
                 echo "<td><center>" . $start . "-" . $end . "</center></td>";
-                echo "<td><center>" . $formatted_phone . "</center></td>";
+                //echo "<td><center>" . $formatted_phone . "</center></td>";
                 echo "<td><center>" . $email. "</center></td>";
                 echo "<td><center>" . $health . "</center></td>";
                 echo "</tr>";

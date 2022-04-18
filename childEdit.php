@@ -48,7 +48,7 @@ include_once('domain/Child.php');
                         // else
                         else {
                             // process form
-                            process_child($child);
+                            process_child();
                         }
                     }
                 }
@@ -56,13 +56,14 @@ include_once('domain/Child.php');
                 /**
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
-                function process_child($child) {
+                function process_child() {
 
                     //Process the form
                     $first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
                     $last_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['last_name'])));
                     $DOB = trim(str_replace('\\\'', '\'', htmlentities($_POST['DOB'])));
-                    $health_requirements = trim(str_replace('\\\'', '\'', htmlentities($_POST['health_requirements'])));
+                    $temp_health_requirements = trim($_POST['health_requirements']);
+                    $health_requirements = nl2br($temp_health_requirements);
                     $parent_email = $_SESSION['_id'];
 			 
                     // child first name saved in session variable to be added to update account page
