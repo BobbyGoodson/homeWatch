@@ -27,10 +27,19 @@ include_once('database/dbShiftsNew.php');
                         if ($_POST['_submit_child'] != 1){
                     //in this case, the form has not been submitted, so show it
                     include('alterCapacityForm.inc');
+                     
                 } else {
                     
-                    if (isset($_POST['cancel_button'])){
-                        //echo "<script type=\"text/javascript\">window.location = \"index.php"  . $_SESSION['_id'] . "\";</script>";
+                     if (isset($_POST['cancel_button'])){
+                        echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
+                    }
+                    if (isset($_POST['add1'])){
+                        process_form1();
+                        echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
+                    }
+                    if (isset($_POST['add2'])){
+                        process_form2();
+                        echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
                     }
                     //else
                     else {
@@ -46,11 +55,26 @@ include_once('database/dbShiftsNew.php');
                         //}
                     }
                 }
-                  $v = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['venue']))));;
+                 
+                 function process_form1() {
+
+                    $v = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['venue']))));;
                   $day_num = trim(str_replace('\\\'', '\'', htmlentities($_POST['day_num'])));;
                   $starT = trim(str_replace('\\\'', '\'', htmlentities($_POST['start_time_value'])));;
-                  $cap = trim(str_replace('\\\'', '\'', htmlentities($_POST['capacity'])));;
+                  $cap = trim(str_replace('\\\'', '\'', htmlentities($_POST['capacity'])));;           
+
                   editCapacity2($v, $day_num, $starT, $cap);
+                 
+                }
+                function process_form2() {
+
+                    $v = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['venue']))));;
+                    $cap = trim(str_replace('\\\'', '\'', htmlentities($_POST['capacity'])));;
+                    
+                      editCapacity($v, $cap);
+                  
+                }
+                
                 ?>
             </div>
     </body>

@@ -73,6 +73,7 @@ function get_availableTimes_wday_allday($day){
 
 function editCapacity($venue, $capacity){
     $con=connect();
+    
     //$query = 'UPDATE dbshiftsnew SET capacity = '" . $capacity . "' WHERE venue = "' . $venue . '"';
     $query = 'UPDATE dbshiftsnew SET capacity = "' . $capacity . '" WHERE venue = "' . $venue . '"';
     $result = mysqli_query($con,$query);
