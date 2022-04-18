@@ -92,7 +92,7 @@ session_cache_expire(30);
             echo(' <a href="' . $path . 'adminEdit.php">Create Admin Account</a>');
             echo(' <a href="' . $path . 'watcherEdit.php">Create Watcher Account</a>');
             echo(' <a href="' . $path . 'listGuardians.php">Guardians</a>');
-            echo(' <a href="' . $path . 'reports.php">Update Capacity</a>');
+            echo(' <a href="' . $path . 'alterCapacity.php">Update Capacity</a>');
         }
             
 	    echo(' <a href="' . $path . 'logout.php">Logout</a><br>');  
