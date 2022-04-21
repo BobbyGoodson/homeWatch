@@ -39,7 +39,7 @@ function add_entry($childID, $shift_day, $shift_start_time) {
 // gets all children currently reserved 
 function getall_currently_reserved() {
     $con=connect();
-    $query = "SELECT * FROM children_in_shifts ORDER BY shifts_start_time ASC";
+    $query = "SELECT * FROM children_in_shifts ORDER BY shifts_day, shifts_start_time ASC";
     $result = mysqli_query($con,$query);
     if($result == null || mysqli_num_rows($result) == 0) {
         mysqli_close($con);

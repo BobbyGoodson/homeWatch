@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="styles.css" type="text/css" />
 		<style>
 			table.main { border-collapse:collapse; font-family:verdana, arial, sans-serif; 
-				background: white; width: 65%; margin-left: auto; margin-right: auto; }
+				background: white; width: 80%; margin-left: auto; margin-right: auto; }
 			table.main td { border: 1px solid #D3D3D3; font-size:24px; padding:10px; }
 			table.main thead {background-color: white; }
 			table.main th { border: 1px solid #D3D3D3; font-size:24px; padding:10px; color: #808080; }
@@ -39,6 +39,7 @@
                     <th>Time</th>
                     <th>Email</th>
                     <th>Health Requirements</th>
+					<th>Remove</th>
 				</thead>
 				</tr>";
 	
@@ -72,6 +73,7 @@
                 //echo "<td><center>" . $formatted_phone . "</center></td>";
                 echo "<td><center>" . $email. "</center></td>";
                 echo "<td><center>" . $health . "</center></td>";
+				echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="reserveCancel.php?id=' . $row['child_id'] . '&shift_start=' . $row['shifts_start_time'] . '&day_num=' . $row['shifts_day'] . '"">Remove</a></center></td>';
                 echo "</tr>";
 			}
 			echo "</table>";	

@@ -36,7 +36,11 @@ session_cache_expire(30);
             decrement_reserved(1, $day_num, $start_time);
         
             //go back to the reservation page
-            header("Location: http://localhost/homeWatch/guardianReservationList.php");
+            if ($_SESSION['access_level'] == 0){
+                header("Location: http://localhost/homeWatch/guardianReservationList.php");
+            } else {
+                header("Location: http://localhost/homeWatch/reserveChildList.php");
+            }
         }
         ?>
 	</body>
