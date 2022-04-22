@@ -1,10 +1,11 @@
-Homebase is a web-based application that provides database and scheduling support
-for the Ronald McDonald Houses in Maine and Rhode Island.
+Homewatch is a web-based application that provides database and scheduling support
+for the YMCA Child Watch Program in the Rappahannock Area. 
 
-Installation: Homebase runs on an Apache/MySQL/PHP server.  To install it, visit the
+Installation: Homewatch runs on an Apache/MySQL/PHP server.  To install it, visit the
 project Wiki at https://github.com/megandalster/homebasedemo2017/wiki/installation-and-reuse/.
 
-Credits: Homebase was originally developed in 2008 by Oliver Radwan, Maxwell Palmer, 
+Credits: We (Trevor Drinkwater, Saleman Anwari, Kyle Thompson, Robert Goodson, and Daud Salimi) used Homebase code as a starting base to help us develop Homewatch.
+Homebase was originally developed in 2008 by Oliver Radwan, Maxwell Palmer, 
 Nolan McNair, Taylor Talmage, and Allen Tucker.  Since then, it has been significantly 
 upgraded by other student teams and is currently maintained by NPFI (https://npfi.org).
 
