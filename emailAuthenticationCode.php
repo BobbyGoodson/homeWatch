@@ -1,5 +1,6 @@
 <?php
 /*
+ * emailAuthenticationCode.php
  * Email Authentication step 2
  */
 	

@@ -1,6 +1,7 @@
 <?php
 /*
- * 
+ * listGuardians.php
+ * List all guardians
  */
 
 session_start();

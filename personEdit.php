@@ -1,16 +1,9 @@
 <?php
 /*
- * Copyright 2015 by Allen Tucker. This program is part of RMHC-Homebase, which is free 
- * software.  It comes with absolutely no warranty. You can redistribute and/or 
- * modify it under the terms of the GNU General Public License as published by the 
- * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
+ * personEdit.php
+ * Create new guardian account and update guardian account
  */
-/*
- * 	personEdit.php
- *  oversees the editing of a person to be added, changed, or deleted from the database
- * 	@author Oliver Radwan, Xun Wang and Allen Tucker
- * 	@version 9/1/2008 revised 4/1/2012 revised 8/3/2015
- */
+
 session_start();
 session_cache_expire(30);
 include_once('database/dbPersons.php');

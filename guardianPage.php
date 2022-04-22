@@ -1,7 +1,9 @@
 <?php
 /*
+ *	guardianPage.php
  * 	This is the Main Guadian page where they may see the available times slots and reserve.
  */
+
 session_start();
 session_cache_expire(30);
 ?>

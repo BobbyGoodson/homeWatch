@@ -1,14 +1,14 @@
 <?php
 /*
- * watcherEdit.php
- * Adds a new watcher account to the database
+ * forgetPassword.php
+ * Reset Password
  */
+
 session_start();
 session_cache_expire(30);
 include_once('database/dbPersons.php');
 include_once('domain/Person.php');
 ?>
-
 <html>
     <head>
         <title>

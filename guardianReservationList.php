@@ -1,12 +1,13 @@
 <?php
 /*
+ * guardianReservationList.php
  * List the guardian's current reservations
  * 
  */
+
 session_start();
 session_cache_expire(30);
 ?>
-
 <html>
 	<head>
 		<title>
@@ -67,7 +68,6 @@ session_cache_expire(30);
                     echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="reserveCancel.php?id=' . $result['child_id'] . '&shift_start=' . $result['shifts_start_time'] . '&day_num=' . $result['shifts_day'] . '"">Cancel</a></center></td>';
                     echo '</tr>';
 			    } else {
-                    // echo('<center>You have no current reservatiosn at this time</center>');
                     continue;
                 }
             }

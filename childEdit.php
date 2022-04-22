@@ -3,6 +3,7 @@
  * 	childEdit.php
  *  Adds children to database
  */
+
 session_start();
 session_cache_expire(30);
 include_once('database/dbChildren.php');
@@ -54,7 +55,7 @@ include_once('domain/Child.php');
                 }
                 
                 /**
-                 * process_form sanitizes data, concatenates needed data, and enters it all into a database
+                 * process_child sanitizes data, concatenates needed data, and enters it all into a database
                  */
                 function process_child() {
 

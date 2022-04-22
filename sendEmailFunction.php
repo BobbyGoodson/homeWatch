@@ -1,4 +1,8 @@
 <?php
+/*
+ * sendEmailFunction.php
+ * Send Verification Email Function
+*/
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -43,7 +47,6 @@ function email_send($email, $code){
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 	}
 }
-
 
 /* generate a random code function */
 function generate_code(){

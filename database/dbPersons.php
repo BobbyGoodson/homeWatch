@@ -1,19 +1,9 @@
 <?php
 /*
- * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook, 
- * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan, 
- * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker. 
- * This program is part of RMH Homebase, which is free software.  It comes with 
- * absolutely no warranty. You can redistribute and/or modify it under the terms 
- * of the GNU General Public License as published by the Free Software Foundation
- * (see <http://www.gnu.org/licenses/ for more information).
- * 
+ * dbPersons.php
+ * Database for Persons
  */
 
-/**
- * @version March 1, 2012
- * @author Oliver Radwan and Allen Tucker
- */
 include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Person.php');
 
@@ -79,11 +69,10 @@ function retrieve_person($id) {
         return false;
     }
     $result_row = mysqli_fetch_assoc($result);
-    // var_dump($result_row);
     $thePerson = make_a_person($result_row);
-//    mysqli_close($con);
     return $thePerson;
 }
+
 // Name is first concat with last name. Example 'James Jones'
 // return array of Persons.
 function retrieve_persons_by_name ($name) {

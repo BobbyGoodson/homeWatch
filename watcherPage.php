@@ -1,7 +1,9 @@
 <?php
 /*
- * 	This is the Main Watcher page where they may see the available times slots and reserve drop-ins.
- */
+ * watcherPage.php
+ * This is the Main Watcher page where they may see the available times slots and reserve drop-ins.
+*/
+
 session_start();
 session_cache_expire(30);
 ?>
@@ -40,10 +42,6 @@ session_cache_expire(30);
 		date_default_timezone_set("America/New_York");
 
 		$today = day(date('w'));
-
-		// hard code today as tomorrow
-		//$today = day(date('w', strtotime('tomorrow')));
-
 		$tomorrow = day(date('w', strtotime('tomorrow')));
 
         echo "<table class='top'>
@@ -56,10 +54,6 @@ session_cache_expire(30);
 					echo "<td>";
 					//get the results by query
 					$results = get_availableTimes_wday($today);
-
-					// hard code today as tomorrow
-					//$results = get_availableTimes_wday_allday($today);
-
 
 					if ($results == false){
 						echo('<center>No times available.</center>');

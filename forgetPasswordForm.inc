@@ -1,10 +1,8 @@
 <?php
 /*
  * 	forgetPasswordForm.inc
- *  shows a form for a watcher to be added into the database
- *  Create the admin account
- * 	@author Oliver Radwan, Xun Wang and Allen Tucker
- * 	@version 9/1/2008, revised 4/1/2012, revised 3/11/2015
+ *  Shows a form for resetting password
+ *  Reset Password GUI
  */
 ?>
 

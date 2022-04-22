@@ -1,7 +1,7 @@
 <?php
 /*
  * 	alterCapacityForm.inc
- *  shows a form for altering capacity in dbShiftsNew database
+ *  Shows a form for altering capacity in dbShiftsNew database
  */
 ?>
 

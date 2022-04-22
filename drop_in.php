@@ -3,6 +3,7 @@
  * 	drop_in.php
  *  Adds walk-ins 
  */
+
 session_start();
 session_cache_expire(30);
 include_once('database/dbChildren.php');
@@ -87,7 +88,7 @@ include_once('database/dbShiftsNew.php');
                 }
                 
                 /**
-                 * process_form sanitizes data, concatenates needed data, and enters it all into a database
+                 * process_dropin sanitizes data, concatenates needed data, and enters it all into a database
                  */
                 function process_dropin() {
 

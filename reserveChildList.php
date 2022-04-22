@@ -1,3 +1,9 @@
+<?php
+/*
+ * reserveChildList.php
+ * List of all reserved children
+ */
+?>
 <html>
 	<head>
 		<title>
@@ -54,10 +60,6 @@
                 //get health requirements
                 $health = get_health_requirements($row['child_id']);
 
-                // //get phone number
-                // $phone = get_phone($email);
-				// $formatted_phone = phone_edit($phone);
-
                 //get times
                 $start = start_time($row['shifts_start_time']);
                 $end = end_time($start);
@@ -70,7 +72,6 @@
 				echo "<td><center>" . $last_name . "</center></td>";
   				echo "<td><center>" . $day . "</center></td>";
                 echo "<td><center>" . $start . "-" . $end . "</center></td>";
-                //echo "<td><center>" . $formatted_phone . "</center></td>";
                 echo "<td><center>" . $email. "</center></td>";
                 echo "<td><center>" . $health . "</center></td>";
 				echo '<td><center><a style="font-weight:bold; color: #428BCA; font-size: 24px; width:100%; " href="reserveCancel.php?id=' . $row['child_id'] . '&shift_start=' . $row['shifts_start_time'] . '&day_num=' . $row['shifts_day'] . '"">Remove</a></center></td>';

@@ -1,7 +1,8 @@
 <?php
 /*
  * 	childForm.inc
- *  shows a form for a child to be added in database
+ *  Shows a form for a child to be added in database
+ *	Add Child GUI
  */
 ?>
 

@@ -1,6 +1,7 @@
 <?php
 /*
- * 
+ * removeChild.php
+ * Remove child from guardian account
  */
 
 session_start();

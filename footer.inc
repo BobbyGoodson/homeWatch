@@ -1,3 +1,10 @@
+<?php
+/*
+ * 	footer.inc
+ *  The footer for all pages
+ */
+?>
+
 <!-- Begin Footer -->
 <!--
 <br /><br />

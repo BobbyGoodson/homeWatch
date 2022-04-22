@@ -1,7 +1,8 @@
 <?php
 /*
- * 	childForm.inc
- *  shows a form for a child to be added in database
+ * 	drop_in.inc
+ *  Shows a form for a drop-in to be added into the database
+ *  Drop-in Child GUI
  */
 ?>
 

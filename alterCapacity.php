@@ -3,6 +3,7 @@
  * 	alterCapacity.php
  *  Alter capacity of dbShiftsNew database
  */
+
 session_start();
 session_cache_expire(30);
 include_once('database/dbShiftsNew.php');

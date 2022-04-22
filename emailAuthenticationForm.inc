@@ -1,3 +1,11 @@
+<?php
+/*
+ * 	emailAuthenticationForm.inc
+ *  Shows a form for email authentication before creating a new account
+ *  Create Account Email GUI
+ */
+?>
+
 <form method = "post">
 	<?PHP
 		//This is the form for email Authentication

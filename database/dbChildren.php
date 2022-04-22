@@ -1,19 +1,9 @@
 <?php
 /*
- * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook, 
- * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan, 
- * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker. 
- * This program is part of RMH Homebase, which is free software.  It comes with 
- * absolutely no warranty. You can redistribute and/or modify it under the terms 
- * of the GNU General Public License as published by the Free Software Foundation
- * (see <http://www.gnu.org/licenses/ for more information).
- * 
+ * dbChildren.php
+ * Database for Children
  */
 
-/**
- * @version March 1, 2012
- * @author Oliver Radwan and Allen Tucker
- */
 include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Child.php');
 
@@ -77,14 +67,12 @@ function retrieve_child($id) {
         return false;
     }
     $result_row = mysqli_fetch_assoc($result);
-    // var_dump($result_row);
     $theChild = make_a_child($result_row);
-//    mysqli_close($con);
     return $theChild;
 }
 
 /*
-    retrieve children id using the gaurdian's email
+    retrieve children id using the guardian's email
 */
 function retrieve_child_by_email($email){
     $children_id = array();
@@ -171,5 +159,4 @@ function get_birthdays($name_from, $name_to, $venue) {
    	mysqli_close($con);
    	return $theChilds;
 }
-
 ?>

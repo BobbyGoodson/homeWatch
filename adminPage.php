@@ -1,7 +1,9 @@
 <?php
 /*
+ * 	adminPage.php
  * 	This is the Main Admin page where they may see the available times slots.
  */
+
 session_start();
 session_cache_expire(30);
 ?>

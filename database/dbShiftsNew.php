@@ -1,6 +1,7 @@
 <?php
 /*
- * Functions related to shifts 
+ * dbShiftsNew.php
+ * Database for Shifts
  */
 
 include_once(dirname(__FILE__).'/dbinfo.php');
@@ -13,6 +14,7 @@ function end_time($start){
     return $end;	
 }
 
+// function that returns start_time_text
 function start_time($start_number){
     $con=connect();
     $query = 'SELECT start_time_text from dbshiftsnew WHERE start_time_value = "' . $start_number . '" LIMIT 1';
@@ -206,7 +208,6 @@ function increment_reserved($num_children, $day_num, $time, $venue){
         $new_reserved = $row['reserved'] + $num_children;
         $start_time = $row['start_time_value'];
         $query = "UPDATE dbshiftsnew SET reserved = '" . $new_reserved . "' WHERE day_num = '" . $day_num . "' AND venue = '" . $venue . "' AND start_time_value = '" . $start_time . "'";
-        //$query = "UPDATE dbshiftsnew SET reserved = '$new_reserved' WHERE day_num = '$day_num' AND start_time_value = '$start_time'";
         mysqli_query($con,$query);
     }
     

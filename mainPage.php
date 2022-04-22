@@ -1,3 +1,9 @@
+<?php
+/*
+ * mainPage.php
+ * Main page
+ */
+?>
 <html>
 	<head>
 		<title>

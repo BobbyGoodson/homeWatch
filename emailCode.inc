@@ -1,3 +1,11 @@
+<?php
+/*
+ * 	emailCode.inc
+ *  Shows a form for code verification
+ *  Email Verification GUI
+ */
+?>
+
 <form method = "post">
 	<?PHP
 		//This is the form in email Authentication for submitting the sent code

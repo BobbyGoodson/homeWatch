@@ -1,3 +1,11 @@
+<?php
+/*
+ * 	forgetPasswordEmailAuthenticationForm.inc
+ *  Shows a form for forget password email authentication
+ *  Forget Password Email GUI
+ */
+?>
+
 <form method = "post">
 	<?PHP
 		//This is the form for forget Password Email Authentication

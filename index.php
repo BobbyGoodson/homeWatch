@@ -1,10 +1,9 @@
 <?php
 /*
- * Copyright 2015 by Allen Tucker. This program is part of RMHP-Homebase, which is free 
- * software.  It comes with absolutely no warranty. You can redistribute and/or 
- * modify it under the terms of the GNU General Public License as published by the 
- * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
+ * index.php
+ * Main page for each account
  */
+
 session_start();
 session_cache_expire(30);
 ?>

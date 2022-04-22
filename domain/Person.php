@@ -1,35 +1,24 @@
 <?php
 /*
- * Copyright 2013 by Allen Tucker. 
- * This program is part of RMHC-Homebase, which is free software.  It comes with 
- * absolutely no warranty. You can redistribute and/or modify it under the terms 
- * of the GNU General Public License as published by the Free Software Foundation
- * (see <http://www.gnu.org/licenses/ for more information).
- * 
+ * Person.php
+ * Person Class
  */
 
-/*
- * Created on Mar 28, 2008
- * @author Oliver Radwan <oradwan@bowdoin.edu>, Sam Roberts, Allen Tucker
- * @version 3/28/2008, revised 7/1/2015
- */
- class Person {
+class Person {
 
 	/* private fields */
-
-	private $id;         // id (unique key) = email
-	private $first_name; // first name as a string
-	private $last_name;  // last name as a string
-	private $phone;   // primary phone number as int
-	private $barcode; // ymca barcode as string
-	private $email;   // email address as a string
-	private $position;    // a person may be a "child", "watcher", "guardian", or "admin"
-	private $password;     // password for calendar and database access: default = $id
-	private $venue;			//location
+	private $id; // id (unique key) = email
+	private $first_name;
+	private $last_name;
+	private $phone;   
+	private $barcode; 
+	private $email;   
+	private $position; // a person may be a "child", "watcher", "guardian", or "admin"
+	private $password;    
+	private $venue;		
 
 
 	/* constructor */
-
 	function __construct($first_name, $last_name, $phone, $barcode, $email, $position, $password, $venue) {
 		$this->id = $email;
 		$this->first_name = $first_name;
